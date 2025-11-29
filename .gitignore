@@ -36,6 +36,7 @@ logs/copyOverflow.log
 *.egg-info/
 dist/
 build/
+*.so
 
 # Temporary files
 *.tmp
