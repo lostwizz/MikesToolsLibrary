@@ -14,3 +14,7 @@ dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.scripts]
+mikes-tools = "mikestoolslibrary.cli:main"
+
