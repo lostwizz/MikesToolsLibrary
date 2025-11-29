@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 23:34:13"
+__updated__ = "2025-11-29 01:12:21"
 ###############################################################################
 
 import logging
@@ -33,6 +33,7 @@ logger = mylog.LoggerSetup("example", level=logging.DEBUG, logfile=f"{__name__}.
 
 mylog.LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m" )
 
+mylog.LoggerSetup.add_special_levels(logger)
 
 # Log messages
 logger.debug("Debugging details")
@@ -42,9 +43,12 @@ logger.error("Error occurred")
 logger.critical("Critical issue")
 logger.notice("This is a NOTICE message")
 
+logger.setLevel(1)
 # Exclude DEBUG logs from console/file
 # setup.add_filter(logging.DEBUG)
 logger.debug("This debug message will be filtered out")
 
+logger.tracez("zzzzzzzzzzzzzzzz")
+logger.blkonyk("blkonyk message here")
 
-
+mylog.LoggerSetup.show_all_levels(logger)
