@@ -10,29 +10,28 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 22:07:53"
+__updated__ = "2025-11-28 23:34:13"
 ###############################################################################
 
 import logging
 import MikesToolsLibrary.MyLogging as mylog
-
+from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
 import os
 import sys
 
 # if sys.platform.startswith("win"):
-#     os.system("") 
+#     os.system("")
+
+#mylog.tests("sam is gone")
+# mylog.LoggerSetup.test("sam is gone")
 
 
 # Initialize unified logger
-logger = mylog.LoggerSetup("example", logfile=f"{__name__}.log").get_logger()
+logger = mylog.LoggerSetup("example", level=logging.DEBUG, logfile=f"{__name__}.log").get_logger()
 
-
-
-mylog.CustomLevels.add_log_level("NOTICE", 15)
-
-
+mylog.LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m" )
 
 
 # Log messages
