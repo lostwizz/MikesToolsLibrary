@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 21:13:32"
+__updated__ = "2025-11-28 21:26:12"
 ###############################################################################
 
 # from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
