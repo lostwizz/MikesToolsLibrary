@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 21:26:12"
+__updated__ = "2025-11-28 21:41:57"
 ###############################################################################
 
 # from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
@@ -21,14 +21,11 @@ import MikesToolsLibrary.MyLogging as mylog
 
 
 # Initialize unified logger
-# setup = LoggerSetup(name="ExampleLogger", logfile="example.log")
+
 logger = mylog.LoggerSetup("example").get_logger()
 
 
-# logger = setup.get_logger()
 
-# Add a custom level
-# logger.add_log_level(15, "NOTICE", "\033[35m")
 mylog.CustomLevels.add_log_level("NOTICE", 15)
 
 
