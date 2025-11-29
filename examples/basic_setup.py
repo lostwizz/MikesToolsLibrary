@@ -10,19 +10,23 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 21:41:57"
+__updated__ = "2025-11-28 22:04:30"
 ###############################################################################
 
-# from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
-
-# from .CustomLevels import CustomLevels
+import logging
 import MikesToolsLibrary.MyLogging as mylog
 
+from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+
+import os
+import sys
+
+if sys.platform.startswith("win"):
+    os.system("") 
 
 
 # Initialize unified logger
-
-logger = mylog.LoggerSetup("example").get_logger()
+logger = mylog.LoggerSetup("example", logfile=f"{__name__}.log").get_logger()
 
 
 
