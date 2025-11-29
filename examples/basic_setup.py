@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 22:04:30"
+__updated__ = "2025-11-28 22:07:53"
 ###############################################################################
 
 import logging
@@ -21,8 +21,8 @@ from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 import os
 import sys
 
-if sys.platform.startswith("win"):
-    os.system("") 
+# if sys.platform.startswith("win"):
+#     os.system("") 
 
 
 # Initialize unified logger
