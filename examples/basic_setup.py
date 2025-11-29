@@ -10,16 +10,19 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 01:12:21"
+__updated__ = "2025-11-29 02:02:47"
 ###############################################################################
+
+
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 import logging
 import MikesToolsLibrary.MyLogging as mylog
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
-import os
-import sys
 
 # if sys.platform.startswith("win"):
 #     os.system("")
