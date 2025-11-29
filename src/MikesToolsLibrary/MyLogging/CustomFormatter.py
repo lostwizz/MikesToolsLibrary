@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 22:56:51"
+__updated__ = "2025-11-29 17:58:16"
 ###############################################################################
 
 
@@ -33,7 +33,7 @@ class CustomFormatter(logging.Formatter):
 
     DEFAULT_DATEFMT = "%Y-%m-%d %H:%M:%S"
     DEFAULT_FORMAT = "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s"
-    
+
     DEFAULT_FILE_FORMAT = "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s"
 
     # -----------------------------------------------------------------
@@ -48,6 +48,7 @@ class CustomFormatter(logging.Formatter):
         # Example: add a prefix
 
         color = self.COLORS.get(record.levelno, self.RESET)
+        # print (f" format==>{color=}")
 
         # return f"[Custom] {msg}"
         return f"{color}{msg}{self.RESET}"

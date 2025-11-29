@@ -10,8 +10,10 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 01:18:54"
+__updated__ = "2025-11-29 18:05:47"
 ###############################################################################
+
+import sys
 import logging
 
 from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
@@ -27,9 +29,6 @@ from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 from .ExcludeLevelFilter import ExcludeLevelFilter
 
 
-
-
-
 class LoggerSetup:
     """
     Unified logger setup:
@@ -39,7 +38,7 @@ class LoggerSetup:
     - Optional filters (exclude certain levels)
     """
 
-    _logger =None
+    _logger = None
 
     # -----------------------------------------------------------------
     def __init__(
@@ -50,25 +49,24 @@ class LoggerSetup:
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
-        self.lvls = None
 
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
+
+            ######
             # Console handler
-            # console_handler = logging.StreamHandler(sys.stdout)
             console_handler = logging.StreamHandler()
             console_handler.setLevel(level)
-            # console_handler.setFormatter(CustomFormatter("%(name)s | %(levelname)s | %(message)s"))
-            # console_formatter = logging.Formatter(
-            #     CustomFormatter.DEFAULT_FORMAT, datefmt="%Y-%m-%d %H:%M:%S"
-            # )
-
-            console_formatter = CustomFormatter(CustomFormatter.DEFAULT_FORMAT, datefmt="%H:%M:%S")
+            console_formatter = CustomFormatter(
+                CustomFormatter.DEFAULT_FORMAT, datefmt="%H:%M:%S"
+            )
+            # console_formatter = CustomFormatter()
             console_handler.setFormatter(console_formatter)
             self.logger.addHandler(console_handler)
 
             ######
             # File handler
+            sys.stdout.reconfigure(encoding='utf-8')
             file_handler = logging.FileHandler(logfile, encoding="utf-8")
             file_handler.setLevel(level)
             file_formatter = logging.Formatter(
@@ -77,8 +75,6 @@ class LoggerSetup:
             )
             file_handler.setFormatter(file_formatter)
             self.logger.addHandler(file_handler)
-
-
 
     # -----------------------------------------------------------------
     @classmethod
@@ -98,7 +94,6 @@ class LoggerSetup:
 
         CustomLevels.add(level_name, level_num, colorFmt)
 
-
     # -----------------------------------------------------------------
     # def get_logger(self) -> logging.Logger:
     #     return self.logger
@@ -112,21 +107,19 @@ class LoggerSetup:
             if not logger.handlers:  # prevent duplicate handlers
                 ch = logging.StreamHandler()
                 ch.setLevel(level)
-                formatter = logging.Formatter("%(asctime)s|%(filename)s|%(lineno)4d|%(funcName)s|%(levelname)8s| %(message)s")
+                formatter = logging.Formatter(
+                    "%(asctime)s|%(filename)s|%(lineno)4d|%(funcName)s|%(levelname)8s| %(message)s"
+                )
                 ch.setFormatter(formatter)
                 logger.addHandler(ch)
 
             cls._logger = logger
         return cls._logger
 
-
-    
-
     # -----------------------------------------------------------------
     def add_custom_level(self, level_name, level_num, method_name=None):
         """Add a custom level via the CustomLevels helper class."""
         return CustomLevels.add(level_name, level_num, method_name)
-
 
     # -----------------------------------------------------------------
     def add_filter(self, level_to_exclude: int):
@@ -141,5 +134,3 @@ class LoggerSetup:
     def show_all_levels(self, logger):
         """Show all defined logging levels."""
         CustomLevels.show_all_levels(logger)
-
-
