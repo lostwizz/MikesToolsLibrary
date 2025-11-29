@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 17:58:16"
+__updated__ = "2025-11-29 18:16:29"
 ###############################################################################
 
 
@@ -36,6 +36,8 @@ class CustomFormatter(logging.Formatter):
 
     DEFAULT_FILE_FORMAT = "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s"
 
+    SPECIAL_CHARACTERS = {}
+
     # -----------------------------------------------------------------
     def __init__(self, fmt: str = None, datefmt: str = None):
         # Call the parent constructor with format strings
@@ -50,8 +52,10 @@ class CustomFormatter(logging.Formatter):
         color = self.COLORS.get(record.levelno, self.RESET)
         # print (f" format==>{color=}")
 
+        specialChar = self.SPECIAL_CHARACTERS.get(record.levelno, "")
+        
         # return f"[Custom] {msg}"
-        return f"{color}{msg}{self.RESET}"
+        return f"{specialChar}{color}{msg}{self.RESET}{specialChar}"
 
 
 

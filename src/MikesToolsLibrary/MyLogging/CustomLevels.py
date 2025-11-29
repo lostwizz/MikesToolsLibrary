@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 01:24:35"
+__updated__ = "2025-11-29 18:17:19"
 ###############################################################################
 
 
@@ -25,7 +25,7 @@ class CustomLevels:
     """Defines custom logging levels."""
     DEFAULT_TEXT_MSG = "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
 
-    
+
     # -----------------------------------------------------------------
     def __init__(self):
         pass
@@ -33,7 +33,7 @@ class CustomLevels:
 
     # -----------------------------------------------------------------
     @classmethod
-    def add_log_level(cls, level_name, level_num, method_name=None, color=None):
+    def add_log_level(cls, level_name, level_num, method_name=None, color=None, specialChars:str =None):
         if not method_name:
             method_name = level_name.lower()
 
@@ -59,10 +59,13 @@ class CustomLevels:
         setattr(logging.getLoggerClass(), method_name, log_for_level)
         setattr(logging, method_name, log_to_root)
 
+        if specialChars:
+            CustomFormatter.SPECIAL_CHARACTERS[level_num] = specialChars
+
         # Register color if provided
         if color:
             CustomFormatter.COLORS[level_num] = color
-            print(f"Adding color for level {level_name} ({level_num}): {repr(CustomFormatter.COLORS[level_num])}")
+            # print(f"Adding color for level {level_name} ({level_num}): {repr(CustomFormatter.COLORS[level_num])}")
 
 
 
@@ -74,14 +77,14 @@ class CustomLevels:
 
     # -----------------------------------------------------------------
     @classmethod
-    def add(self, name :str, id: int, fmt: str) -> None:
+    def add(self, name :str, id: int, fmt: str, specialChars:str=None) -> None:
         """
         Adds a new logging level with a custom format.
         :param name: Name of the logging level.
         :param id: Numeric ID of the logging level.
         :param fmt: Format string for the logging level.
         """
-        self.add_log_level(name, id, color=fmt)
+        self.add_log_level(name, id, color=fmt, specialChars = specialChars)
         # CustomFormatter.FORMATS[id]  = fmt + CustomFormatter.formatStr + CustomFormatter.reset
         # CustomFormatter.COLORS[id]  = fmt
         # print(f"Added custom level: {name} ({id}) with format: {repr(CustomFormatter.COLORS[id])}")
@@ -190,23 +193,23 @@ class CustomLevels:
 
         self.add("Decorator_error",  510, "\x1b[00;91;103m")
 
-        self.add("rocket",         600, "\x1b[00;91;103m🚀")
-        self.add("party",          601, "\x1b[00;91;103m🎉")
-        self.add("cross",          602, "\x1b[00;91;103m❌")
-        self.add("check",          603, "\x1b[00;91;103m✅")
-        self.add("closedfolder",   604, "\x1b[00;91;103m📁")
-        self.add("openfolder",     604, "\x1b[00;91;103m📂")
-        self.add("tools",          605, "\x1b[00;91;103m🛠 ")
-        self.add("explanationmark",606, "\x1b[00;91;103m❗️")
-        self.add("warningsign",    607, "\x1b[00;91;103m⚠️")
-        self.add("infosign",       608, "\x1b[00;91;103mℹ️")
-        self.add("music",          609, "\x1b[00;91;103m🎵")
-        self.add("magnifierleft",  610, "\x1b[00;91;103m🔍")
-        self.add("magnifierright", 611, "\x1b[00;91;103m🔎")
-        self.add("pipe",           612, "\x1b[00;91;103m🐛")
-        self.add("microscope",     613, "\x1b[00;91;103m🔬")
-        self.add("telescope",      614, "\x1b[00;91;103m🔭")
-        self.add("fastforward",    615, "\x1b[00;91;103m⏩")
+        self.add("rocket",         600, "\x1b[00;91;103m","🚀")
+        self.add("party",          601, "\x1b[00;91;103m","🎉")
+        self.add("cross",          602, "\x1b[00;91;103m","❌")
+        self.add("check",          603, "\x1b[00;91;103m","✅")
+        self.add("closedfolder",   604, "\x1b[00;91;103m","📁")
+        self.add("openfolder",     604, "\x1b[00;91;103m","📂")
+        self.add("tools",          605, "\x1b[00;91;103m","🛠 ")
+        self.add("explanationmark",606, "\x1b[00;91;103m","❗️")
+        self.add("warningsign",    607, "\x1b[00;91;103m","⚠️")
+        self.add("infosign",       608, "\x1b[00;91;103m","ℹ️")
+        self.add("music",          609, "\x1b[00;91;103m","🎵")
+        self.add("magnifierleft",  610, "\x1b[00;91;103m","🔍")
+        self.add("magnifierright", 611, "\x1b[00;91;103m","🔎")
+        self.add("pipe",           612, "\x1b[00;91;103m","🐛")
+        self.add("microscope",     613, "\x1b[00;91;103m","🔬")
+        self.add("telescope",      614, "\x1b[00;91;103m","🔭")
+        self.add("fastforward",    615, "\x1b[00;91;103m","⏩")
 
         self.add("appbegin",      700, "\x1b[00;96;107m")
         self.add("append",        701, "\x1b[00;96;107m")
