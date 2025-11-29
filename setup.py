@@ -10,7 +10,7 @@ setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-28 19:46:22"
+__updated__ = "2025-11-28 20:15:38"
 ###############################################################################
 
 
@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 setup(
     name='Mikes_Tools_Library',
     version='0.1.0',
-    packages=find_packages(),
+    packages=find_packages(include ['src/*']),
     install_requires=[],
     author='Mike Merrett',
     author_email='public@merrett.ca',
