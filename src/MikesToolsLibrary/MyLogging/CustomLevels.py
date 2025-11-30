@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 20:20:26"
+__updated__ = "2025-11-29 21:23:52"
 ###############################################################################
 
 
@@ -21,6 +21,7 @@ from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
+###############################################################################
 class CustomLevels:
     """Defines custom logging levels."""
     DEFAULT_TEXT_MSG = "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
