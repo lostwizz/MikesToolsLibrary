@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 18:05:47"
+__updated__ = "2025-11-29 19:53:00"
 ###############################################################################
 
 import sys
@@ -20,7 +20,9 @@ from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+
+# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
 
 
 # from .CustomFormatter import CustomFormatter
@@ -55,26 +57,29 @@ class LoggerSetup:
 
             ######
             # Console handler
-            console_handler = logging.StreamHandler()
-            console_handler.setLevel(level)
-            console_formatter = CustomFormatter(
-                CustomFormatter.DEFAULT_FORMAT, datefmt="%H:%M:%S"
-            )
-            # console_formatter = CustomFormatter()
-            console_handler.setFormatter(console_formatter)
-            self.logger.addHandler(console_handler)
+            ch = logging.StreamHandler()
+            ch.setLevel(level)
+            ch.setFormatter(
+                CustomFormatter(
+                    fmt="%(levelname)s: %(message)s",
+                    datefmt="%H:%M:%S",
+                    fmtMode=FormatMode.CONSOLE,
+                )
+            )  # short, colored
+            self.logger.addHandler(ch)
 
             ######
             # File handler
-            sys.stdout.reconfigure(encoding='utf-8')
-            file_handler = logging.FileHandler(logfile, encoding="utf-8")
-            file_handler.setLevel(level)
-            file_formatter = logging.Formatter(
-                CustomFormatter.DEFAULT_FILE_FORMAT,
-                datefmt="%Y-%m-%d %H:%M:%S",
-            )
-            file_handler.setFormatter(file_formatter)
-            self.logger.addHandler(file_handler)
+            fh = logging.FileHandler(logfile, encoding="utf-8")
+            fh.setLevel(level)
+            fh.setFormatter(
+                CustomFormatter(
+                    fmt="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+                    fmtMode=FormatMode.FILE,
+                )
+            )  # more detail, timestamps
+            self.logger.addHandler(fh)
 
     # -----------------------------------------------------------------
     @classmethod
