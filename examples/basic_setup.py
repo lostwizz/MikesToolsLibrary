@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 20:04:08"
+__updated__ = "2025-11-29 21:13:10"
 ###############################################################################
 
 
@@ -23,6 +23,7 @@ import MikesToolsLibrary.MyLogging as mylog
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
+import pprint
 
 # Initialize unified logger
 logger = mylog.LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile=f"MikesToolsLibrary.log").get_logger()
@@ -31,7 +32,7 @@ logger = mylog.LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile=f"M
 print("v")
 for h in logger.handlers:
     if isinstance(h.formatter, CustomFormatter):
-        print (f" Handler Formatter==>{h.formatter=}")
+        print (f" Handler Formatter==>{h.formatter=} Handler type: {type(h).__name__}")
 print ("^")
 logger.info("Process complete ✓ — all good 🚀")
 
@@ -55,4 +56,23 @@ logger.debug("This debug message will be filtered out")
 logger.tracez("zzzzzzzzzzzzzzzz")
 logger.blkonyk("blkonyk message here")
 
-mylog.LoggerSetup.show_all_levels(logger)
+# mylog.LoggerSetup.show_all_levels(logger, False)
+
+
+alist = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "e"]
+logger.traceb( alist)
+
+adict = { "a":1, "b":2, "c":3, "d":4}
+logger.tracec(adict)
+
+stuff = ['spam', 'eggs', 'lumberjack', 'knights', 'ni']
+logger.traced(stuff)
+
+tup = ('spam', ('eggs', ('lumberjack', ('knights', ('ni', ('dead',
+('parrot', ('fresh fruit',))))))))
+
+logger.tracee( tup)
+
+# pprint.pp( tup, indent=4, width=40)
+
+logger.tracep("tony is being hit", stuff)

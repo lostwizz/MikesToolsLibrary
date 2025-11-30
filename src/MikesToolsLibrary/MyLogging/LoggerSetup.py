@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 20:00:40"
+__updated__ = "2025-11-29 20:12:43"
 ###############################################################################
 
 import sys
@@ -136,6 +136,10 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def show_all_levels(self, logger):
+    def show_all_levels(self, logger, showColorSampler=True):
         """Show all defined logging levels."""
         CustomLevels.show_all_levels(logger)
+        
+        """show all the possible color combinations"""
+        if showColorSampler:
+            CustomLevels.show_possible_colors()

@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 18:17:19"
+__updated__ = "2025-11-29 20:20:26"
 ###############################################################################
 
 
@@ -210,6 +210,7 @@ class CustomLevels:
         self.add("microscope",     613, "\x1b[00;91;103m","🔬")
         self.add("telescope",      614, "\x1b[00;91;103m","🔭")
         self.add("fastforward",    615, "\x1b[00;91;103m","⏩")
+        self.add("fastforward2",    616, "\x1b[00;91;103m","⏩    ✓")
 
         self.add("appbegin",      700, "\x1b[00;96;107m")
         self.add("append",        701, "\x1b[00;96;107m")
@@ -324,7 +325,7 @@ class CustomLevels:
 
         logger.query('test of query 55')
 
-        logger.notice("This is a NOTICE messageuuuuuuuuuuuuuuuuu")
+        logger.notice("This is a NOTICE messageuuuuuuuuuuuuuuuuu❌❌❌❌")
 
         logger.trace( 'test of trace 100')
         logger.tracea('test of trace 101')
@@ -424,6 +425,9 @@ class CustomLevels:
         logger.pipe           ("test of pipe          612")
         logger.microscope     ("test of microscope    613")
         logger.telescope      ("test of telescope     614")
+        logger.fastforward      ("test of telescope     615")
+
+        logger.fastforward2      ("test of telescope     616")
 
         logger.appbegin       ('test of appbegin    700' )
         logger.append         ('test of append      701'   )
@@ -513,3 +517,54 @@ class CustomLevels:
         logger.data9where     ('test of data9where')
         logger.data9info      ('test of data9info 797')
 
+
+    # -----------------------------------------------------------------
+    def show_possible_colors():
+        for level_num, color in CustomFormatter.COLORS.items():
+            print(f"Level {level_num}: Color: {repr(color)}")
+        attribs ={ '00': 'Normal', '01':'Bold', '04':'Underlined', '05':'Blinking', '07':'Reversed', '08':'Concealed'}
+        foreground = {'30':'black' , '31':'red','32':'green', '33':'orange', '34':'blue', '35':'purple', '36':'cyan', '37':'grey',
+            '90':'dark grey','91':'light red','92':'light green', '93':'yellow', '94':'light blue', '95':'light purple',
+            '96':'turquoise', '97':'bright white'}
+        background = {'40':'black' , '41':'red','42':'green', '43':'orange', '44':'blue', '45':'purple', '46':'cyan', '47':'grey',
+            '100':'dark grey','101':'light red','102':'light green', '103':'yellow', '104':'light blue', '105':'light purple',
+            '106':'turquoise', '107':'bright white'}
+
+        """ shows all the different combinations of attributes, foreground colors, and background colors """
+    
+        for b,bv in background.items():
+            for f, fv in foreground.items():
+                for a,av in attribs.items():
+                    print (f"\x1b[0m  \033[{a};{f};{b}m ...A...{fv} on {bv} background with atrrib {av}      AaBbQrStUvWxYz--xxx {a};{f};{b} \033[0m ")
+
+# -----------------------------------------------------------------
+
+# =================================================================
+## from https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
+## -----------------------------------------------------------------
+##
+## also from https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
+## from https://azrael.digipen.edu/~mmead/www/mg/ansicolors/index.html
+##             ESC[1;37;44mBright white on blueESC[0m
+##
+##   Attributes	      Foreground color	Background color
+##                      30 = black           40 = black
+##   00 = normal        31 = red             41 = red
+##   01 = bold          32 = green           42 = green
+##   04 = underlined    33 = orange          43 = orange
+##   05 = blinking      34 = blue            44 = blue
+##   07 = reversed      35 = purple          45 = purple
+##   08 = concealed     36 = cyan            46 = cyan
+##                      37 = grey            47 = white (grey)
+##
+##                      90 = dark grey       100 = dark grey
+##                      91 = light red       101 = light red
+##                      92 = light green     102 = light green
+##                      93 = yellow          103 = yellow
+##                      94 = light blue      104 = light blue
+##                      95 = light purple    105 = light purple
+##                      96 = turquoise       106 = turquoise
+##                      97 = bright White    107 = bright white
+##
+##
+# -----------------------------------------------------------------
