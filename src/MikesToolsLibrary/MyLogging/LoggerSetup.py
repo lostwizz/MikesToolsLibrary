@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 23:41:17"
+__updated__ = "2025-11-30 00:23:15"
 ###############################################################################
 
 import sys
@@ -23,6 +23,9 @@ from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 
 # from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
+from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
+
+
 
 
 # from .CustomFormatter import CustomFormatter
@@ -57,6 +60,8 @@ class LoggerSetup:
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
 
+            exclude_filter = ExcludeLevelFilter()
+            
             ######
             # Console handler
             ch = logging.StreamHandler()
@@ -68,6 +73,7 @@ class LoggerSetup:
                     fmtMode=FormatMode.CONSOLE,
                 )
             )  # short, colored
+            ch.addFilter(exclude_filter)
             self.logger.addHandler(ch)
 
             ######
@@ -81,6 +87,7 @@ class LoggerSetup:
                     fmtMode=FormatMode.FILE,
                 )
             )  # more detail, timestamps
+            fh.addFilter(exclude_filter)
             self.logger.addHandler(fh)
 
     # -----------------------------------------------------------------

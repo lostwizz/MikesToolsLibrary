@@ -10,14 +10,16 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 00:10:35"
+__updated__ = "2025-11-30 00:46:08"
 ###############################################################################
 
 
 import sys
 import os
 
-from MikesToolsLibrary.MyLogging import log_decorator
+from MikesToolsLibrary.MyLogging import ExcludeLevelFilter, log_decorator
+from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 import logging
@@ -63,7 +65,22 @@ logger.info("Info message")
 logger.warning("Warning message")
 logger.error("Error occurred")
 logger.critical("Critical issue")
-logger.notice("This is a NOTICE message")
+logger.notice("This is a NOTICE message1")
+logger.notice("This is a NOTICE message2")
+print( ExcludeLevelFilter.Filters)
+l = logging._nameToLevel.get("NOTICE")
+print(f"level is {l=}")
+
+ExcludeLevelFilter.addFilterLevel( logging._nameToLevel.get("NOTICE"))
+
+logger.notice("This is a NOTICE message AFTER 3")
+
+print( ExcludeLevelFilter.Filters)
+ExcludeLevelFilter.removeFilterLevel( logging._nameToLevel.get("NOTICE") )
+
+logger.notice("This is a NOTICE message AFTER 4")
+print( ExcludeLevelFilter.Filters)
+
 
 logger.setLevel(1)
 logger.debug("This debug message will be filtered out")

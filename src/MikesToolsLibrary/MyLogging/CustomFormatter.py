@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 23:16:39"
+__updated__ = "2025-11-30 00:14:34"
 ###############################################################################
 
 
@@ -46,12 +46,21 @@ class CustomFormatter(logging.Formatter):
     }
     RESET = "\033[0m"
     SPECIAL_CHARACTERS = {
-        logging.CRITICAL: "🔴☠🔴☠🔴",
-        logging.ERROR: "❌❌❌❌ ",
+        logging.CRITICAL: "🔴☠🔴",
+        logging.ERROR: "❌❌ ",
         logging.WARNING: "⚠ ",
         logging.INFO: "ℹ ",
         logging.DEBUG: "……",
     }
+    '''
+    25: "🔍",   # TRACE custom level
+    26: "📊",   # DATA custom level
+    27: "✔",   # SUCCESS custom level
+    28: "🛠",   # CONFIG custom level
+    29: "🔒",   # SECURITY custom level
+    '''
+
+
 
     # -----------------------------------------------------------------
     def __init__(self, fmt=None, datefmt=None, fmtMode=FormatMode.CONSOLE, style="%"):

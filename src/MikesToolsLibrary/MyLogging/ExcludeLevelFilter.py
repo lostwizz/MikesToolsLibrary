@@ -1,3 +1,17 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+###############################################################################
+r"""
+ExcludeLevelFilter.py
+
+
+
+
+"""
+__version__ = "0.0.0.0036"
+__author__ = "Mike Merrett"
+__updated__ = "2025-11-30 00:43:03"
+###############################################################################
 
 import logging
 from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
@@ -36,6 +50,7 @@ class ExcludeLevelFilter(logging.Filter):
     """
     Filters = set()
 
+    # -----------------------------------------------------------------
     def __init__(self, name: str = ""):
         """
         Initializes the filter with an empty set of levels to exclude.
@@ -44,6 +59,7 @@ class ExcludeLevelFilter(logging.Filter):
         super().__init__(name)
         #######self.Filters = set()
 
+    # -----------------------------------------------------------------
     def filter(self, record: logging.LogRecord) -> bool:
         """
         Filters out log records based on the excluded levels.
@@ -52,6 +68,8 @@ class ExcludeLevelFilter(logging.Filter):
         """
         return record.levelno not in self.Filters
 
+    # -----------------------------------------------------------------
+    @classmethod
     def addFilterLevel(self, level: int) -> None:
         """
         Adds a logging level to the exclusion list.
@@ -59,6 +77,8 @@ class ExcludeLevelFilter(logging.Filter):
         """
         self.Filters.add(level)
 
+    # -----------------------------------------------------------------
+    @classmethod
     def removeFilterLevel(self, level: int) -> None:
         """
         Removes a logging level from the exclusion list.
