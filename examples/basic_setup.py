@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 23:58:30"
+__updated__ = "2025-11-30 00:10:35"
 ###############################################################################
 
 
@@ -65,7 +65,7 @@ logger.error("Error occurred")
 logger.critical("Critical issue")
 logger.notice("This is a NOTICE message")
 
-logger.setLevel(0)
+logger.setLevel(1)
 logger.debug("This debug message will be filtered out")
 # Exclude DEBUG logs from console/file
 # setup.add_filter(logging.DEBUG)
@@ -79,6 +79,12 @@ logger.tracez("zzzzzzzzzzzzzzzz")
 x = freddy("sam was here ", "tom is gone", 777)
 y = freddy2("sam was herexxx ", "tom is gonexxxxxxxx", 87778)
 
+print("VVVVVVVVVVVVVVVVVVVVVVVVVVVV")
+for name, logger in logging.Logger.manager.loggerDict.items():
+    print(name, logger)
+print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+
+print(logger.getEffectiveLevel())
 
 
 alist = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "e"]
