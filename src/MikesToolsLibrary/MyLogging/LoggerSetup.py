@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 19:53:00"
+__updated__ = "2025-11-29 20:00:40"
 ###############################################################################
 
 import sys
@@ -61,7 +61,7 @@ class LoggerSetup:
             ch.setLevel(level)
             ch.setFormatter(
                 CustomFormatter(
-                    fmt="%(levelname)s: %(message)s",
+                    fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                     datefmt="%H:%M:%S",
                     fmtMode=FormatMode.CONSOLE,
                 )
@@ -74,7 +74,7 @@ class LoggerSetup:
             fh.setLevel(level)
             fh.setFormatter(
                 CustomFormatter(
-                    fmt="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+                    fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S",
                     fmtMode=FormatMode.FILE,
                 )

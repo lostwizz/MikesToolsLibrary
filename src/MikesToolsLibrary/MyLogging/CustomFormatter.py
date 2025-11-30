@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 19:50:17"
+__updated__ = "2025-11-29 19:59:02"
 ###############################################################################
 
 
@@ -63,15 +63,14 @@ class CustomFormatter(logging.Formatter):
         # Example: add a prefix
         match self.fmtMode:
             case FormatMode.FILE:
-                msg = f"[CustomFormatter] {msg}"
+                color =""
+                specialChar = self.SPECIAL_CHARACTERS.get(record.levelno, "")
+                endChar =""
             case FormatMode.CONSOLE:
-                pass
+                color = self.COLORS.get(record.levelno, self.RESET)
+                specialChar = self.SPECIAL_CHARACTERS.get(record.levelno, "")
+                endChar = self.RESET
             case _:
                 pass
-        color = self.COLORS.get(record.levelno, self.RESET)
-        # print (f" format==>{color=}")
 
-        specialChar = self.SPECIAL_CHARACTERS.get(record.levelno, "")
-
-        # return f"[Custom] {msg}"
-        return f"{specialChar}{color}{msg}{self.RESET}{specialChar}"
+        return f"{specialChar}{color}{msg}{endChar}{specialChar}"

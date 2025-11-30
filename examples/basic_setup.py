@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 18:06:20"
+__updated__ = "2025-11-29 20:04:08"
 ###############################################################################
 
 
@@ -22,13 +22,6 @@ import logging
 import MikesToolsLibrary.MyLogging as mylog
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
-
-
-# if sys.platform.startswith("win"):
-#     os.system("")
-
-#mylog.tests("sam is gone")
-# mylog.LoggerSetup.test("sam is gone")
 
 
 # Initialize unified logger
