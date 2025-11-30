@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 22:13:07"
+__updated__ = "2025-11-29 23:16:39"
 ###############################################################################
 
 
@@ -19,6 +19,7 @@ import pprint
 from pprint import pformat
 import json
 from enum import Enum
+import traceback
 from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 
@@ -90,6 +91,7 @@ class CustomFormatter(logging.Formatter):
             record.msg = self._pp(record.msg)
         elif isinstance(record.msg, dict):
             record.msg = self._pp(record.msg)
+        # elif isinstance(record.msg, Enum):
         elif isinstance(record.msg, Enum):
             record.msg = self._pp(record.msg)
 
@@ -104,8 +106,30 @@ class CustomFormatter(logging.Formatter):
                 record.msg = f"{record.msg} {appended}"
                 record.args = ()  # prevent logging from doing msg % args
 
+
             # Build base message
             msg = super().format(record)
+
+            # limit the file name to FILENAME_SIZE length
+            FILENAME_SIZE = 15
+            record.filename = record.filename.replace('.py','')
+            if len(record.filename) > FILENAME_SIZE:
+                record.filename = record.filename[:FILENAME_SIZE]
+            else:
+                record.filename = record.filename.rjust(FILENAME_SIZE)
+
+            # Limit funcName to the first 15 characters
+            FUNCNAME_SIZE = 18  
+            if len(record.funcName) > FUNCNAME_SIZE:
+                record.funcName = record.funcName[:FUNCNAME_SIZE]
+            else:
+                record.funcName = record.funcName.rjust(FUNCNAME_SIZE)
+
+            ## handle exceptions and traceback
+            record.message = record.getMessage()
+            if record.exc_info:
+                if not record.exc_text:
+                    record.exc_text = self.formatException(record.exc_info)
 
             # Style per mode
             match self.fmtMode: 

@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 22:15:23"
+__updated__ = "2025-11-29 23:18:00"
 ###############################################################################
 
 
@@ -20,8 +20,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 
 import logging
 import MikesToolsLibrary.MyLogging as mylog
-from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+# from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
+# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
+
 
 import pprint
 
@@ -77,3 +79,15 @@ logger.tracee( tup)
 # pprint.pp( tup, indent=4, width=40)
 
 logger.tracep("tony is being hit", stuff)
+
+logger.tracet(FormatMode)
+
+# print ( isinstance(FormatMode, Enum))
+logger.traceq(FormatMode.CONSOLE)
+
+try:
+    d= 2/0
+except Exception:
+    # logger.error("Something failed", exc_info=False)
+    logger.error("Something failed", exc_info=True)
+    # logger.error("Something failed")
