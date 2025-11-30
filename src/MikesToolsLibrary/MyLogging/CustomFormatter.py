@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 21:26:38"
+__updated__ = "2025-11-29 22:13:07"
 ###############################################################################
 
 
@@ -22,7 +22,8 @@ from enum import Enum
 from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 
-
+import sys
+sys.stdout.reconfigure(encoding="utf-8")
 
 ###############################################################################
 ###############################################################################
@@ -31,7 +32,7 @@ class FormatMode(Enum):
     FILE = 2
     JSON = 3
 
-    
+
 ###############################################################################
 ###############################################################################
 class CustomFormatter(logging.Formatter):
@@ -44,11 +45,11 @@ class CustomFormatter(logging.Formatter):
     }
     RESET = "\033[0m"
     SPECIAL_CHARACTERS = {
-        logging.CRITICAL: "‼",
-        logging.ERROR: "✖",
-        logging.WARNING: "⚠",
-        logging.INFO: "ℹ",
-        logging.DEBUG: "…",
+        logging.CRITICAL: "🔴☠🔴☠🔴",
+        logging.ERROR: "❌❌❌❌ ",
+        logging.WARNING: "⚠ ",
+        logging.INFO: "ℹ ",
+        logging.DEBUG: "……",
     }
 
     # -----------------------------------------------------------------

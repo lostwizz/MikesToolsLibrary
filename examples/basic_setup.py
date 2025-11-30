@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 21:13:10"
+__updated__ = "2025-11-29 22:15:23"
 ###############################################################################
 
 
@@ -29,15 +29,15 @@ import pprint
 logger = mylog.LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile=f"MikesToolsLibrary.log").get_logger()
 
 
-print("v")
-for h in logger.handlers:
-    if isinstance(h.formatter, CustomFormatter):
-        print (f" Handler Formatter==>{h.formatter=} Handler type: {type(h).__name__}")
-print ("^")
+# print("v")
+# for h in logger.handlers:
+#     if isinstance(h.formatter, CustomFormatter):
+#         print (f" Handler Formatter==>{h.formatter=} Handler type: {type(h).__name__}")
+# print ("^")
 logger.info("Process complete ✓ — all good 🚀")
 
 
-mylog.LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m" )
+mylog.LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m" , "‼")
 mylog.LoggerSetup.add_special_levels(logger)
 
 # Log messages
@@ -56,7 +56,8 @@ logger.debug("This debug message will be filtered out")
 logger.tracez("zzzzzzzzzzzzzzzz")
 logger.blkonyk("blkonyk message here")
 
-# mylog.LoggerSetup.show_all_levels(logger, False)
+#mylog.LoggerSetup.show_all_levels(logger, False)
+# mylog.LoggerSetup.show_all_levels(logger, True)
 
 
 alist = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "e"]

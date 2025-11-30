@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 20:12:43"
+__updated__ = "2025-11-29 22:14:56"
 ###############################################################################
 
 import sys
@@ -31,6 +31,8 @@ from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatM
 from .ExcludeLevelFilter import ExcludeLevelFilter
 
 
+###############################################################################
+###############################################################################
 class LoggerSetup:
     """
     Unified logger setup:
@@ -89,7 +91,7 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def add_level(cls, level_name: str, level_num: int, colorFmt: str = None):
+    def add_level(cls, level_name: str, level_num: int, colorFmt: str = None, specialChar=""):
         """
         Add a custom logging level.
         :param level_name: Name of the logging level.
@@ -97,12 +99,9 @@ class LoggerSetup:
         :param method_name: Optional method name for logger.
         """
 
-        CustomLevels.add(level_name, level_num, colorFmt)
+        CustomLevels.add(level_name, level_num, colorFmt, specialChar)
 
     # -----------------------------------------------------------------
-    # def get_logger(self) -> logging.Logger:
-    #     return self.logger
-
     @classmethod
     def get_logger(cls, name="MikesToolsLibrary", level=logging.DEBUG):
         if cls._logger is None:
@@ -143,3 +142,9 @@ class LoggerSetup:
         """show all the possible color combinations"""
         if showColorSampler:
             CustomLevels.show_possible_colors()
+
+
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------

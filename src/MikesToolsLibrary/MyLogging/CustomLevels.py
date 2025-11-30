@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 21:23:52"
+__updated__ = "2025-11-29 22:10:28"
 ###############################################################################
 
 
@@ -21,6 +21,7 @@ from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
+###############################################################################
 ###############################################################################
 class CustomLevels:
     """Defines custom logging levels."""
@@ -115,6 +116,9 @@ class CustomLevels:
 
         self.add("QUERY",    55, "\x1b[1;35;40m")
 
+        self.add("SUCCESS", 91, "\x1b[1;97;42m", "✔ ")
+        self.add("FAILURE", 92, "\x1b[00;33;45m", "❗❌ ")
+        
         self.add( "TRACE", 100, "\x1b[00;97;45m")
         self.add("TRACEA", 101, "\x1b[1;32;104m")
         self.add("TRACEB", 102, "\x1b[1;37;43m" )
@@ -310,6 +314,50 @@ class CustomLevels:
         self.add("data9info",     797, "\x1b[00;96;107m")
         self.add("data9flds",      798, "\x1b[00;96;107m")
 
+        
+        """
+        ⚠️ Status & Severity
+        • 	ℹ (U+2139) — Information symbol
+        • 	⚠ (U+26A0) — Warning sign
+        • 	✖ (U+2716) — Heavy multiplication X (error)
+        • 	‼ (U+203C) — Double exclamation mark (critical)
+        • 	❗ (U+2757) — Heavy exclamation mark
+        • 	❌ (U+274C) — Cross mark (failure)
+        • 	✔ (U+2714) — Heavy check mark (success)
+        • 	✅ (U+2705) — Green check mark (success, emoji style)
+
+        🛠 Debugging & Process
+        • 	… (U+2026) — Ellipsis (ongoing process)
+        • 	▶ (U+25B6) — Black right-pointing triangle (start/run)
+        • 	⏸ (U+23F8) — Pause symbol
+        • 	⏹ (U+23F9) — Stop symbol
+        • 	🔍 (U+1F50D) — Magnifying glass (search/debug)
+        • 	🛠 (U+1F6E0) — Hammer and wrench (setup/config)
+
+        📊 Data & Flow
+        • 	→ (U+2192) — Right arrow (flow, next step)
+        • 	⇒ (U+21D2) — Double arrow (result, implication)
+        • 	↔ (U+2194) — Left-right arrow (exchange)
+        • 	⤴ (U+2934) — Arrow pointing up then right (return)
+        • 	⤵ (U+2935) — Arrow pointing down then left (exit)
+
+        🔒 Security & Access
+        • 	🔒 (U+1F512) — Lock (secure)
+        • 	🔓 (U+1F513) — Unlock (open access)
+        • 	🔑 (U+1F511) — Key (credentials)
+        • 	🛡 (U+1F6E1) — Shield (protection)
+
+        🧭 Miscellaneous Useful Symbols
+        • 	★ (U+2605) — Black star (highlight)
+        • 	☆ (U+2606) — White star (optional/secondary)
+        • 	☑ (U+2611) — Ballot box with check
+        • 	☠ (U+2620) — Skull and crossbones (fatal error)
+        • 	⏱ (U+23F1) — Stopwatch (timing)
+        • 	📦 (U+1F4E6) — Package (deployment, build)
+        • 	📝 (U+1F4DD) — Memo (notes, config
+        """
+
+
     # -----------------------------------------------------------------
     def show_all_levels(logger):
 
@@ -328,6 +376,9 @@ class CustomLevels:
 
         logger.notice("This is a NOTICE messageuuuuuuuuuuuuuuuuu❌❌❌❌")
 
+        logger.success("test of success 91")
+        logger.failure("test of failure 92")
+        
         logger.trace( 'test of trace 100')
         logger.tracea('test of trace 101')
         logger.traceb('test of trace 102')
@@ -521,9 +572,11 @@ class CustomLevels:
 
     # -----------------------------------------------------------------
     def show_possible_colors():
-        for level_num, color in CustomFormatter.COLORS.items():
-            print(f"Level {level_num}: Color: {repr(color)}")
-        attribs ={ '00': 'Normal', '01':'Bold', '04':'Underlined', '05':'Blinking', '07':'Reversed', '08':'Concealed'}
+        # for level_num, color in CustomFormatter.COLORS.items():
+        #     print(f"Level {level_num}: Color: {repr(color)}")
+        # attribs ={ '00': 'Normal', '01':'Bold', '04':'Underlined', '05':'Blinking', '07':'Reversed', '08':'Concealed'}
+        attribs ={ '00': 'Normal', '01':'Bold'}
+        
         foreground = {'30':'black' , '31':'red','32':'green', '33':'orange', '34':'blue', '35':'purple', '36':'cyan', '37':'grey',
             '90':'dark grey','91':'light red','92':'light green', '93':'yellow', '94':'light blue', '95':'light purple',
             '96':'turquoise', '97':'bright white'}
@@ -536,9 +589,9 @@ class CustomLevels:
         for b,bv in background.items():
             for f, fv in foreground.items():
                 for a,av in attribs.items():
-                    print (f"\x1b[0m  \033[{a};{f};{b}m ...A...{fv} on {bv} background with atrrib {av}      AaBbQrStUvWxYz--xxx {a};{f};{b} \033[0m ")
+                    print (f"\x1b[0m  \033[{a};{f};{b}m ...A...{fv} on {bv} background with atrrib {av}      AaBbQrStUvWxYz--xxx++>\\x1b[{a};{f};{b}m<++ \033[0m ")
 
-# -----------------------------------------------------------------
+# -----------------------------------------------------------------"\x1b[1;31;44m", 
 
 # =================================================================
 ## from https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
@@ -569,3 +622,8 @@ class CustomLevels:
 ##
 ##
 # -----------------------------------------------------------------
+
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+
+    # -----------------------------------------------------------------
