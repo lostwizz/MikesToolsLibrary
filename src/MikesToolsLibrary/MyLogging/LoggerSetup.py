@@ -8,7 +8,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 01:36:17"
+__updated__ = "2025-12-01 18:52:05"
 ###############################################################################
 
 import sys
@@ -59,15 +59,20 @@ class LoggerSetup:
 
             ######
             # SMTP handler
-            mh = self.setupSMTPHandler(name)
-            self.logger.addHandler(mh)
+            # mh = self.setupSMTPHandler(name)
+            # self.logger.addHandler(mh)
 
             ######
             # json handler
-            jh = self.setupJSONHandler(level, logfile)
-            self.logger.addHandler(jh)
+            # jh = self.setupJSONHandler(level, logfile)
+            # self.logger.addHandler(jh)
             
                     # logging.setLoggerClass(AppendArgsLogger)
+
+    # -----------------------------------------------------------------
+    def get_logger(self):
+        return self.logger
+
 
     # -----------------------------------------------------------------
     def setupConsoleHandler(self, level):

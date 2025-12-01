@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 01:17:06"
+__updated__ = "2025-12-01 18:42:49"
 ###############################################################################
 
 
@@ -45,14 +45,6 @@ class CustomLevels:
             raise AttributeError(f"{method_name} already defined in logging module")
         if hasattr(logging.getLoggerClass(), method_name):
             raise AttributeError(f"{method_name} already defined in logger class")
-
-        # def log_for_level(self, message=None, *args, **kwargs):
-        #     stacklevel = kwargs.pop("stacklevel", 2)
-        #     if not message:
-        #         message = cls.DEFAULT_TEXT_MSG
-        #     if self.isEnabledFor(level_num):
-        #         self._log(level_num, message, args, **kwargs, stacklevel=stacklevel)
-
 
         logging.addLevelName(level_num, level_name.upper())
 

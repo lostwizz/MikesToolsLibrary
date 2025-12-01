@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 00:02:07"
+__updated__ = "2025-12-01 18:41:07"
 ###############################################################################
 
 
@@ -22,11 +22,16 @@ import traceback
 from functools import wraps
 import logging
 
-import MikesToolsLibrary.MyLogging.LoggerSetup as LoggerSetup
+# import MikesToolsLibrary.MyLogging.LoggerSetup as LoggerSetup
 
 
 ###############################################################################
 def log_decorator(func) -> None:
+    # from typing import TYPE_CHECKING
+    # if TYPE_CHECKING:
+    #     from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
+
+
     @wraps(func)
     def wrapper(*args: tuple, **kwargs: dict) -> None:
 
@@ -96,37 +101,6 @@ def log_decorator(func) -> None:
             raise
 
     return wrapper
-
-
-###############################################################################
-# def log_decorator(func):
-
-#     @wraps(func)
-#     def wrapper(*args, **kwargs):
-#         logger = logging.getLogger("MikesToolsLibrary")  # or your chosen logger name
-#         logger.debug(f"Calling function: {func.__name__}")
-
-#         # Log arguments
-#         sig = inspect.signature(func)
-#         bound = sig.bind(*args, **kwargs)
-#         bound.apply_defaults()
-#         for name, value in bound.arguments.items():
-#             logger.debug(f"Arg {name} = {value!r}")
-
-#         try:
-#             start_time = time.perf_counter()
-#             result = func(*args, **kwargs)
-#             end_time = time.perf_counter()
-#             logger.debug(f"{func.__name__} returned {result!r}")
-#             logger.debug(f"Function {func.__name__} took {end_time - start_time:.6f} seconds")
-#             return result
-#         except Exception as e:
-#             logger.error(f"Exception in {func.__name__}: {e}")
-#             logger.error(traceback.format_exc())
-#             raise
-
-#     return wrapper
-
 
 ###############################################################################
 def log_decoratorPlain(func) -> None:
