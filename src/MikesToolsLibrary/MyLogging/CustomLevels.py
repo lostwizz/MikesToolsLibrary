@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 22:29:04"
+__updated__ = "2025-12-01 00:25:47"
 ###############################################################################
 
 
@@ -46,19 +46,33 @@ class CustomLevels:
         if hasattr(logging.getLoggerClass(), method_name):
             raise AttributeError(f"{method_name} already defined in logger class")
 
-        def log_for_level(self, message=None, *args, **kwargs):
-            stacklevel = kwargs.pop("stacklevel", 2)
-            if not message:
-                message = cls.DEFAULT_TEXT_MSG
-            if self.isEnabledFor(level_num):
-                self._log(level_num, message, args, **kwargs, stacklevel=stacklevel)
+        # def log_for_level(self, message=None, *args, **kwargs):
+        #     stacklevel = kwargs.pop("stacklevel", 2)
+        #     if not message:
+        #         message = cls.DEFAULT_TEXT_MSG
+        #     if self.isEnabledFor(level_num):
+        #         self._log(level_num, message, args, **kwargs, stacklevel=stacklevel)
 
+
+        logging.addLevelName(level_num, level_name.upper())
+
+        def log_for_level(self, message, *args,  **kwargs):
+            if args:
+                sep = "\n"  # or " " depending on preference
+                appended = sep.join(str(a) for a in args)
+                message = f"{message}{sep}{appended}"
+            # Always clear args so logging doesn’t try to interpolate
+            self._log(level_num, message, (), **kwargs)   #, stacklevel=stacklevel)
+
+            
         def log_to_root(message, *args, **kwargs):
             logging.log(level_num, message, *args, **kwargs)
 
+
+        log_for_level.__name__ = level_name.lower()
         logging.addLevelName(level_num, level_name)
         setattr(logging, level_name, level_num)
-        setattr(logging.getLoggerClass(), method_name, log_for_level)
+        setattr(logging.getLoggerClass(), method_name.lower(), log_for_level)
         setattr(logging, method_name, log_to_root)
 
         if specialChars:

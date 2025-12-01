@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:03:34"
+__updated__ = "2025-12-01 00:15:39"
 ###############################################################################
 
 
@@ -138,18 +138,25 @@ class CustomFormatter(logging.Formatter):
             if (
                 original_args
                 and isinstance(record.msg, str)
-                and not self._has_placeholders(record.msg)
+                #and not self._has_placeholders(record.msg)
             ):
                 
-                print ( f"{original_args=}")
+                # print ( f"{original_args=}")
                 if len(original_args) == 1:
                     appended = self._pp(original_args[0])
                 else:
-                    appended = pformat(
-                        tuple(self._pp(a) for a in original_args), indent=2, width=100
-                    )
-                record.msg = f"{record.msg} {appended}"
-                record.args = ()  # prevent logging from doing msg % args
+                    # appended = pformat(
+                    #     tuple(self._pp(a) for a in original_args), indent=2, width=100
+                    # )
+                    sep = "\n"
+                    appended = sep.join(str(self._pp(a)) for a in original_args)
+                    record.msg = f"{record.msg}{sep}{appended}"
+                    record.args = ()  # prevent logging from doing msg % args
+
+
+                # record.msg = f"{record.msg} {appended}"
+                # record.args = ()  # prevent logging from doing msg % args
+                
             # if original_args and isinstance(record.msg, str):
             #     sep = "\n"  # or " " depending on your preference
             #     appended = sep.join(str(self._pp(a)) for a in original_args)

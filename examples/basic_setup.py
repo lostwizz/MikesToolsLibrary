@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:04:38"
+__updated__ = "2025-12-01 00:26:55"
 ###############################################################################
 
 
@@ -158,10 +158,21 @@ def checkTypesOutput():
         # logger.error("Something failed")
 
 
+# -------------------
 def checkSMTP():
-    logger.smtp("This is some sort of email!!", "avvvvvv")
-    # logger.smtp("This is some sort of email!!", "a", "b", "c", "d", "e","f")
+    logger.smtp("This is some sort of email!!")
+    logger.smtp("This is some sort of email!!", "a")
 
+# -------------------
+def checkMultipleArgs():
+    logger.warning("hi")
+    logger.info("This is some sort of message with args", "a", "b", "c", "d", "e","f")
+    logger.tracea("This is some sort of mmessage with args", "a", "b", "c", "d", "e","f")
+    logger.rocket("some message", "and some arg", "and another arg")
+    logger.warning("bye")
+    
+
+# -------------------
 # -------------------
 # -------------------
 # -------------------
@@ -169,7 +180,6 @@ def checkSMTP():
 checkCustomLevels()
 # showLevelInfo()
 
-checkSMTP()
 
 # displayExcludeLevel()
 
@@ -177,3 +187,6 @@ checkSMTP()
 
 # checkLoggerLevel()
 # checkTypesOutput()        
+
+checkMultipleArgs()
+checkSMTP()
