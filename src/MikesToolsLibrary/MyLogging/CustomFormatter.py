@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:48:09"
+__updated__ = "2025-12-01 01:08:53"
 ###############################################################################
 
 
@@ -207,10 +207,21 @@ class CustomFormatter(logging.Formatter):
                     color = self.COLORS.get(record.levelno, self.RESET)
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = self.RESET
+                case FormatMode.SMTP:
+                    color =""
+                    end=""
+                    special=""
                 case FormatMode.JSON:
-                    color = ""
-                    special = ""
-                    end = ""
+                    log_obj = {
+                        "time": self.formatTime(record, self.datefmt),
+                        "level": record.levelname,
+                        "filename": record.filename,
+                        "funcName": record.funcName,
+                        "lineno": record.lineno,
+                        "message": record.getMessage(),
+                    }
+                    return json.dumps(log_obj, ensure_ascii=False)
+
                 case _:
                     pass
 

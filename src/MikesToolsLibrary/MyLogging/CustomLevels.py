@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:45:57"
+__updated__ = "2025-12-01 01:17:06"
 ###############################################################################
 
 
@@ -57,6 +57,7 @@ class CustomLevels:
         logging.addLevelName(level_num, level_name.upper())
 
         def log_for_level(self, message:str="", *args,  **kwargs):
+            stacklevel = kwargs.pop("stacklevel", 2)
             if not message and not args:
                 message = CustomLevels.DEFAULT_TEXT_MSG
             if args:
@@ -64,7 +65,7 @@ class CustomLevels:
                 appended = sep.join(str(a) for a in args)
                 message = f"{message}{sep}{appended}"
             # Always clear args so logging doesn’t try to interpolate
-            self._log(level_num, message, (), **kwargs)   #, stacklevel=stacklevel)
+            self._log(level_num, message, (), **kwargs, stacklevel=stacklevel)
 
             
         def log_to_root(message, *args, **kwargs):
