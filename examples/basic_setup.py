@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 23:38:53"
+__updated__ = "2025-12-01 00:04:38"
 ###############################################################################
 
 
@@ -159,8 +159,8 @@ def checkTypesOutput():
 
 
 def checkSMTP():
-    logger.smtp("This is some sort of email!!", "a")
-    logger.smtp("This is some sort of email!!", "a", "b", "c", "d", "e","f")
+    logger.smtp("This is some sort of email!!", "avvvvvv")
+    # logger.smtp("This is some sort of email!!", "a", "b", "c", "d", "e","f")
 
 # -------------------
 # -------------------

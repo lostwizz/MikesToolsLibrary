@@ -8,7 +8,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 23:36:54"
+__updated__ = "2025-11-30 23:56:52"
 ###############################################################################
 
 import sys
@@ -59,6 +59,8 @@ class LoggerSetup:
             # SMTP handler
             mh = self.setupSMTPHandler( name)
             self.logger.addHandler(mh)
+            
+        # logging.setLoggerClass(AppendArgsLogger)
 
     # -----------------------------------------------------------------
     def setupConsoleHandler(self, level) :
