@@ -8,7 +8,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 23:56:52"
+__updated__ = "2025-12-01 00:59:43"
 ###############################################################################
 
 import sys
@@ -19,6 +19,7 @@ from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
 from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
+
 
 ###############################################################################
 ###############################################################################
@@ -47,7 +48,7 @@ class LoggerSetup:
         if not self.logger.handlers:
             ######
             # Console handler
-            ch = self.setupConsoleHandler( level)
+            ch = self.setupConsoleHandler(level)
             self.logger.addHandler(ch)
 
             ######
@@ -57,39 +58,39 @@ class LoggerSetup:
 
             ######
             # SMTP handler
-            mh = self.setupSMTPHandler( name)
+            mh = self.setupSMTPHandler(name)
             self.logger.addHandler(mh)
-            
+
         # logging.setLoggerClass(AppendArgsLogger)
 
     # -----------------------------------------------------------------
-    def setupConsoleHandler(self, level) :
+    def setupConsoleHandler(self, level):
         ch = logging.StreamHandler()
         ch.setLevel(level)
         ch.setFormatter(
-                CustomFormatter(
-                    fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
-                    datefmt="%H:%M:%S",
-                    fmtMode=FormatMode.CONSOLE,
-                )
-            )  
+            CustomFormatter(
+                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                datefmt="%H:%M:%S",
+                fmtMode=FormatMode.CONSOLE,
+            )
+        )
         ch.addFilter(ExcludeLevelFilter(FormatMode.CONSOLE))
         return ch
-    
+
     # -----------------------------------------------------------------
     def setupFileHandler(self, level, logfile):
         fh = logging.FileHandler(logfile, encoding="utf-8")
         fh.setLevel(level)
         fh.setFormatter(
-                CustomFormatter(
-                    fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
-                    datefmt="%Y-%m-%d %H:%M:%S",
-                    fmtMode=FormatMode.FILE,
-                )
-            )  # more detail, timestamps
+            CustomFormatter(
+                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+                fmtMode=FormatMode.FILE,
+            )
+        )  # more detail, timestamps
         fh.addFilter(ExcludeLevelFilter(FormatMode.FILE))
         return fh
-        
+
     # -----------------------------------------------------------------
     def setupSMTPHandler(self, name):
 
@@ -99,9 +100,9 @@ class LoggerSetup:
             toaddrs=["public@merrett.ca"],
             subject="Application Error - " + name,
             credentials=("public@merrett.ca", "2]soaDOv;E;9"),
-            secure=()
-        )     
-        
+            secure=(),
+        )
+
         # mail_handler = SMTPHandler(
         #     mailhost=("localhost", 1025),
         #     fromaddr="test@example.com",
@@ -112,7 +113,7 @@ class LoggerSetup:
         mail_handler.setLevel(999)
 
         return mail_handler
-        
+
     # -----------------------------------------------------------------
     @classmethod
     def add_special_levels(self, logger):
@@ -121,7 +122,9 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def add_level(cls, level_name: str, level_num: int, colorFmt: str = None, specialChar=""):
+    def add_level(
+        cls, level_name: str, level_num: int, colorFmt: str = None, specialChar=""
+    ):
         """
         Add a custom logging level.
         :param level_name: Name of the logging level.
@@ -174,12 +177,12 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def removeLevelExclude(self, level_to_remove:int, mode: FormatMode = None) -> None:
-        ExcludeLevelFilter.removeFilterLevel( level_to_remove, mode)
+    def removeLevelExclude(self, level_to_remove: int, mode: FormatMode = None) -> None:
+        ExcludeLevelFilter.removeFilterLevel(level_to_remove, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def showExcludeLevelFilter(self, mode: FormatMode = None) ->set:
+    def showExcludeLevelFilter(self, mode: FormatMode = None) -> set:
         # print (f"++++{ExcludeLevelFilter.Filters=}")
         # return ExcludeLevelFilter.Filters
         return ExcludeLevelFilter.showFiltersByMode()

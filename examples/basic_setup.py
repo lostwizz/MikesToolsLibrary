@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:30:08"
+__updated__ = "2025-12-01 00:51:34"
 ###############################################################################
 
 
@@ -76,7 +76,23 @@ def displayExcludeLevel():
     # print( ExcludeLevelFilter.Filters)
     print( f"ExcludeLevelFilter {mylog.LoggerSetup.showExcludeLevelFilter() }")
 
+ 
+    logger.mark()
+    mylog.LoggerSetup.addLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
+    mylog.LoggerSetup.addLevelExclude(15, FormatMode.FILE)
+    print( f"ExcludeLevelFilter {mylog.LoggerSetup.showExcludeLevelFilter() }")
 
+    logger.info("the next line is a Notice but will be filtered out in the FILE (but not CONSOLE)  5")
+    logger.notice("This is a NOTICE message AFTER 5 - should NOT show on the FILE (but will NOT CONSOLE) 6 ")
+    mylog.LoggerSetup.removeLevelExclude( logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
+
+    logger.notice("This is a NOTICE mes sage AFTER 6 -  should be back and shown 7")
+    # print( ExcludeLevelFilter.Filters)
+    print( f"ExcludeLevelFilter {mylog.LoggerSetup.showExcludeLevelFilter() }")
+
+    logger.mark()
+
+    
 # -------------------
 def checkLoggerLevel():
     
@@ -183,7 +199,6 @@ checkCustomLevels()
 # showLevelInfo()
 
 
-# displayExcludeLevel()
 
 # checkDecorator()
 
@@ -191,4 +206,5 @@ checkCustomLevels()
 # checkTypesOutput()        
 
 checkMultipleArgs()
-checkSMTP()
+# checkSMTP()
+displayExcludeLevel()

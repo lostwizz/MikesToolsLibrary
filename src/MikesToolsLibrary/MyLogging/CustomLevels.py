@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:25:47"
+__updated__ = "2025-12-01 00:45:57"
 ###############################################################################
 
 
@@ -56,7 +56,9 @@ class CustomLevels:
 
         logging.addLevelName(level_num, level_name.upper())
 
-        def log_for_level(self, message, *args,  **kwargs):
+        def log_for_level(self, message:str="", *args,  **kwargs):
+            if not message and not args:
+                message = CustomLevels.DEFAULT_TEXT_MSG
             if args:
                 sep = "\n"  # or " " depending on preference
                 appended = sep.join(str(a) for a in args)

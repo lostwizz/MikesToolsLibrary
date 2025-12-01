@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:15:39"
+__updated__ = "2025-12-01 00:48:09"
 ###############################################################################
 
 
@@ -62,6 +62,8 @@ class FormatMode(IntFlag):
 ###############################################################################
 ###############################################################################
 class CustomFormatter(logging.Formatter):
+    DEFAULT_TEXT_MSG = "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
+    
     COLORS = {
         logging.DEBUG: "\033[36m",
         logging.INFO: "\033[32m",
@@ -131,6 +133,10 @@ class CustomFormatter(logging.Formatter):
         # elif isinstance(record.msg, Enum):
         elif isinstance(record.msg, Enum):
             record.msg = self._pp(record.msg)
+            
+        # if not record.msg or record.msg == CustomFormatter.DEFAULT_TEXT_MSG:
+        #     if CustomFormatter.MARKER_LOW <= record.levelno <= CustomFormatter.MARKER_HIGH:
+        #         record.msg = f"{record.levelno - 300:1d}{CustomFormatter.DEFAULT_TEXT_MSG}"
 
         # If args exist but message has no placeholders, fold pretty-printed args into the message
         original_args = record.args
@@ -164,9 +170,11 @@ class CustomFormatter(logging.Formatter):
             #     record.args = ()  # always clear args so logging doesn’t try to interpolate
 
 
+
                 
             # Build base message
             msg = super().format(record)
+
 
             # limit the file name to FILENAME_SIZE length
             FILENAME_SIZE = 15
@@ -206,7 +214,8 @@ class CustomFormatter(logging.Formatter):
                 case _:
                     pass
 
-            return f"{special}{color}{msg}{end}{special}"
+            # return f"{special}{color}{msg}{end}{special}"
+            return f"{color}{msg}{end}{special}"
         finally:
             # Restore args to avoid side effects across handlers/formatters
             record.args = original_args
