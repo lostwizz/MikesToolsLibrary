@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:26:55"
+__updated__ = "2025-12-01 00:30:08"
 ###############################################################################
 
 
@@ -161,7 +161,7 @@ def checkTypesOutput():
 # -------------------
 def checkSMTP():
     logger.smtp("This is some sort of email!!")
-    logger.smtp("This is some sort of email!!", "a")
+    logger.smtp("This is some sort of email!!", [1,2,3,4,5,6], {"a":1,"b":2})
 
 # -------------------
 def checkMultipleArgs():
@@ -169,6 +169,8 @@ def checkMultipleArgs():
     logger.info("This is some sort of message with args", "a", "b", "c", "d", "e","f")
     logger.tracea("This is some sort of mmessage with args", "a", "b", "c", "d", "e","f")
     logger.rocket("some message", "and some arg", "and another arg")
+
+    logger.check("check msg", [1,2,3,4,5,6], {"a":1,"b":2})
     logger.warning("bye")
     
 
