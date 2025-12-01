@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 01:08:53"
+__updated__ = "2025-12-01 01:34:42"
 ###############################################################################
 
 
@@ -34,7 +34,7 @@ class FormatMode(IntFlag):
     CONSOLE = 0b0001
     FILE = 0b0000_0000_0010
     JSON = 0b0000_0000_0100
-    EMAIL = 0b0000_0000_1000
+    SMTP = 0b0000_0000_1000
     SYSLOG = 0b0000_0001_0000
     HTTP = 0b0000_0010_0000
     QUEUE = 0b0000_0100_0000
@@ -47,7 +47,7 @@ class FormatMode(IntFlag):
         CONSOLE
         | FILE
         | JSON
-        | EMAIL
+        | SMTP
         | SYSLOG
         | HTTP
         | QUEUE

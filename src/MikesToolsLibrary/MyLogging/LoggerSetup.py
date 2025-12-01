@@ -8,10 +8,11 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 00:59:43"
+__updated__ = "2025-12-01 01:36:17"
 ###############################################################################
 
 import sys
+import json
 import logging
 from logging.handlers import SMTPHandler
 
@@ -61,7 +62,12 @@ class LoggerSetup:
             mh = self.setupSMTPHandler(name)
             self.logger.addHandler(mh)
 
-        # logging.setLoggerClass(AppendArgsLogger)
+            ######
+            # json handler
+            jh = self.setupJSONHandler(level, logfile)
+            self.logger.addHandler(jh)
+            
+                    # logging.setLoggerClass(AppendArgsLogger)
 
     # -----------------------------------------------------------------
     def setupConsoleHandler(self, level):
@@ -92,6 +98,21 @@ class LoggerSetup:
         return fh
 
     # -----------------------------------------------------------------
+    def setupJSONHandler(self, level, logfile):
+        fh = logging.FileHandler("JSON" + logfile, encoding="utf-8")
+        fh.setLevel(level)
+        fh.setFormatter(
+            CustomFormatter(
+                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+                fmtMode=FormatMode.JSON,
+            )
+        )  # more detail, timestamps
+        fh.addFilter(ExcludeLevelFilter(FormatMode.JSON))
+        return fh
+        
+
+    # -----------------------------------------------------------------
     def setupSMTPHandler(self, name):
 
         mail_handler = SMTPHandler(
@@ -110,6 +131,7 @@ class LoggerSetup:
         #     subject="Test Log Email - " + name
         # )
 
+        mail_handler.addFilter(ExcludeLevelFilter(FormatMode.SMTP))
         mail_handler.setLevel(999)
 
         return mail_handler
