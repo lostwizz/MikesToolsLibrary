@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-29 22:10:28"
+__updated__ = "2025-11-30 22:29:04"
 ###############################################################################
 
 
@@ -115,6 +115,8 @@ class CustomLevels:
         # self.theFilename = fileName
 
         self.add("QUERY",    55, "\x1b[1;35;40m")
+
+        self.add("SMTP",  999, "\x1b[00;34;41m", "📤")
 
         self.add("SUCCESS", 91, "\x1b[1;97;42m", "✔ ")
         self.add("FAILURE", 92, "\x1b[00;33;45m", "❗❌ ")
@@ -375,6 +377,8 @@ class CustomLevels:
         logger.query('test of query 55')
 
         logger.notice("This is a NOTICE messageuuuuuuuuuuuuuuuuu❌❌❌❌")
+        logger.smtp( "this is a SMTP message 999")
+
 
         logger.success("test of success 91")
         logger.failure("test of failure 92")
@@ -622,7 +626,7 @@ class CustomLevels:
 ##
 ##
 # -----------------------------------------------------------------
-
+##    00;34;41
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------
 

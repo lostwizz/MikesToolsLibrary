@@ -5,20 +5,20 @@ r"""
 ExcludeLevelFilter.py
 
 
-
-
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 00:43:03"
+__updated__ = "2025-11-30 21:34:42"
 ###############################################################################
 
 import logging
-from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
+# from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 
 
-from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+# from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
+# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+
+from MikesToolsLibrary.MyLogging.CustomFormatter import FormatMode
 
 
 
@@ -51,13 +51,14 @@ class ExcludeLevelFilter(logging.Filter):
     Filters = set()
 
     # -----------------------------------------------------------------
-    def __init__(self, name: str = ""):
-        """
-        Initializes the filter with an empty set of levels to exclude.
-        :param name: Optional name for the filter.
-        """
+    def __init__(self, mode: FormatMode = None, name: str = ""):
+
         super().__init__(name)
-        #######self.Filters = set()
+
+        # Disallow ALL here
+        if mode == FormatMode.ALL:
+            raise ValueError("ExcludeLevelFilter cannot be instantiated with FormatMode.ALL")
+        self.mode = mode
 
     # -----------------------------------------------------------------
     def filter(self, record: logging.LogRecord) -> bool:
@@ -66,23 +67,58 @@ class ExcludeLevelFilter(logging.Filter):
         :param record: The log record to check.
         :return: True if the record should be logged, False otherwise.
         """
-        return record.levelno not in self.Filters
+        if (None, record.levelno) in ExcludeLevelFilter.Filters:
+            return False
+        if self.mode and (self.mode, record.levelno) in ExcludeLevelFilter.Filters:
+            return False
+        if (FormatMode.ALL, record.levelno) in ExcludeLevelFilter.Filters:
+            return False
+        return True
+
+
 
     # -----------------------------------------------------------------
     @classmethod
-    def addFilterLevel(self, level: int) -> None:
+    def showFiltersByMode(cls):
+        """Return a dict of excluded levels grouped by FormatMode."""
+        grouped = {}
+        for mode, level in cls.Filters:
+            grouped.setdefault(mode, []).append(level)
+        return grouped
+    
+    # -----------------------------------------------------------------
+    @classmethod
+    def addFilterLevel(self, level: int, mode: FormatMode = None) -> None:
         """
         Adds a logging level to the exclusion list.
         :param level: The logging level to exclude.
         """
-        self.Filters.add(level)
+        self.Filters.add((mode,level))
 
     # -----------------------------------------------------------------
     @classmethod
-    def removeFilterLevel(self, level: int) -> None:
+    def removeFilterLevel(self, level: int, mode: FormatMode = None) -> None:
         """
         Removes a logging level from the exclusion list.
         :param level: The logging level to include again.
         """
-        self.Filters.discard(level)
+        self.Filters.discard((mode,level))
 
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOffLevelRange(self, start:int, end:int, mode: FormatMode = None) -> None:
+        for i in range(start, end):
+            self.addFilterLevel( i, mode)
+            
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOnLevelRange( self, start:int, end:int, mode: FormatMode = None) -> None:
+        for i in range(start, end):
+            self.removeFilterLevel(i, mode)
+            
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------

@@ -5,34 +5,20 @@ r"""
 LoggerSetup.py
 
 
-
-
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-11-30 00:23:15"
+__updated__ = "2025-11-30 23:36:54"
 ###############################################################################
 
 import sys
 import logging
+from logging.handlers import SMTPHandler
 
 from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
-
-
 from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-
-# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
 from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
-
-
-
-
-# from .CustomFormatter import CustomFormatter
-# from .CustomLevels import CustomLevels
-
-from .ExcludeLevelFilter import ExcludeLevelFilter
-
 
 ###############################################################################
 ###############################################################################
@@ -59,37 +45,72 @@ class LoggerSetup:
 
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
-
-            exclude_filter = ExcludeLevelFilter()
-            
             ######
             # Console handler
-            ch = logging.StreamHandler()
-            ch.setLevel(level)
-            ch.setFormatter(
+            ch = self.setupConsoleHandler( level)
+            self.logger.addHandler(ch)
+
+            ######
+            # File handler
+            fh = self.setupFileHandler(level, logfile)
+            self.logger.addHandler(fh)
+
+            ######
+            # SMTP handler
+            mh = self.setupSMTPHandler( name)
+            self.logger.addHandler(mh)
+
+    # -----------------------------------------------------------------
+    def setupConsoleHandler(self, level) :
+        ch = logging.StreamHandler()
+        ch.setLevel(level)
+        ch.setFormatter(
                 CustomFormatter(
                     fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                     datefmt="%H:%M:%S",
                     fmtMode=FormatMode.CONSOLE,
                 )
-            )  # short, colored
-            ch.addFilter(exclude_filter)
-            self.logger.addHandler(ch)
-
-            ######
-            # File handler
-            fh = logging.FileHandler(logfile, encoding="utf-8")
-            fh.setLevel(level)
-            fh.setFormatter(
+            )  
+        ch.addFilter(ExcludeLevelFilter(FormatMode.CONSOLE))
+        return ch
+    
+    # -----------------------------------------------------------------
+    def setupFileHandler(self, level, logfile):
+        fh = logging.FileHandler(logfile, encoding="utf-8")
+        fh.setLevel(level)
+        fh.setFormatter(
                 CustomFormatter(
                     fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S",
                     fmtMode=FormatMode.FILE,
                 )
             )  # more detail, timestamps
-            fh.addFilter(exclude_filter)
-            self.logger.addHandler(fh)
+        fh.addFilter(ExcludeLevelFilter(FormatMode.FILE))
+        return fh
+        
+    # -----------------------------------------------------------------
+    def setupSMTPHandler(self, name):
 
+        mail_handler = SMTPHandler(
+            mailhost=("mail.merrett.ca", 587),
+            fromaddr="public@merrett.ca",
+            toaddrs=["public@merrett.ca"],
+            subject="Application Error - " + name,
+            credentials=("public@merrett.ca", "2]soaDOv;E;9"),
+            secure=()
+        )     
+        
+        # mail_handler = SMTPHandler(
+        #     mailhost=("localhost", 1025),
+        #     fromaddr="test@example.com",
+        #     toaddrs=["admin@example.com"],
+        #     subject="Test Log Email - " + name
+        # )
+
+        mail_handler.setLevel(999)
+
+        return mail_handler
+        
     # -----------------------------------------------------------------
     @classmethod
     def add_special_levels(self, logger):
@@ -133,25 +154,32 @@ class LoggerSetup:
         return CustomLevels.add(level_name, level_num, method_name)
 
     # -----------------------------------------------------------------
-    def add_filter(self, level_to_exclude: int):
-        """
-        Add a filter to exclude a specific level from console/file output.
-        """
-        for handler in self.logger.handlers:
-            handler.addFilter(ExcludeLevelFilter(level_to_exclude))
+    @classmethod
+    def show_all_levels(self, logger):
+        """Show all defined logging levels."""
+        CustomLevels.show_all_levels(logger)
 
     # -----------------------------------------------------------------
     @classmethod
-    def show_all_levels(self, logger, showColorSampler=True):
-        """Show all defined logging levels."""
-        CustomLevels.show_all_levels(logger)
-        
+    def showColorSampler(self) -> None:
         """show all the possible color combinations"""
-        if showColorSampler:
-            CustomLevels.show_possible_colors()
-
+        CustomLevels.show_possible_colors()
 
     # -----------------------------------------------------------------
+    @classmethod
+    def addLevelExclude(self, level_to_exclude: int, mode: FormatMode = None) -> None:
+        ExcludeLevelFilter.addFilterLevel(level_to_exclude, mode)
+
     # -----------------------------------------------------------------
+    @classmethod
+    def removeLevelExclude(self, level_to_remove:int, mode: FormatMode = None) -> None:
+        ExcludeLevelFilter.removeFilterLevel( level_to_remove, mode)
+
     # -----------------------------------------------------------------
+    @classmethod
+    def showExcludeLevelFilter(self, mode: FormatMode = None) ->set:
+        # print (f"++++{ExcludeLevelFilter.Filters=}")
+        # return ExcludeLevelFilter.Filters
+        return ExcludeLevelFilter.showFiltersByMode()
+
     # -----------------------------------------------------------------
