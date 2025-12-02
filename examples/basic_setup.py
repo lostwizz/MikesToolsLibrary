@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 18:56:29"
+__updated__ = "2025-12-01 19:00:29"
 ###############################################################################
 
 
@@ -25,7 +25,8 @@ sys.path.insert(
 )
 import logging
 
-from MikesToolsLibrary.MyLogging import log_decorator
+# from MikesToolsLibrary.MyLogging import log_decorator
+from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
 # import MikesToolsLibrary.MyLogging as mylog
 # from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
 # from MikesToolsLibrary.MyLogging.log_decorator import log_decorator, log_decoratorPlain
@@ -37,7 +38,7 @@ from MikesToolsLibrary.MyLogging import (
     # LoggerSetup,
     CustomFormatter,
     FormatMode,
-    # log_decorator,
+    log_decorator,
     # log_decoratorPlain,
 )
 from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
@@ -149,7 +150,7 @@ def showLevelInfo():
 
 
 # -------------------
-# @log_decorator
+@log_decorator
 def freddy(a, b, c):
     print(a)
     print(f"{b}")
