@@ -10,7 +10,7 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 19:13:00"
+__updated__ = "2025-12-01 20:29:10"
 ###############################################################################
 
 
@@ -30,7 +30,6 @@ from MikesToolsLibrary.MyLogging import (
 sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
-
 
 
 # -------------------
@@ -65,9 +64,7 @@ def displayExcludeLevel():
     l = logging._nameToLevel.get("NOTICE")
     print(f"level is {l=}")
 
-    LoggerSetup.addLevelExclude(
-        logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE
-    )
+    LoggerSetup.addLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.info(
@@ -85,9 +82,7 @@ def displayExcludeLevel():
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.mark()
-    LoggerSetup.addLevelExclude(
-        logging._nameToLevel.get("NOTICE"), FormatMode.FILE
-    )
+    LoggerSetup.addLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
     # mylog.LoggerSetup.addLevelExclude(15, FormatMode.FILE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
@@ -97,9 +92,7 @@ def displayExcludeLevel():
     logger.notice(
         "This is a NOTICE message AFTER 5 - should NOT show on the FILE (but will NOT CONSOLE) 6 "
     )
-    LoggerSetup.removeLevelExclude(
-        logging._nameToLevel.get("NOTICE"), FormatMode.FILE
-    )
+    LoggerSetup.removeLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
 
     logger.notice("This is a NOTICE mes sage AFTER 6 -  should be back and shown 7")
     # print( ExcludeLevelFilter.Filters)
@@ -223,9 +216,15 @@ def checkMultipleArgs():
 # -------------------
 # -------------------
 
+
 def main():
-    global logger 
-    logger = LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile="MikesToolsLibrary.log").get_logger()
+    global logger
+    logger = LoggerSetup(
+        "MikesToolsLibrary",
+        level=logging.DEBUG,
+        logfile="MikesToolsLibrary.log",
+        modes=FormatMode.CONSOLE | FormatMode.FILE,  # | FormatMode.SMTP,
+    ).get_logger()
 
     checkCustomLevels()
     showLevelInfo()
@@ -234,7 +233,8 @@ def main():
     checkTypesOutput()
     checkMultipleArgs()
     displayExcludeLevel()
-    # checkSMTP()
+    checkSMTP()
+
 
 if __name__ == "__main__":
     main()

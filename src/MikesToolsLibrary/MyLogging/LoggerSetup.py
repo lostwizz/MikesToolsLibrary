@@ -12,7 +12,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 19:06:21"
+__updated__ = "2025-12-01 20:25:29"
 ###############################################################################
 
 import sys
@@ -45,33 +45,32 @@ class LoggerSetup:
         name: str = "MikesToolsLibrary",
         level: int = logging.DEBUG,
         logfile: str = "app.log",
+        modes:FormatMode = FormatMode.CONSOLE | FormatMode.FILE
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
 
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
-            ######
-            # Console handler
-            ch = self.setupConsoleHandler(level)
-            self.logger.addHandler(ch)
 
-            ######
-            # File handler
-            fh = self.setupFileHandler(level, logfile)
-            self.logger.addHandler(fh)
+            handlers = {
+                FormatMode.CONSOLE: lambda: self.setupConsoleHandler(level),
+                FormatMode.FILE:    lambda: self.setupFileHandler(level, logfile),
+                FormatMode.SMTP:    lambda: self.setupSMTPHandler(name),
+                FormatMode.JSON:    lambda: self.setupJSONHandler(level, logfile),
+                FormatMode.MEMORY:  lambda: None,
+                FormatMode.SYSLOG:  lambda: None,
+                FormatMode.HTTP:  lambda: None,
+                FormatMode.QUEUE:  lambda: None,
+                FormatMode.DATABASE:  lambda: None,
+                FormatMode.CLOUD:  lambda: None,
+                FormatMode.EXTERNAL:  lambda: None,
+            }
 
-            ######
-            # SMTP handler
-            # mh = self.setupSMTPHandler(name)
-            # self.logger.addHandler(mh)
+            for mode, setup in handlers.items():
+                if modes & mode:
+                    self.logger.addHandler(setup())
 
-            ######
-            # json handler
-            jh = self.setupJSONHandler(level, logfile)
-            self.logger.addHandler(jh)
-            
-                    # logging.setLoggerClass(AppendArgsLogger)
 
     # -----------------------------------------------------------------
     def get_logger(self):
@@ -119,7 +118,7 @@ class LoggerSetup:
         )  # more detail, timestamps
         fh.addFilter(ExcludeLevelFilter(FormatMode.JSON))
         return fh
-        
+
 
     # -----------------------------------------------------------------
     def setupSMTPHandler(self, name):
@@ -144,6 +143,18 @@ class LoggerSetup:
         mail_handler.setLevel(999)
 
         return mail_handler
+
+    # -----------------------------------------------------------------
+    @staticmethod
+    def reset_state():
+        # Clear custom filters
+        ExcludeLevelFilter.Filters.clear()
+        # Remove custom levels
+        for level_name in list(logging._nameToLevel.keys()):
+            if level_name not in logging._levelToName.values():
+                logging._nameToLevel.pop(level_name, None)
+        # Clear loggerDict
+        logging.Logger.manager.loggerDict.clear()
 
     # -----------------------------------------------------------------
     @classmethod
