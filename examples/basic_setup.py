@@ -10,50 +10,26 @@ basic_setup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 19:00:29"
+__updated__ = "2025-12-01 19:13:00"
 ###############################################################################
 
 
 import sys
 import os
+import logging
 
+from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
+from MikesToolsLibrary.MyLogging import (
+    FormatMode,
+    log_decorator,
+    log_decoratorPlain,
+)
 
-# from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
 
 sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
-import logging
-
-# from MikesToolsLibrary.MyLogging import log_decorator
-from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
-# import MikesToolsLibrary.MyLogging as mylog
-# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
-# from MikesToolsLibrary.MyLogging.log_decorator import log_decorator, log_decoratorPlain
-
-# from MikesToolsLibrary.MyLogging import CustomFormatter
-
-# from MikesToolsLibrary.MyLogging import CustomFormatter, FormatMode, log_decorator
-from MikesToolsLibrary.MyLogging import (
-    # LoggerSetup,
-    CustomFormatter,
-    FormatMode,
-    log_decorator,
-    # log_decoratorPlain,
-)
-from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
-
-
-
-# import pprint
-
-
-# Initialize unified logger
-# logger = mylog.LoggerSetup(
-#     "MikesToolsLibrary", level=logging.DEBUG, logfile=f"MikesToolsLibrary.log"
-# ).get_logger()
-
-logger = LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile="MikesToolsLibrary.log").get_logger()
 
 
 
@@ -248,6 +224,9 @@ def checkMultipleArgs():
 # -------------------
 
 def main():
+    global logger 
+    logger = LoggerSetup("MikesToolsLibrary", level=logging.DEBUG, logfile="MikesToolsLibrary.log").get_logger()
+
     checkCustomLevels()
     showLevelInfo()
     checkDecorator()

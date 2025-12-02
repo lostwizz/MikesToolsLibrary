@@ -5,10 +5,14 @@ r"""
 LoggerSetup.py
 
 
+to use this -- add it to the path
+set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
+
+
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 18:52:05"
+__updated__ = "2025-12-01 19:06:21"
 ###############################################################################
 
 import sys
@@ -64,8 +68,8 @@ class LoggerSetup:
 
             ######
             # json handler
-            # jh = self.setupJSONHandler(level, logfile)
-            # self.logger.addHandler(jh)
+            jh = self.setupJSONHandler(level, logfile)
+            self.logger.addHandler(jh)
             
                     # logging.setLoggerClass(AppendArgsLogger)
 
