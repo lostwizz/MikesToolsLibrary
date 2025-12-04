@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-03 21:40:08"
+__updated__ = "2025-12-03 21:44:06"
 ###############################################################################
 
 
@@ -18,9 +18,9 @@ import sys
 import os
 import logging
 
-from MikesToolsLibrary.MyLogging.LoggerSetup import LoggerSetup
-from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MyLogging import (
+from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
+from MikesToolsLibrary.MikesLogging import (
     FormatMode,
     log_decorator,
     log_decoratorPlain,
@@ -233,7 +233,7 @@ def main():
     checkTypesOutput()
     checkMultipleArgs()
     displayExcludeLevel()
-    checkSMTP()
+    # checkSMTP()
 
 
 if __name__ == "__main__":

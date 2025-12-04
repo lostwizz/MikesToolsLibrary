@@ -18,7 +18,7 @@ import logging
 # from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 # from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
-from MikesToolsLibrary.MyLogging.CustomFormatter import FormatMode
+from MikesToolsLibrary.MikesLogging.CustomFormatter import FormatMode
 
 
 

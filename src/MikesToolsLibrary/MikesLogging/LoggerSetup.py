@@ -20,10 +20,10 @@ import json
 import logging
 from logging.handlers import SMTPHandler
 
-from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter, FormatMode
-from MikesToolsLibrary.MyLogging.ExcludeLevelFilter import ExcludeLevelFilter
+from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
+from MikesToolsLibrary.MikesLogging.CustomLevels import CustomLevels
+from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter, FormatMode
+from MikesToolsLibrary.MikesLogging.ExcludeLevelFilter import ExcludeLevelFilter
 
 
 ###############################################################################

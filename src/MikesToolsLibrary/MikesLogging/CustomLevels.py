@@ -16,10 +16,10 @@ __updated__ = "2025-12-01 18:42:49"
 
 import logging
 from logging import Logger
-from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
+from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
 
 
-from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
+from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
 
 ###############################################################################
 ###############################################################################

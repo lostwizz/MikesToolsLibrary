@@ -27,7 +27,7 @@ __updated__ = "2025-12-01 18:49:40"
 # from .log_decorator import log_decorator
 
 
-from .MyLogging import CustomFormatter, FormatMode
+from .MikesLogging import CustomFormatter, FormatMode
 
 
 __all__ = ["CustomFormatter", "FormatMode"]
