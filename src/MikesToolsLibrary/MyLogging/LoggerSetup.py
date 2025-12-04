@@ -12,7 +12,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 20:25:29"
+__updated__ = "2025-12-01 20:31:41"
 ###############################################################################
 
 import sys
@@ -45,7 +45,7 @@ class LoggerSetup:
         name: str = "MikesToolsLibrary",
         level: int = logging.DEBUG,
         logfile: str = "app.log",
-        modes:FormatMode = FormatMode.CONSOLE | FormatMode.FILE
+        modes: FormatMode = FormatMode.CONSOLE | FormatMode.FILE,
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
@@ -55,27 +55,25 @@ class LoggerSetup:
 
             handlers = {
                 FormatMode.CONSOLE: lambda: self.setupConsoleHandler(level),
-                FormatMode.FILE:    lambda: self.setupFileHandler(level, logfile),
-                FormatMode.SMTP:    lambda: self.setupSMTPHandler(name),
-                FormatMode.JSON:    lambda: self.setupJSONHandler(level, logfile),
-                FormatMode.MEMORY:  lambda: None,
-                FormatMode.SYSLOG:  lambda: None,
-                FormatMode.HTTP:  lambda: None,
-                FormatMode.QUEUE:  lambda: None,
-                FormatMode.DATABASE:  lambda: None,
-                FormatMode.CLOUD:  lambda: None,
-                FormatMode.EXTERNAL:  lambda: None,
+                FormatMode.FILE: lambda: self.setupFileHandler(level, logfile),
+                FormatMode.SMTP: lambda: self.setupSMTPHandler(name),
+                FormatMode.JSON: lambda: self.setupJSONHandler(level, logfile),
+                FormatMode.MEMORY: lambda: None,
+                FormatMode.SYSLOG: lambda: None,
+                FormatMode.HTTP: lambda: None,
+                FormatMode.QUEUE: lambda: None,
+                FormatMode.DATABASE: lambda: None,
+                FormatMode.CLOUD: lambda: None,
+                FormatMode.EXTERNAL: lambda: None,
             }
 
             for mode, setup in handlers.items():
                 if modes & mode:
                     self.logger.addHandler(setup())
 
-
     # -----------------------------------------------------------------
     def get_logger(self):
         return self.logger
-
 
     # -----------------------------------------------------------------
     def setupConsoleHandler(self, level):
@@ -118,7 +116,6 @@ class LoggerSetup:
         )  # more detail, timestamps
         fh.addFilter(ExcludeLevelFilter(FormatMode.JSON))
         return fh
-
 
     # -----------------------------------------------------------------
     def setupSMTPHandler(self, name):
