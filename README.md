@@ -26,7 +26,7 @@ git clone https://github.com/lostwizz/MikesToolsLibrary.git
 cd MikesToolsLibrary
 pip install -e .
 
-# Useage Examples
+## Useage Examples
 from mikestoolslibrary import logger
 
 logger.trace("Tracing execution flow...")
