@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-07 19:51:38"
+__updated__ = "2025-12-08 00:46:09"
 ###############################################################################
 
 
@@ -64,7 +64,7 @@ def displayExcludeLevel():
     l = logging._nameToLevel.get("NOTICE")
     print(f"level is {l=}")
 
-    LoggerSetup.addLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE)
+    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.info(
@@ -73,7 +73,7 @@ def displayExcludeLevel():
     logger.notice(
         "This is a NOTICE message AFTER 2 - should NOT show on the CONSOLE (but will in the log)"
     )
-    LoggerSetup.removeLevelExclude(
+    LoggerSetup.turnOnLevel(
         logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE
     )
 
@@ -82,7 +82,7 @@ def displayExcludeLevel():
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.mark()
-    LoggerSetup.addLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
+    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
     # mylog.LoggerSetup.addLevelExclude(15, FormatMode.FILE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
@@ -92,11 +92,30 @@ def displayExcludeLevel():
     logger.notice(
         "This is a NOTICE message AFTER 5 - should NOT show on the FILE (but will NOT CONSOLE) 6 "
     )
-    LoggerSetup.removeLevelExclude(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
+    LoggerSetup.turnOnLevel(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
 
     logger.notice("This is a NOTICE mes sage AFTER 6 -  should be back and shown 7")
     # print( ExcludeLevelFilter.Filters)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
+
+    LoggerSetup.turnOffLevel(15, FormatMode.ALL)
+    print(f"ExcludeLevelFilter A{LoggerSetup.showExcludeLevelFilter() }")
+    LoggerSetup.turnOnLevel(15, FormatMode.CONSOLE)
+    print(f"ExcludeLevelFilter B{LoggerSetup.showExcludeLevelFilter() }")
+    LoggerSetup.turnOnLevel(15, FormatMode.FILE)
+    print(f"ExcludeLevelFilter C{LoggerSetup.showExcludeLevelFilter() }")
+
+    LoggerSetup.turnOffLevel(55, FormatMode.FILE)
+    print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
+    LoggerSetup.turnOnLevel(55, FormatMode.ALL)
+    print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
+
+    LoggerSetup.turnOnLevel(15, FormatMode.ALL)
+    print(f"ExcludeLevelFilter Y{LoggerSetup.showExcludeLevelFilter() }")
+
+
+    LoggerSetup.turnOnLevel(65 )
+    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter( ) }")
 
     logger.mark()
 
@@ -236,7 +255,7 @@ def main():
     displayExcludeLevel()
     # checkSMTP()
 
-    
+
 
 
 if __name__ == "__main__":

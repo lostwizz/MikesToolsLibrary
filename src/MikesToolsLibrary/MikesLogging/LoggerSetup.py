@@ -12,7 +12,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 20:31:41"
+__updated__ = "2025-12-08 00:32:30"
 ###############################################################################
 
 import sys
@@ -58,13 +58,13 @@ class LoggerSetup:
                 FormatMode.FILE: lambda: self.setupFileHandler(level, logfile),
                 FormatMode.SMTP: lambda: self.setupSMTPHandler(name),
                 FormatMode.JSON: lambda: self.setupJSONHandler(level, logfile),
-                FormatMode.MEMORY: lambda: None,
-                FormatMode.SYSLOG: lambda: None,
-                FormatMode.HTTP: lambda: None,
-                FormatMode.QUEUE: lambda: None,
-                FormatMode.DATABASE: lambda: None,
-                FormatMode.CLOUD: lambda: None,
-                FormatMode.EXTERNAL: lambda: None,
+                # FormatMode.MEMORY: lambda: None,
+                # FormatMode.SYSLOG: lambda: None,
+                # FormatMode.HTTP: lambda: None,
+                # FormatMode.QUEUE: lambda: None,
+                # FormatMode.DATABASE: lambda: None,
+                # FormatMode.CLOUD: lambda: None,
+                # FormatMode.EXTERNAL: lambda: None,
             }
 
             for mode, setup in handlers.items():
@@ -211,19 +211,116 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def addLevelExclude(self, level_to_exclude: int, mode: FormatMode = None) -> None:
-        ExcludeLevelFilter.addFilterLevel(level_to_exclude, mode)
+    # def addLevelExclude(self, level_to_exclude: int, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOffLevel(self, level_to_exclude: int, mode: FormatMode = FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevel(level_to_exclude, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def removeLevelExclude(self, level_to_remove: int, mode: FormatMode = None) -> None:
-        ExcludeLevelFilter.removeFilterLevel(level_to_remove, mode)
+    #def removeLevelExclude(self, level_to_remove: int, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOnLevel(self, level_to_remove: int, mode: FormatMode = FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevel(level_to_remove, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def showExcludeLevelFilter(self, mode: FormatMode = None) -> set:
+    def showExcludeLevelFilter(self, mode: FormatMode = FormatMode.ALL) -> set:
         # print (f"++++{ExcludeLevelFilter.Filters=}")
         # return ExcludeLevelFilter.Filters
-        return ExcludeLevelFilter.showFiltersByMode()
+        return ExcludeLevelFilter.showFiltersByMode(mode)
 
     # -----------------------------------------------------------------
+    @classmethod
+    def turnOffRange( self, start:int, end:int, mode:FormatMode = FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( start, end, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOnLevelRange( self, start:int, end:int, mode: FormatMode = FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange(start, end, mode )
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOffNonStandardLevels(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 11, 19, mode)
+        ExcludeLevelFilter.turnOffLevelRange( 21, 29, mode)
+        ExcludeLevelFilter.turnOffLevelRange( 31, 39, mode)
+        ExcludeLevelFilter.turnOffLevelRange( 41, 49, mode)
+        ExcludeLevelFilter.turnOffLevelRange( 51, 59, mode)
+        ExcludeLevelFilter.turnOffLevelRange( 60, 1000, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOnNonStandardLevels(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 11, 19, mode)
+        ExcludeLevelFilter.turnOnLevelRange( 21, 29, mode)
+        ExcludeLevelFilter.turnOnLevelRange( 31, 39, mode)
+        ExcludeLevelFilter.turnOnLevelRange( 41, 49, mode)
+        ExcludeLevelFilter.turnOnLevelRange( 51, 59, mode)
+        ExcludeLevelFilter.turnOnLevelRange( 60, 1000, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOn200s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 200, 299, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOff200s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 200, 299, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOn300s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 300, 399, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOff300s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 300, 399, mode)
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOn400s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 400, 499, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOff400s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 400, 499, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOn500s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 500, 599, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOff500s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 500, 599, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOn600s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 600, 699, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOff600s(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 600, 699, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOnDATA(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOnLevelRange( 700, 799, mode)
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def turnOffDATA(self, mode: FormatMode= FormatMode.ALL) -> None:
+        ExcludeLevelFilter.turnOffLevelRange( 700, 799, mode)
+
+
+    # -----------------------------------------------------------------
+    # -----------------------------------------------------------------
+
+    # @classmethod
+    # def turnOffTrace(mode: FormatMode = None) -> set:
+

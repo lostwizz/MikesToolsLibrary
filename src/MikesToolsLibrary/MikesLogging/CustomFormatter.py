@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 01:34:42"
+__updated__ = "2025-12-08 00:31:48"
 ###############################################################################
 
 
@@ -18,7 +18,8 @@ import logging
 import pprint
 from pprint import pformat
 import json
-from enum import Enum, IntFlag
+from enum import Enum, IntFlag, unique, auto
+
 import traceback
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
 
@@ -30,40 +31,43 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 ###############################################################################
 ###############################################################################
+@unique
 class FormatMode(IntFlag):
-    CONSOLE = 0b0001
+    CONSOLE = 0b0000_0000_0001
     FILE = 0b0000_0000_0010
     JSON = 0b0000_0000_0100
     SMTP = 0b0000_0000_1000
-    SYSLOG = 0b0000_0001_0000
-    HTTP = 0b0000_0010_0000
-    QUEUE = 0b0000_0100_0000
-    MEMORY = 0b0000_1000_0000
-    DATABASE = 0b0001_0000_0000
-    CLOUD = 0b0010_0000_0000
-    EXTERNAL = 0b0100_0000_0000
+    # SYSLOG = 0b0000_0001_0000
+    # HTTP = 0b0000_0010_0000
+    # QUEUE = 0b0000_0100_0000
+    # MEMORY = 0b0000_1000_0000
+    # DATABASE = 0b0001_0000_0000
+    # CLOUD = 0b0010_0000_0000
+    # EXTERNAL = 0b0100_0000_0000
 
     ALL = (
         CONSOLE
         | FILE
         | JSON
         | SMTP
-        | SYSLOG
-        | HTTP
-        | QUEUE
-        | MEMORY
-        | DATABASE
-        | CLOUD
-        | EXTERNAL
-    )
+        # | SYSLOG
+        # | HTTP
+        # | QUEUE
+        # | MEMORY
+        # | DATABASE
+        # | CLOUD
+        # | EXTERNAL
+        )
 
-
+    # -----------------------------------------------------------------
+    def __str__(self):
+        return f'FormatMode: {format(self.value)}'
 
 ###############################################################################
 ###############################################################################
 class CustomFormatter(logging.Formatter):
     DEFAULT_TEXT_MSG = "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
-    
+
     COLORS = {
         logging.DEBUG: "\033[36m",
         logging.INFO: "\033[32m",
@@ -133,7 +137,7 @@ class CustomFormatter(logging.Formatter):
         # elif isinstance(record.msg, Enum):
         elif isinstance(record.msg, Enum):
             record.msg = self._pp(record.msg)
-            
+
         # if not record.msg or record.msg == CustomFormatter.DEFAULT_TEXT_MSG:
         #     if CustomFormatter.MARKER_LOW <= record.levelno <= CustomFormatter.MARKER_HIGH:
         #         record.msg = f"{record.levelno - 300:1d}{CustomFormatter.DEFAULT_TEXT_MSG}"
@@ -144,9 +148,9 @@ class CustomFormatter(logging.Formatter):
             if (
                 original_args
                 and isinstance(record.msg, str)
-                #and not self._has_placeholders(record.msg)
+                # and not self._has_placeholders(record.msg)
             ):
-                
+
                 # print ( f"{original_args=}")
                 if len(original_args) == 1:
                     appended = self._pp(original_args[0])
@@ -159,22 +163,17 @@ class CustomFormatter(logging.Formatter):
                     record.msg = f"{record.msg}{sep}{appended}"
                     record.args = ()  # prevent logging from doing msg % args
 
-
                 # record.msg = f"{record.msg} {appended}"
                 # record.args = ()  # prevent logging from doing msg % args
-                
+
             # if original_args and isinstance(record.msg, str):
             #     sep = "\n"  # or " " depending on your preference
             #     appended = sep.join(str(self._pp(a)) for a in original_args)
             #     record.msg = f"{record.msg}{sep}{appended}"
             #     record.args = ()  # always clear args so logging doesn’t try to interpolate
 
-
-
-                
             # Build base message
             msg = super().format(record)
-
 
             # limit the file name to FILENAME_SIZE length
             FILENAME_SIZE = 15
@@ -208,9 +207,9 @@ class CustomFormatter(logging.Formatter):
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = self.RESET
                 case FormatMode.SMTP:
-                    color =""
-                    end=""
-                    special=""
+                    color = ""
+                    end = ""
+                    special = ""
                 case FormatMode.JSON:
                     log_obj = {
                         "time": self.formatTime(record, self.datefmt),

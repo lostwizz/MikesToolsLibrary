@@ -10,4 +10,4 @@ python ./examples/loggerExample.py
 
 python ./examples/versionExample.py
 
-python ./src/MikesToolsLibrary/MikesVersionModifier/version_utils.py
+python ./version_utils.py

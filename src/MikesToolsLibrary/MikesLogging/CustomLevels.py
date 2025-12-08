@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 18:42:49"
+__updated__ = "2025-12-07 23:40:07"
 ###############################################################################
 
 
@@ -59,7 +59,7 @@ class CustomLevels:
             # Always clear args so logging doesn’t try to interpolate
             self._log(level_num, message, (), **kwargs, stacklevel=stacklevel)
 
-            
+
         def log_to_root(message, *args, **kwargs):
             logging.log(level_num, message, *args, **kwargs)
 
@@ -129,7 +129,7 @@ class CustomLevels:
 
         self.add("SUCCESS", 91, "\x1b[1;97;42m", "✔ ")
         self.add("FAILURE", 92, "\x1b[00;33;45m", "❗❌ ")
-        
+
         self.add( "TRACE", 100, "\x1b[00;97;45m")
         self.add("TRACEA", 101, "\x1b[1;32;104m")
         self.add("TRACEB", 102, "\x1b[1;37;43m" )
@@ -227,6 +227,7 @@ class CustomLevels:
         self.add("telescope",      614, "\x1b[00;91;103m","🔭")
         self.add("fastforward",    615, "\x1b[00;91;103m","⏩")
         self.add("fastforward2",    616, "\x1b[00;91;103m","⏩    ✓")
+        self.add("fingerright",     617,  "\x1b[00;91;103m" ,"👉")
 
         self.add("appbegin",      700, "\x1b[00;96;107m")
         self.add("append",        701, "\x1b[00;96;107m")
@@ -325,7 +326,7 @@ class CustomLevels:
         self.add("data9info",     797, "\x1b[00;96;107m")
         self.add("data9flds",      798, "\x1b[00;96;107m")
 
-        
+
         """
         ⚠️ Status & Severity
         • 	ℹ (U+2139) — Information symbol
@@ -391,7 +392,7 @@ class CustomLevels:
 
         logger.success("test of success 91")
         logger.failure("test of failure 92")
-        
+
         logger.trace( 'test of trace 100')
         logger.tracea('test of trace 101')
         logger.traceb('test of trace 102')
@@ -493,6 +494,7 @@ class CustomLevels:
         logger.fastforward      ("test of telescope     615")
 
         logger.fastforward2      ("test of telescope     616")
+        logger.fingerright( "test of finger pointing right 617")
 
         logger.appbegin       ('test of appbegin    700' )
         logger.append         ('test of append      701'   )
@@ -589,7 +591,7 @@ class CustomLevels:
         #     print(f"Level {level_num}: Color: {repr(color)}")
         # attribs ={ '00': 'Normal', '01':'Bold', '04':'Underlined', '05':'Blinking', '07':'Reversed', '08':'Concealed'}
         attribs ={ '00': 'Normal', '01':'Bold'}
-        
+
         foreground = {'30':'black' , '31':'red','32':'green', '33':'orange', '34':'blue', '35':'purple', '36':'cyan', '37':'grey',
             '90':'dark grey','91':'light red','92':'light green', '93':'yellow', '94':'light blue', '95':'light purple',
             '96':'turquoise', '97':'bright white'}
@@ -598,13 +600,13 @@ class CustomLevels:
             '106':'turquoise', '107':'bright white'}
 
         """ shows all the different combinations of attributes, foreground colors, and background colors """
-    
+
         for b,bv in background.items():
             for f, fv in foreground.items():
                 for a,av in attribs.items():
                     print (f"\x1b[0m  \033[{a};{f};{b}m ...A...{fv} on {bv} background with atrrib {av}      AaBbQrStUvWxYz--xxx++>\\x1b[{a};{f};{b}m<++ \033[0m ")
 
-# -----------------------------------------------------------------"\x1b[1;31;44m", 
+# -----------------------------------------------------------------"\x1b[1;31;44m",
 
 # =================================================================
 ## from https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
