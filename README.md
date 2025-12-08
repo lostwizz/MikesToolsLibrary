@@ -25,12 +25,14 @@ pip install MikesToolsLibrary
 git clone https://github.com/lostwizz/MikesToolsLibrary.git
 cd MikesToolsLibrary
 pip install -e .
+
 ---
+
 ## Useage Examples
 from mikestoolslibrary import logger
 
-logger.trace("Tracing execution flow...")
-logger.data("Logging structured data")
-logger.success("Operation completed successfully!")
-logger.config("Configuration loaded")
-logger.security("Security check passed")
+- logger.trace("Tracing execution flow...")
+- logger.data("Logging structured data")
+- logger.success("Operation completed successfully!")
+- logger.config("Configuration loaded")
+- logger.security("Security check passed")
