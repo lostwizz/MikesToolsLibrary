@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-07 23:40:07"
+__updated__ = "2025-12-08 00:59:43"
 ###############################################################################
 
 
@@ -123,7 +123,7 @@ class CustomLevels:
         self.theLogger = logger
         # self.theFilename = fileName
 
-        self.add("QUERY",    55, "\x1b[1;35;40m")
+        self.add("QUERY",    55, "\x1b[1;33;40m")
 
         self.add("SMTP",  999, "\x1b[00;34;41m", "📤")
 
@@ -228,6 +228,9 @@ class CustomLevels:
         self.add("fastforward",    615, "\x1b[00;91;103m","⏩")
         self.add("fastforward2",    616, "\x1b[00;91;103m","⏩    ✓")
         self.add("fingerright",     617,  "\x1b[00;91;103m" ,"👉")
+        self.add("fingerleft",     618,  "\x1b[00;91;103m" ,"👈")
+        self.add("thumbsup",     619,  "\x1b[00;91;103m" ,"👍")
+
 
         self.add("appbegin",      700, "\x1b[00;96;107m")
         self.add("append",        701, "\x1b[00;96;107m")
@@ -495,6 +498,8 @@ class CustomLevels:
 
         logger.fastforward2      ("test of telescope     616")
         logger.fingerright( "test of finger pointing right 617")
+        logger.fingerleft( "test of finger pointing left 618")
+        logger.thumbsup( "test of thumbs up 619")
 
         logger.appbegin       ('test of appbegin    700' )
         logger.append         ('test of append      701'   )

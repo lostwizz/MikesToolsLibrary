@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 00:46:09"
+__updated__ = "2025-12-08 00:58:47"
 ###############################################################################
 
 
@@ -97,25 +97,40 @@ def displayExcludeLevel():
     logger.notice("This is a NOTICE mes sage AFTER 6 -  should be back and shown 7")
     # print( ExcludeLevelFilter.Filters)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
+    logger.notice("some notice")
 
     LoggerSetup.turnOffLevel(15, FormatMode.ALL)
+    logger.notice(" some other notice")
     print(f"ExcludeLevelFilter A{LoggerSetup.showExcludeLevelFilter() }")
+    logger.notice(" some other notice")
+
     LoggerSetup.turnOnLevel(15, FormatMode.CONSOLE)
     print(f"ExcludeLevelFilter B{LoggerSetup.showExcludeLevelFilter() }")
     LoggerSetup.turnOnLevel(15, FormatMode.FILE)
     print(f"ExcludeLevelFilter C{LoggerSetup.showExcludeLevelFilter() }")
 
+    logger.query("some query")
     LoggerSetup.turnOffLevel(55, FormatMode.FILE)
+    logger.query("some query")
     print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
+    logger.query("some query")
+
     LoggerSetup.turnOnLevel(55, FormatMode.ALL)
+    logger.query("some query")
     print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
 
     LoggerSetup.turnOnLevel(15, FormatMode.ALL)
     print(f"ExcludeLevelFilter Y{LoggerSetup.showExcludeLevelFilter() }")
 
 
+    LoggerSetup.turnOffLevel(65 )
+    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter( ) }")
+    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter(3 ) }")
+    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter(FormatMode.CONSOLE | FormatMode.FILE ) }")
     LoggerSetup.turnOnLevel(65 )
     print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter( ) }")
+    logger.query("some query")
+    logger.notice(" some notice")
 
     logger.mark()
 
