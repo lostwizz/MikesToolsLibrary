@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-03 21:44:06"
+__updated__ = "2025-12-07 19:51:38"
 ###############################################################################
 
 
@@ -190,6 +190,7 @@ def checkTypesOutput():
         # logger.error("Something failed", exc_info=False)
         logger.error("Something failed", exc_info=True)
         # logger.error("Something failed")
+        logger.exception("Something Failed again")
 
 
 # -------------------
@@ -209,7 +210,7 @@ def checkMultipleArgs():
 
     logger.check("check msg", [1, 2, 3, 4, 5, 6], {"a": 1, "b": 2})
     logger.warning("bye")
-
+    logger.blue("a message", extra={"user_id": "123", "ip": "192.168.1.1"})
 
 # -------------------
 # -------------------
@@ -234,6 +235,8 @@ def main():
     checkMultipleArgs()
     displayExcludeLevel()
     # checkSMTP()
+
+    
 
 
 if __name__ == "__main__":
