@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# VS Code settings
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python config files
+config.ini
+
+# Test, coverage, and build artifacts
+*.coverage
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+logs/copyOverflow.log
+.history/
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+*
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+# Ignore specific files

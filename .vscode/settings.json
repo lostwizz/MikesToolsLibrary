@@ -1,0 +1,133 @@
+{
+    "python.analysis.typeCheckingMode": "off",
+    "python.condaPath": "C:\\ProgramData\\miniconda3\\Scripts\\conda.exe",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.terminal.activateEnvironment": true,
+    "python.useEnvironmentsExtension": true,
+    "python.defaultInterpreterPath": "C:\\Users\\lost_\\AppData\\Local\\ESRI\\conda\\envs\\venv\\python.exe",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text-and-comment",
+        "foreground": "#000000",
+        "background": "#FFA500",
+        "opacity": 50,
+        "iconColour": "#0000FF",
+        "gutterIcon": true
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check",
+            "foreground": "#000000",
+            "background": "#FFFFFF",
+            "iconColour": "#FFFFFF"
+        },
+        "NOTE": {
+            "icon": "note",
+            "foreground": "#FFFFFF",
+            "background": "#6495ED",
+            "iconColour": "#6495ED"
+        },
+        "USEFULL": {
+            "icon": "note",
+            "foreground": "#000000",
+            "background": "#66CDAA",
+            "iconColour": "#66CDAA"
+        },
+        "LEARN": {
+            "icon": "bookmark",
+            "foreground": "#FFFFFF",
+            "background": "#FF69B4",
+            "iconColour": "#FF69B4"
+        },
+        "COMMENT": {
+            "icon": "note",
+            "foreground": "#FFFFFF",
+            "background": "#808080",
+            "iconColour": "#808080"
+        },
+        "RECHECK": {
+            "icon": "codescan",
+            "foreground": "#FFFFFF",
+            "background": "#D2691E",
+            "iconColour": "#D2691E"
+        },
+        "INCOMPLETE": {
+            "icon": "alert",
+            "foreground": "#FFFFFF",
+            "background": "#C71585",
+            "iconColour": "#C71585"
+        },
+        "FIXME": {
+            "foreground": "#000000",
+            "background": "#FFFF00",
+            "iconColour": "#FFFF00"
+        },
+        "BUG": {
+            "foreground": "#000000",
+            "background": "#FF0000",
+            "iconColour": "#FF0000"
+        },
+        "SEE NOTES": {
+            "icon": "note",
+            "foreground": "#FFFFFF",
+            "background": "#008080",
+            "iconColour": "#008080"
+        },
+        "POST": {
+            "icon": "share",
+            "foreground": "#FFFFFF",
+            "background": "#008000",
+            "iconColour": "#008000"
+        },
+        "HACK": {
+            "foreground": "#000000",
+            "background": "#00FFFF",
+            "iconColour": "#FFFF00"
+        },
+        "[ ]": {
+            "icon": "check",
+            "foreground": "#000000",
+            "background": "#FFFFFF",
+            "iconColour": "#FFFF00"
+        },
+        "[x]": {
+            "icon": "check",
+            "foreground": "#FFFFFF",
+            "background": "#008000",
+            "iconColour": "#008000"
+        }
+    },
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "NOTE",
+        "USEFULL",
+        "LEARN",
+        "RECHECK",
+        "INCOMPLETE",
+        "COMMENT",
+        "SEE NOTES",
+        "POST",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [],
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./src",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "cSpell.words": [
+        "Merrett"
+    ],
+}

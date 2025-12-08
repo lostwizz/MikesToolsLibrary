@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MikesToolsLibrary"
+version = "0.1.0"
+description = "A collection of tools by Mike"
+authors = [{ name="Mike Merrett", email="public@merrett.ca  " }]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
