@@ -25,7 +25,7 @@ pip install MikesToolsLibrary
 git clone https://github.com/lostwizz/MikesToolsLibrary.git
 cd MikesToolsLibrary
 pip install -e .
-
+---
 ## Useage Examples
 from mikestoolslibrary import logger
 
