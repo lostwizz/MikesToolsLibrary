@@ -1,4 +1,8 @@
-	<h3> Packaging MikesToolsLibrary </h3>
+# Packaging MikesToolsLibrary
+
+
+## some dependancies
+
 	pip install -e .
 
 	pip install hatch
