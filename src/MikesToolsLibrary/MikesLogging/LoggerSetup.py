@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 23:16:54"
+__updated__ = "2025-12-08 23:45:48"
 ###############################################################################
 
 import sys
@@ -81,6 +81,9 @@ class LoggerSetup:
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
+        self.handlers_by_mode = {}
+
+
 
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
@@ -91,7 +94,7 @@ class LoggerSetup:
                 FormatMode.SMTP: lambda: self.setupSMTPHandler(name),
                 FormatMode.JSON: lambda: self.setupJSONHandler(level, logfile),
                 FormatMode.ROTATINGFN: lambda: self.setupRotationFileHandler(
-                    level, logfile, maxBytes, backupCount
+                    level, logfile=logfile, maxBytes=maxBytes, backupCount=backupCount
                 ),
                 FormatMode.TIMEDROTATOR: lambda: self.setupTimedRotationFileHandler(
                     level,
@@ -111,7 +114,9 @@ class LoggerSetup:
 
             for mode, setup in handlers.items():
                 if modes & mode:
-                    self.logger.addHandler(setup())
+                    handler = setup()
+                    self.logger.addHandler(handler)
+                    self.handlers_by_mode[mode] = handler
 
     # -----------------------------------------------------------------
     def get_logger(self):
@@ -227,6 +232,11 @@ class LoggerSetup:
         return fh
 
     # -----------------------------------------------------------------
+    # def force_rollover(self, mode: FormatMode = FormatMode.ALL):
+    #     """Force rollover for handlers matching the given mode."""
+    #     for flag, handler in self.handlers_by_mode.items():
+    #         if mode & flag and hasattr(handler, "doRollover"):
+    #             handler.doRollover()
 
 
 

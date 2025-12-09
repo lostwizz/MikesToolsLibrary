@@ -1,0 +1,544 @@
+2025-12-08 23:30:04|  loggerExample|  43| checkCustomLevels|    INFO| Process complete ✓ — all good 🚀ℹ 
+2025-12-08 23:30:04|  loggerExample|  50| checkCustomLevels| blkonyk| blkonyk message here
+2025-12-08 23:30:04|  loggerExample|  51| checkCustomLevels|   DEBUG| Debugging details……
+2025-12-08 23:30:04|  loggerExample|  52| checkCustomLevels|    INFO| Info messageℹ 
+2025-12-08 23:30:04|  loggerExample|  53| checkCustomLevels| WARNING| Warning message⚠ 
+2025-12-08 23:30:04|  loggerExample|  54| checkCustomLevels|   ERROR| Error occurred❌❌ 
+2025-12-08 23:30:04|  loggerExample|  55| checkCustomLevels|CRITICAL| Critical issue🔴☠🔴
+2025-12-08 23:30:04|  loggerExample|  56| checkCustomLevels|  NOTICE| This is a NOTICE message-a‼
+2025-12-08 23:30:04|  loggerExample|  57| checkCustomLevels|  NOTICE| This is a NOTICE message-b‼
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|   CustomLevels| 384|   show_all_levels|   QUERY| test of query 55
+2025-12-08 23:30:04|   CustomLevels| 386|   show_all_levels|  NOTICE| This is a NOTICE message  u❌❌❌❌‼
+2025-12-08 23:30:04|   CustomLevels| 387|   show_all_levels|    SMTP| this is a SMTP message 999📤
+2025-12-08 23:30:04|   CustomLevels| 390|   show_all_levels| SUCCESS| test of success 91✔ 
+2025-12-08 23:30:04|   CustomLevels| 391|   show_all_levels| FAILURE| test of failure 92❗❌ 
+2025-12-08 23:30:04|   CustomLevels| 393|   show_all_levels|   TRACE| test of trace 100
+2025-12-08 23:30:04|   CustomLevels| 394|   show_all_levels|  TRACEA| test of trace 101
+2025-12-08 23:30:04|   CustomLevels| 395|   show_all_levels|  TRACEB| test of trace 102
+2025-12-08 23:30:04|   CustomLevels| 396|   show_all_levels|  TRACEC| test of trace 103
+2025-12-08 23:30:04|   CustomLevels| 397|   show_all_levels|  TRACED| test of trace 104
+2025-12-08 23:30:04|   CustomLevels| 398|   show_all_levels|  TRACEE| test of trace 105
+2025-12-08 23:30:04|   CustomLevels| 399|   show_all_levels|  TRACEF| test of trace 106
+2025-12-08 23:30:04|   CustomLevels| 400|   show_all_levels|  TRACEG| test of trace 107
+2025-12-08 23:30:04|   CustomLevels| 401|   show_all_levels|  TRACEH| test of trace 108
+2025-12-08 23:30:04|   CustomLevels| 402|   show_all_levels|  TRACEI| test of trace 109
+2025-12-08 23:30:04|   CustomLevels| 404|   show_all_levels|  TRACEJ| test of trace 110
+2025-12-08 23:30:04|   CustomLevels| 405|   show_all_levels|  TRACEK| test of trace 111
+2025-12-08 23:30:04|   CustomLevels| 406|   show_all_levels|  TRACEL| test of trace 112
+2025-12-08 23:30:04|   CustomLevels| 407|   show_all_levels|  TRACEM| test of trace 113
+2025-12-08 23:30:04|   CustomLevels| 408|   show_all_levels|  TRACEN| test of trace 114
+2025-12-08 23:30:04|   CustomLevels| 409|   show_all_levels|  TRACEO| test of trace 115
+2025-12-08 23:30:04|   CustomLevels| 410|   show_all_levels|  TRACEP| test of trace 116
+2025-12-08 23:30:04|   CustomLevels| 411|   show_all_levels|  TRACEQ| test of trace 117
+2025-12-08 23:30:04|   CustomLevels| 412|   show_all_levels|  TRACER| test of trace 118
+2025-12-08 23:30:04|   CustomLevels| 413|   show_all_levels|  TRACES| test of trace 119
+2025-12-08 23:30:04|   CustomLevels| 415|   show_all_levels|  TRACET| test of trace 120
+2025-12-08 23:30:04|   CustomLevels| 416|   show_all_levels|  TRACEU| test of trace 121
+2025-12-08 23:30:04|   CustomLevels| 417|   show_all_levels|  TRACEV| test of trace 122
+2025-12-08 23:30:04|   CustomLevels| 418|   show_all_levels|  TRACEW| test of trace 123
+2025-12-08 23:30:04|   CustomLevels| 419|   show_all_levels|  TRACEX| test of trace 124
+2025-12-08 23:30:04|   CustomLevels| 420|   show_all_levels|  TRACEY| test of trace 125
+2025-12-08 23:30:04|   CustomLevels| 421|   show_all_levels|  TRACEZ| test of trace 126
+2025-12-08 23:30:04|   CustomLevels| 423|   show_all_levels|    GREY| test of grey 201
+2025-12-08 23:30:04|   CustomLevels| 424|   show_all_levels|    CYAN| test of cyan 202
+2025-12-08 23:30:04|   CustomLevels| 425|   show_all_levels|  PURPLE| test of purple 203
+2025-12-08 23:30:04|   CustomLevels| 426|   show_all_levels|    GOLD| test of gold 204
+2025-12-08 23:30:04|   CustomLevels| 427|   show_all_levels|   GREEN| test of green 205
+2025-12-08 23:30:04|   CustomLevels| 428|   show_all_levels|  YELLOW| test of yellow 206
+2025-12-08 23:30:04|   CustomLevels| 429|   show_all_levels|  LTBLUE| test of light blue 207
+2025-12-08 23:30:04|   CustomLevels| 430|   show_all_levels|    BLUE| test of blue 208
+2025-12-08 23:30:04|   CustomLevels| 431|   show_all_levels|   WHITE| test of white 209
+2025-12-08 23:30:04|   CustomLevels| 432|   show_all_levels| blkonoj| test of black on orangec 210
+2025-12-08 23:30:04|   CustomLevels| 433|   show_all_levels| blkonyk| test of black on yellow 211
+2025-12-08 23:30:04|   CustomLevels| 435|   show_all_levels|    SAME|  test of same 250
+2025-12-08 23:30:04|   CustomLevels| 436|   show_all_levels|    DIFF|  test of diff 251
+2025-12-08 23:30:04|   CustomLevels| 437|   show_all_levels|    LESS|  test of less 252
+2025-12-08 23:30:04|   CustomLevels| 438|   show_all_levels|    MORE|  test of more 253
+2025-12-08 23:30:04|   CustomLevels| 439|   show_all_levels|  IGNORE|  test of ignore 254
+2025-12-08 23:30:04|   CustomLevels| 441|   show_all_levels|    MARK| test of mark 300
+2025-12-08 23:30:04|   CustomLevels| 442|   show_all_levels|   MARK1| test of mark 301
+2025-12-08 23:30:04|   CustomLevels| 443|   show_all_levels|   MARK2| test of mark 302
+2025-12-08 23:30:04|   CustomLevels| 444|   show_all_levels|   MARK3| test of mark 303
+2025-12-08 23:30:04|   CustomLevels| 445|   show_all_levels|   MARK4| test of mark 304
+2025-12-08 23:30:04|   CustomLevels| 446|   show_all_levels|   MARK5| test of mark 305
+2025-12-08 23:30:04|   CustomLevels| 447|   show_all_levels|   MARK6| test of mark 306
+2025-12-08 23:30:04|   CustomLevels| 448|   show_all_levels|   MARK7| test of mark 307
+2025-12-08 23:30:04|   CustomLevels| 449|   show_all_levels|   MARK8| test of mark 308
+2025-12-08 23:30:04|   CustomLevels| 450|   show_all_levels|   MARK9| test of mark 309
+2025-12-08 23:30:04|   CustomLevels| 451|   show_all_levels|    MARK| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 452|   show_all_levels|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 454|   show_all_levels|    ToDo| test of todo 400
+2025-12-08 23:30:04|   CustomLevels| 455|   show_all_levels|   ToDo1| test of todo 401
+2025-12-08 23:30:04|   CustomLevels| 456|   show_all_levels|   ToDo2| test of todo 402
+2025-12-08 23:30:04|   CustomLevels| 457|   show_all_levels|   ToDo3| test of todo 403
+2025-12-08 23:30:04|   CustomLevels| 458|   show_all_levels|   ToDo4| test of todo 404
+2025-12-08 23:30:04|   CustomLevels| 459|   show_all_levels|   ToDo5| test of todo 405
+2025-12-08 23:30:04|   CustomLevels| 460|   show_all_levels|   ToDo6| test of todo 406
+2025-12-08 23:30:04|   CustomLevels| 461|   show_all_levels|   ToDo7| test of todo 407
+2025-12-08 23:30:04|   CustomLevels| 462|   show_all_levels|   ToDo8| test of todo 408
+2025-12-08 23:30:04|   CustomLevels| 463|   show_all_levels|   ToDo9| test of todo 409
+2025-12-08 23:30:04|   CustomLevels| 464|   show_all_levels|    ToDo| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 465|   show_all_levels|   ToDo9| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 467|   show_all_levels|Decorator| test of decorator 500
+2025-12-08 23:30:04|   CustomLevels| 468|   show_all_levels|Decorator1| test of decorator 501
+2025-12-08 23:30:04|   CustomLevels| 469|   show_all_levels|Decorator2| test of decorator 502
+2025-12-08 23:30:04|   CustomLevels| 470|   show_all_levels|Decorator3| test of decorator 503
+2025-12-08 23:30:04|   CustomLevels| 471|   show_all_levels|Decorator4| test of decorator 504
+2025-12-08 23:30:04|   CustomLevels| 472|   show_all_levels|Decorator5| test of decorator 505
+2025-12-08 23:30:04|   CustomLevels| 473|   show_all_levels|Decorator_error| test of decorator 510
+2025-12-08 23:30:04|   CustomLevels| 475|   show_all_levels|  rocket| test of rocket        600🚀
+2025-12-08 23:30:04|   CustomLevels| 476|   show_all_levels|   party| test of party         601🎉
+2025-12-08 23:30:04|   CustomLevels| 477|   show_all_levels|   cross| test of cross         602❌
+2025-12-08 23:30:04|   CustomLevels| 478|   show_all_levels|   check| test of check         603✅
+2025-12-08 23:30:04|   CustomLevels| 479|   show_all_levels|openfolder| test of closedfolder  604📂
+2025-12-08 23:30:04|   CustomLevels| 480|   show_all_levels|openfolder| test of openfolder    604📂
+2025-12-08 23:30:04|   CustomLevels| 481|   show_all_levels|   tools| test of tools         605🛠 
+2025-12-08 23:30:04|   CustomLevels| 482|   show_all_levels|explanationmark| test of explanationmark 606❗️
+2025-12-08 23:30:04|   CustomLevels| 483|   show_all_levels|warningsign| test of warning       607⚠️
+2025-12-08 23:30:04|   CustomLevels| 484|   show_all_levels|infosign| test of infosign      608ℹ️
+2025-12-08 23:30:04|   CustomLevels| 485|   show_all_levels|   music| test of music         609🎵
+2025-12-08 23:30:04|   CustomLevels| 486|   show_all_levels|magnifierleft| test of magnifierLeft 610🔍
+2025-12-08 23:30:04|   CustomLevels| 487|   show_all_levels|magnifierright| test of magnifierRight 611🔎
+2025-12-08 23:30:04|   CustomLevels| 488|   show_all_levels|    pipe| test of pipe          612🐛
+2025-12-08 23:30:04|   CustomLevels| 489|   show_all_levels|microscope| test of microscope    613🔬
+2025-12-08 23:30:04|   CustomLevels| 490|   show_all_levels|telescope| test of telescope     614🔭
+2025-12-08 23:30:04|   CustomLevels| 491|   show_all_levels|fastforward| test of telescope     615⏩
+2025-12-08 23:30:04|   CustomLevels| 493|   show_all_levels|fastforward2| test of telescope     616⏩    ✓
+2025-12-08 23:30:04|   CustomLevels| 494|   show_all_levels|fingerright| test of finger pointing right 617👉
+2025-12-08 23:30:04|   CustomLevels| 495|   show_all_levels|fingerleft| test of finger pointing left 618👈
+2025-12-08 23:30:04|   CustomLevels| 496|   show_all_levels|thumbsup| test of thumbs up 619👍
+2025-12-08 23:30:04|   CustomLevels| 498|   show_all_levels|appbegin| test of appbegin    700
+2025-12-08 23:30:04|   CustomLevels| 499|   show_all_levels|  append| test of append      701
+2025-12-08 23:30:04|   CustomLevels| 500|   show_all_levels|apppreamble| test of apppreamble 702
+2025-12-08 23:30:04|   CustomLevels| 501|   show_all_levels|apppreend| test of apppreend   703
+2025-12-08 23:30:04|   CustomLevels| 502|   show_all_levels|apppostcln| test of apppostcln  704
+2025-12-08 23:30:04|   CustomLevels| 503|   show_all_levels|apppostend| test of apppostend  705
+2025-12-08 23:30:04|   CustomLevels| 505|   show_all_levels|data1read| test of data1read  710
+2025-12-08 23:30:04|   CustomLevels| 506|   show_all_levels|data1ins| test of data1ins   711
+2025-12-08 23:30:04|   CustomLevels| 507|   show_all_levels|data1upd| test of data1upd   712
+2025-12-08 23:30:04|   CustomLevels| 508|   show_all_levels|data1del| test of data1del   713
+2025-12-08 23:30:04|   CustomLevels| 509|   show_all_levels|data1cmp| test of data1cmp   714
+2025-12-08 23:30:04|   CustomLevels| 510|   show_all_levels|data1noop| test of data1noop  715
+2025-12-08 23:30:04|   CustomLevels| 511|   show_all_levels|data1where| test of data1where 716
+2025-12-08 23:30:04|   CustomLevels| 512|   show_all_levels|data1info| test of data1info  717
+2025-12-08 23:30:04|   CustomLevels| 514|   show_all_levels|data2read| test of data2read
+2025-12-08 23:30:04|   CustomLevels| 515|   show_all_levels|data2ins| test of data2ins
+2025-12-08 23:30:04|   CustomLevels| 516|   show_all_levels|data2upd| test of data2upd
+2025-12-08 23:30:04|   CustomLevels| 517|   show_all_levels|data2del| test of data2del
+2025-12-08 23:30:04|   CustomLevels| 518|   show_all_levels|data2cmp| test of data2cmp
+2025-12-08 23:30:04|   CustomLevels| 519|   show_all_levels|data2noop| test of data2noop
+2025-12-08 23:30:04|   CustomLevels| 520|   show_all_levels|data2where| test of data2where
+2025-12-08 23:30:04|   CustomLevels| 521|   show_all_levels|data2info| test of data2info
+2025-12-08 23:30:04|   CustomLevels| 523|   show_all_levels|data3read| test of data3read
+2025-12-08 23:30:04|   CustomLevels| 524|   show_all_levels|data3ins| test of data3ins
+2025-12-08 23:30:04|   CustomLevels| 525|   show_all_levels|data3upd| test of data3upd
+2025-12-08 23:30:04|   CustomLevels| 526|   show_all_levels|data3del| test of data3del
+2025-12-08 23:30:04|   CustomLevels| 527|   show_all_levels|data3cmp| test of data3cmp
+2025-12-08 23:30:04|   CustomLevels| 528|   show_all_levels|data3noop| test of data3noop
+2025-12-08 23:30:04|   CustomLevels| 529|   show_all_levels|data3where| test of data3where
+2025-12-08 23:30:04|   CustomLevels| 530|   show_all_levels|data3info| test of data3info
+2025-12-08 23:30:04|   CustomLevels| 532|   show_all_levels|data4read| test of data4read
+2025-12-08 23:30:04|   CustomLevels| 533|   show_all_levels|data4ins| test of data4ins
+2025-12-08 23:30:04|   CustomLevels| 534|   show_all_levels|data4upd| test of data4upd
+2025-12-08 23:30:04|   CustomLevels| 535|   show_all_levels|data4del| test of data4del
+2025-12-08 23:30:04|   CustomLevels| 536|   show_all_levels|data4cmp| test of data4cmp
+2025-12-08 23:30:04|   CustomLevels| 537|   show_all_levels|data4noop| test of data4noop
+2025-12-08 23:30:04|   CustomLevels| 538|   show_all_levels|data4where| test of data4where
+2025-12-08 23:30:04|   CustomLevels| 539|   show_all_levels|data4info| test of data4info
+2025-12-08 23:30:04|   CustomLevels| 541|   show_all_levels|data5read| test of data5read
+2025-12-08 23:30:04|   CustomLevels| 542|   show_all_levels|data5ins| test of data5ins
+2025-12-08 23:30:04|   CustomLevels| 543|   show_all_levels|data5upd| test of data5upd
+2025-12-08 23:30:04|   CustomLevels| 544|   show_all_levels|data5del| test of data5del
+2025-12-08 23:30:04|   CustomLevels| 545|   show_all_levels|data5cmp| test of data5cmp
+2025-12-08 23:30:04|   CustomLevels| 546|   show_all_levels|data5noop| test of data5noop
+2025-12-08 23:30:04|   CustomLevels| 547|   show_all_levels|data5where| test of data5where
+2025-12-08 23:30:04|   CustomLevels| 548|   show_all_levels|data5info| test of data5info
+2025-12-08 23:30:04|   CustomLevels| 550|   show_all_levels|data6read| test of data6read
+2025-12-08 23:30:04|   CustomLevels| 551|   show_all_levels|data6ins| test of data6ins
+2025-12-08 23:30:04|   CustomLevels| 552|   show_all_levels|data6upd| test of data6upd
+2025-12-08 23:30:04|   CustomLevels| 553|   show_all_levels|data6del| test of data6del
+2025-12-08 23:30:04|   CustomLevels| 554|   show_all_levels|data6cmp| test of data6cmp
+2025-12-08 23:30:04|   CustomLevels| 555|   show_all_levels|data6noop| test of data6noop
+2025-12-08 23:30:04|   CustomLevels| 556|   show_all_levels|data6where| test of data6where
+2025-12-08 23:30:04|   CustomLevels| 557|   show_all_levels|data6info| test of data6info
+2025-12-08 23:30:04|   CustomLevels| 559|   show_all_levels|data7read| test of data7read
+2025-12-08 23:30:04|   CustomLevels| 560|   show_all_levels|data7ins| test of data7ins
+2025-12-08 23:30:04|   CustomLevels| 561|   show_all_levels|data7upd| test of data7upd
+2025-12-08 23:30:04|   CustomLevels| 562|   show_all_levels|data7del| test of data7del
+2025-12-08 23:30:04|   CustomLevels| 563|   show_all_levels|data7cmp| test of data7cmp
+2025-12-08 23:30:04|   CustomLevels| 564|   show_all_levels|data7noop| test of data7noop
+2025-12-08 23:30:04|   CustomLevels| 565|   show_all_levels|data7where| test of data7where
+2025-12-08 23:30:04|   CustomLevels| 566|   show_all_levels|data7info| test of data7info
+2025-12-08 23:30:04|   CustomLevels| 568|   show_all_levels|data8read| test of data8read
+2025-12-08 23:30:04|   CustomLevels| 569|   show_all_levels|data8ins| test of data8ins
+2025-12-08 23:30:04|   CustomLevels| 570|   show_all_levels|data8upd| test of data8upd
+2025-12-08 23:30:04|   CustomLevels| 571|   show_all_levels|data8del| test of data8del
+2025-12-08 23:30:04|   CustomLevels| 572|   show_all_levels|data8cmp| test of data8cmp
+2025-12-08 23:30:04|   CustomLevels| 573|   show_all_levels|data8noop| test of data8noop
+2025-12-08 23:30:04|   CustomLevels| 574|   show_all_levels|data8where| test of data8where
+2025-12-08 23:30:04|   CustomLevels| 575|   show_all_levels|data8info| test of data8info
+2025-12-08 23:30:04|   CustomLevels| 577|   show_all_levels|data9read| test of data9read
+2025-12-08 23:30:04|   CustomLevels| 578|   show_all_levels|data9ins| test of data9ins
+2025-12-08 23:30:04|   CustomLevels| 579|   show_all_levels|data9upd| test of data9upd
+2025-12-08 23:30:04|   CustomLevels| 580|   show_all_levels|data9del| test of data9del
+2025-12-08 23:30:04|   CustomLevels| 581|   show_all_levels|data9cmp| test of data9cmp
+2025-12-08 23:30:04|   CustomLevels| 582|   show_all_levels|data9noop| test of data9noop
+2025-12-08 23:30:04|   CustomLevels| 583|   show_all_levels|data9where| test of data9where
+2025-12-08 23:30:04|   CustomLevels| 584|   show_all_levels|data9info| test of data9info 797
+2025-12-08 23:30:04|   CustomLevels| 586|   show_all_levels|   MARK9| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  log_decorator|  41|           wrapper|Decorator| @+@                 
+2025-12-08 23:30:04|  log_decorator|  42|           wrapper|Decorator| Calling function: freddy
+2025-12-08 23:30:04|  log_decorator|  51|           wrapper|Decorator1| argno=0
+2025-12-08 23:30:04|  log_decorator|  66|           wrapper|Decorator4|     Argument: a = sam was here 
+2025-12-08 23:30:04|  log_decorator|  51|           wrapper|Decorator1| argno=1
+2025-12-08 23:30:04|  log_decorator|  66|           wrapper|Decorator4|     Argument: b = tom is gone
+2025-12-08 23:30:04|  log_decorator|  51|           wrapper|Decorator1| argno=2
+2025-12-08 23:30:04|  log_decorator|  66|           wrapper|Decorator4|     Argument: c = 777
+2025-12-08 23:30:04|  log_decorator|  69|           wrapper|Decorator3| kwargs={}
+2025-12-08 23:30:04|  log_decorator|  75|           wrapper|Decorator4|      - after Calling function: freddy
+2025-12-08 23:30:04|  log_decorator|  89|           wrapper|Decorator| Return arg_valueue: sam was here tom is gone
+2025-12-08 23:30:04|  log_decorator|  90|           wrapper|Decorator| @-@                 
+2025-12-08 23:30:04|  log_decorator|  92|           wrapper|Decorator| Function freddy took 0.000487 seconds
+2025-12-08 23:30:04|  loggerExample| 179|  checkLoggerLevel|   DEBUG| This debug message will be filtered out……
+2025-12-08 23:30:04|  loggerExample| 183|  checkLoggerLevel|  TRACEZ| zzzzzzzzzzzzzzzz
+2025-12-08 23:30:04|  loggerExample| 231|  checkTypesOutput|  TRACEB| [ 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+  'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+  'ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',
+  'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+  'e']
+2025-12-08 23:30:04|  loggerExample| 234|  checkTypesOutput|  TRACEC| {
+  "a": 1,
+  "b": 2,
+  "c": 3,
+  "d": 4
+}
+2025-12-08 23:30:04|  loggerExample| 237|  checkTypesOutput|  TRACED| ['spam', 'eggs', 'lumberjack', 'knights', 'ni']
+2025-12-08 23:30:04|  loggerExample| 247|  checkTypesOutput|  TRACEE| ('spam', ('eggs', ('lumberjack', ('knights', ('ni', ('dead', ('parrot', ('fresh fruit',))))))))
+2025-12-08 23:30:04|  loggerExample| 251|  checkTypesOutput|  TRACEP| tony is being hit
+['spam', 'eggs', 'lumberjack', 'knights', 'ni']
+2025-12-08 23:30:04|  loggerExample| 253|  checkTypesOutput|  TRACET| <flag 'FormatMode'>
+2025-12-08 23:30:04|  loggerExample| 256|  checkTypesOutput|  TRACEQ| FormatMode.CONSOLE (1)
+2025-12-08 23:30:04|  loggerExample| 262|  checkTypesOutput|   ERROR| Something failed
+Traceback (most recent call last):
+  File "D:\_Python_Projects\MikesToolsLibrary\examples\loggerExample.py", line 259, in checkTypesOutput
+    d = 2 / 0
+        ~~^~~
+ZeroDivisionError: division by zero❌❌ 
+2025-12-08 23:30:04|  loggerExample| 264|  checkTypesOutput|   ERROR| Something Failed again
+Traceback (most recent call last):
+  File "D:\_Python_Projects\MikesToolsLibrary\examples\loggerExample.py", line 259, in checkTypesOutput
+    d = 2 / 0
+        ~~^~~
+ZeroDivisionError: division by zero❌❌ 
+2025-12-08 23:30:04|  loggerExample| 275| checkMultipleArgs| WARNING| hi⚠ 
+2025-12-08 23:30:04|  loggerExample| 276| checkMultipleArgs|    INFO| This is some sort of message with args
+a
+b
+c
+d
+e
+f
+a
+b
+c
+d
+e
+fℹ 
+2025-12-08 23:30:04|  loggerExample| 277| checkMultipleArgs|  TRACEA| This is some sort of mmessage with args
+a
+b
+c
+d
+e
+f
+2025-12-08 23:30:04|  loggerExample| 280| checkMultipleArgs|  rocket| some message
+and some arg
+and another arg🚀
+2025-12-08 23:30:04|  loggerExample| 282| checkMultipleArgs|   check| check msg
+[1, 2, 3, 4, 5, 6]
+{'a': 1, 'b': 2}✅
+2025-12-08 23:30:04|  loggerExample| 283| checkMultipleArgs| WARNING| bye⚠ 
+2025-12-08 23:30:04|  loggerExample| 284| checkMultipleArgs|    BLUE| a message
+2025-12-08 23:30:04|  loggerExample|  62|displayExcludeLeve|  NOTICE| This is a NOTICE message 1‼
+2025-12-08 23:30:04|  loggerExample|  72|displayExcludeLeve|    INFO| the next line is a Notice but will be filtered out in the console (but not the file log)ℹ 
+2025-12-08 23:30:04|  loggerExample|  75|displayExcludeLeve|  NOTICE| This is a NOTICE message AFTER 2 - should NOT show on the CONSOLE (but will in the log)‼
+2025-12-08 23:30:04|  loggerExample|  82|displayExcludeLeve|  NOTICE| This is a NOTICE mes sage AFTER 3 -  should be back and shown‼
+2025-12-08 23:30:04|  loggerExample|  86|displayExcludeLeve|    MARK| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  loggerExample|  91|displayExcludeLeve|    INFO| the next line is a Notice but will be filtered out in the FILE (but not CONSOLE)  5ℹ 
+2025-12-08 23:30:04|  loggerExample|  94|displayExcludeLeve|  NOTICE| This is a NOTICE message AFTER 5 - should NOT show on the FILE (but will NOT CONSOLE) 6 ‼
+2025-12-08 23:30:04|  loggerExample|  99|displayExcludeLeve|  NOTICE| This is a NOTICE mes sage AFTER 6 -  should be back and shown 7‼
+2025-12-08 23:30:04|  loggerExample| 102|displayExcludeLeve|  NOTICE| some notice‼
+2025-12-08 23:30:04|  loggerExample| 114|displayExcludeLeve|   QUERY| some query
+2025-12-08 23:30:04|  loggerExample| 116|displayExcludeLeve|   QUERY| some query
+2025-12-08 23:30:04|  loggerExample| 118|displayExcludeLeve|   QUERY| some query
+2025-12-08 23:30:04|  loggerExample| 121|displayExcludeLeve|   QUERY| some query
+2025-12-08 23:30:04|  loggerExample| 134|displayExcludeLeve|   QUERY| some query
+2025-12-08 23:30:04|  loggerExample| 135|displayExcludeLeve|  NOTICE|  some notice‼
+2025-12-08 23:30:04|  loggerExample| 137|displayExcludeLeve|    MARK| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  loggerExample| 141|displayExcludeLeve|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|  loggerExample| 149|displayExcludeLeve|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|   CustomLevels| 423|   show_all_levels|    GREY| test of grey 201
+2025-12-08 23:30:04|   CustomLevels| 424|   show_all_levels|    CYAN| test of cyan 202
+2025-12-08 23:30:04|   CustomLevels| 425|   show_all_levels|  PURPLE| test of purple 203
+2025-12-08 23:30:04|   CustomLevels| 426|   show_all_levels|    GOLD| test of gold 204
+2025-12-08 23:30:04|   CustomLevels| 427|   show_all_levels|   GREEN| test of green 205
+2025-12-08 23:30:04|   CustomLevels| 428|   show_all_levels|  YELLOW| test of yellow 206
+2025-12-08 23:30:04|   CustomLevels| 429|   show_all_levels|  LTBLUE| test of light blue 207
+2025-12-08 23:30:04|   CustomLevels| 430|   show_all_levels|    BLUE| test of blue 208
+2025-12-08 23:30:04|   CustomLevels| 431|   show_all_levels|   WHITE| test of white 209
+2025-12-08 23:30:04|   CustomLevels| 432|   show_all_levels| blkonoj| test of black on orangec 210
+2025-12-08 23:30:04|   CustomLevels| 433|   show_all_levels| blkonyk| test of black on yellow 211
+2025-12-08 23:30:04|   CustomLevels| 435|   show_all_levels|    SAME|  test of same 250
+2025-12-08 23:30:04|   CustomLevels| 436|   show_all_levels|    DIFF|  test of diff 251
+2025-12-08 23:30:04|   CustomLevels| 437|   show_all_levels|    LESS|  test of less 252
+2025-12-08 23:30:04|   CustomLevels| 438|   show_all_levels|    MORE|  test of more 253
+2025-12-08 23:30:04|   CustomLevels| 439|   show_all_levels|  IGNORE|  test of ignore 254
+2025-12-08 23:30:04|   CustomLevels| 442|   show_all_levels|   MARK1| test of mark 301
+2025-12-08 23:30:04|   CustomLevels| 452|   show_all_levels|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  loggerExample| 154|displayExcludeLeve|   MARK2| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|   CustomLevels| 441|   show_all_levels|    MARK| test of mark 300
+2025-12-08 23:30:04|   CustomLevels| 442|   show_all_levels|   MARK1| test of mark 301
+2025-12-08 23:30:04|   CustomLevels| 443|   show_all_levels|   MARK2| test of mark 302
+2025-12-08 23:30:04|   CustomLevels| 444|   show_all_levels|   MARK3| test of mark 303
+2025-12-08 23:30:04|   CustomLevels| 445|   show_all_levels|   MARK4| test of mark 304
+2025-12-08 23:30:04|   CustomLevels| 446|   show_all_levels|   MARK5| test of mark 305
+2025-12-08 23:30:04|   CustomLevels| 447|   show_all_levels|   MARK6| test of mark 306
+2025-12-08 23:30:04|   CustomLevels| 448|   show_all_levels|   MARK7| test of mark 307
+2025-12-08 23:30:04|   CustomLevels| 449|   show_all_levels|   MARK8| test of mark 308
+2025-12-08 23:30:04|   CustomLevels| 450|   show_all_levels|   MARK9| test of mark 309
+2025-12-08 23:30:04|   CustomLevels| 451|   show_all_levels|    MARK| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 452|   show_all_levels|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 586|   show_all_levels|   MARK9| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  loggerExample| 160|displayExcludeLeve|   MARK3| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|   CustomLevels| 475|   show_all_levels|  rocket| test of rocket        600🚀
+2025-12-08 23:30:04|   CustomLevels| 476|   show_all_levels|   party| test of party         601🎉
+2025-12-08 23:30:04|   CustomLevels| 477|   show_all_levels|   cross| test of cross         602❌
+2025-12-08 23:30:04|   CustomLevels| 478|   show_all_levels|   check| test of check         603✅
+2025-12-08 23:30:04|   CustomLevels| 479|   show_all_levels|openfolder| test of closedfolder  604📂
+2025-12-08 23:30:04|   CustomLevels| 480|   show_all_levels|openfolder| test of openfolder    604📂
+2025-12-08 23:30:04|   CustomLevels| 481|   show_all_levels|   tools| test of tools         605🛠 
+2025-12-08 23:30:04|   CustomLevels| 482|   show_all_levels|explanationmark| test of explanationmark 606❗️
+2025-12-08 23:30:04|   CustomLevels| 483|   show_all_levels|warningsign| test of warning       607⚠️
+2025-12-08 23:30:04|   CustomLevels| 484|   show_all_levels|infosign| test of infosign      608ℹ️
+2025-12-08 23:30:04|   CustomLevels| 485|   show_all_levels|   music| test of music         609🎵
+2025-12-08 23:30:04|   CustomLevels| 486|   show_all_levels|magnifierleft| test of magnifierLeft 610🔍
+2025-12-08 23:30:04|   CustomLevels| 487|   show_all_levels|magnifierright| test of magnifierRight 611🔎
+2025-12-08 23:30:04|   CustomLevels| 488|   show_all_levels|    pipe| test of pipe          612🐛
+2025-12-08 23:30:04|   CustomLevels| 489|   show_all_levels|microscope| test of microscope    613🔬
+2025-12-08 23:30:04|   CustomLevels| 490|   show_all_levels|telescope| test of telescope     614🔭
+2025-12-08 23:30:04|   CustomLevels| 491|   show_all_levels|fastforward| test of telescope     615⏩
+2025-12-08 23:30:04|   CustomLevels| 493|   show_all_levels|fastforward2| test of telescope     616⏩    ✓
+2025-12-08 23:30:04|   CustomLevels| 494|   show_all_levels|fingerright| test of finger pointing right 617👉
+2025-12-08 23:30:04|   CustomLevels| 495|   show_all_levels|fingerleft| test of finger pointing left 618👈
+2025-12-08 23:30:04|   CustomLevels| 496|   show_all_levels|thumbsup| test of thumbs up 619👍
+2025-12-08 23:30:04|  loggerExample| 166|displayExcludeLeve|   MARK4| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 377|   show_all_levels|   DEBUG| This message should go to the log file level 10u……
+2025-12-08 23:30:04|   CustomLevels| 378|   show_all_levels|    INFO| So should this level 20uℹ 
+2025-12-08 23:30:04|   CustomLevels| 379|   show_all_levels| WARNING| And this, too level 30u⚠ 
+2025-12-08 23:30:04|   CustomLevels| 381|   show_all_levels|   ERROR| test error level level 40u❌❌ 
+2025-12-08 23:30:04|   CustomLevels| 382|   show_all_levels|CRITICAL| test critical error level 50u🔴☠🔴
+2025-12-08 23:30:04|   CustomLevels| 384|   show_all_levels|   QUERY| test of query 55
+2025-12-08 23:30:04|   CustomLevels| 386|   show_all_levels|  NOTICE| This is a NOTICE message  u❌❌❌❌‼
+2025-12-08 23:30:04|   CustomLevels| 387|   show_all_levels|    SMTP| this is a SMTP message 999📤
+2025-12-08 23:30:04|   CustomLevels| 390|   show_all_levels| SUCCESS| test of success 91✔ 
+2025-12-08 23:30:04|   CustomLevels| 391|   show_all_levels| FAILURE| test of failure 92❗❌ 
+2025-12-08 23:30:04|   CustomLevels| 393|   show_all_levels|   TRACE| test of trace 100
+2025-12-08 23:30:04|   CustomLevels| 394|   show_all_levels|  TRACEA| test of trace 101
+2025-12-08 23:30:04|   CustomLevels| 395|   show_all_levels|  TRACEB| test of trace 102
+2025-12-08 23:30:04|   CustomLevels| 396|   show_all_levels|  TRACEC| test of trace 103
+2025-12-08 23:30:04|   CustomLevels| 397|   show_all_levels|  TRACED| test of trace 104
+2025-12-08 23:30:04|   CustomLevels| 398|   show_all_levels|  TRACEE| test of trace 105
+2025-12-08 23:30:04|   CustomLevels| 399|   show_all_levels|  TRACEF| test of trace 106
+2025-12-08 23:30:04|   CustomLevels| 400|   show_all_levels|  TRACEG| test of trace 107
+2025-12-08 23:30:04|   CustomLevels| 401|   show_all_levels|  TRACEH| test of trace 108
+2025-12-08 23:30:04|   CustomLevels| 402|   show_all_levels|  TRACEI| test of trace 109
+2025-12-08 23:30:04|   CustomLevels| 404|   show_all_levels|  TRACEJ| test of trace 110
+2025-12-08 23:30:04|   CustomLevels| 405|   show_all_levels|  TRACEK| test of trace 111
+2025-12-08 23:30:04|   CustomLevels| 406|   show_all_levels|  TRACEL| test of trace 112
+2025-12-08 23:30:04|   CustomLevels| 407|   show_all_levels|  TRACEM| test of trace 113
+2025-12-08 23:30:04|   CustomLevels| 408|   show_all_levels|  TRACEN| test of trace 114
+2025-12-08 23:30:04|   CustomLevels| 409|   show_all_levels|  TRACEO| test of trace 115
+2025-12-08 23:30:04|   CustomLevels| 410|   show_all_levels|  TRACEP| test of trace 116
+2025-12-08 23:30:04|   CustomLevels| 411|   show_all_levels|  TRACEQ| test of trace 117
+2025-12-08 23:30:04|   CustomLevels| 412|   show_all_levels|  TRACER| test of trace 118
+2025-12-08 23:30:04|   CustomLevels| 413|   show_all_levels|  TRACES| test of trace 119
+2025-12-08 23:30:04|   CustomLevels| 415|   show_all_levels|  TRACET| test of trace 120
+2025-12-08 23:30:04|   CustomLevels| 416|   show_all_levels|  TRACEU| test of trace 121
+2025-12-08 23:30:04|   CustomLevels| 417|   show_all_levels|  TRACEV| test of trace 122
+2025-12-08 23:30:04|   CustomLevels| 418|   show_all_levels|  TRACEW| test of trace 123
+2025-12-08 23:30:04|   CustomLevels| 419|   show_all_levels|  TRACEX| test of trace 124
+2025-12-08 23:30:04|   CustomLevels| 420|   show_all_levels|  TRACEY| test of trace 125
+2025-12-08 23:30:04|   CustomLevels| 421|   show_all_levels|  TRACEZ| test of trace 126
+2025-12-08 23:30:04|   CustomLevels| 423|   show_all_levels|    GREY| test of grey 201
+2025-12-08 23:30:04|   CustomLevels| 424|   show_all_levels|    CYAN| test of cyan 202
+2025-12-08 23:30:04|   CustomLevels| 425|   show_all_levels|  PURPLE| test of purple 203
+2025-12-08 23:30:04|   CustomLevels| 426|   show_all_levels|    GOLD| test of gold 204
+2025-12-08 23:30:04|   CustomLevels| 427|   show_all_levels|   GREEN| test of green 205
+2025-12-08 23:30:04|   CustomLevels| 428|   show_all_levels|  YELLOW| test of yellow 206
+2025-12-08 23:30:04|   CustomLevels| 429|   show_all_levels|  LTBLUE| test of light blue 207
+2025-12-08 23:30:04|   CustomLevels| 430|   show_all_levels|    BLUE| test of blue 208
+2025-12-08 23:30:04|   CustomLevels| 431|   show_all_levels|   WHITE| test of white 209
+2025-12-08 23:30:04|   CustomLevels| 432|   show_all_levels| blkonoj| test of black on orangec 210
+2025-12-08 23:30:04|   CustomLevels| 433|   show_all_levels| blkonyk| test of black on yellow 211
+2025-12-08 23:30:04|   CustomLevels| 435|   show_all_levels|    SAME|  test of same 250
+2025-12-08 23:30:04|   CustomLevels| 436|   show_all_levels|    DIFF|  test of diff 251
+2025-12-08 23:30:04|   CustomLevels| 437|   show_all_levels|    LESS|  test of less 252
+2025-12-08 23:30:04|   CustomLevels| 438|   show_all_levels|    MORE|  test of more 253
+2025-12-08 23:30:04|   CustomLevels| 439|   show_all_levels|  IGNORE|  test of ignore 254
+2025-12-08 23:30:04|   CustomLevels| 441|   show_all_levels|    MARK| test of mark 300
+2025-12-08 23:30:04|   CustomLevels| 442|   show_all_levels|   MARK1| test of mark 301
+2025-12-08 23:30:04|   CustomLevels| 443|   show_all_levels|   MARK2| test of mark 302
+2025-12-08 23:30:04|   CustomLevels| 444|   show_all_levels|   MARK3| test of mark 303
+2025-12-08 23:30:04|   CustomLevels| 445|   show_all_levels|   MARK4| test of mark 304
+2025-12-08 23:30:04|   CustomLevels| 446|   show_all_levels|   MARK5| test of mark 305
+2025-12-08 23:30:04|   CustomLevels| 447|   show_all_levels|   MARK6| test of mark 306
+2025-12-08 23:30:04|   CustomLevels| 448|   show_all_levels|   MARK7| test of mark 307
+2025-12-08 23:30:04|   CustomLevels| 449|   show_all_levels|   MARK8| test of mark 308
+2025-12-08 23:30:04|   CustomLevels| 450|   show_all_levels|   MARK9| test of mark 309
+2025-12-08 23:30:04|   CustomLevels| 451|   show_all_levels|    MARK| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 452|   show_all_levels|   MARK1| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 454|   show_all_levels|    ToDo| test of todo 400
+2025-12-08 23:30:04|   CustomLevels| 455|   show_all_levels|   ToDo1| test of todo 401
+2025-12-08 23:30:04|   CustomLevels| 456|   show_all_levels|   ToDo2| test of todo 402
+2025-12-08 23:30:04|   CustomLevels| 457|   show_all_levels|   ToDo3| test of todo 403
+2025-12-08 23:30:04|   CustomLevels| 458|   show_all_levels|   ToDo4| test of todo 404
+2025-12-08 23:30:04|   CustomLevels| 459|   show_all_levels|   ToDo5| test of todo 405
+2025-12-08 23:30:04|   CustomLevels| 460|   show_all_levels|   ToDo6| test of todo 406
+2025-12-08 23:30:04|   CustomLevels| 461|   show_all_levels|   ToDo7| test of todo 407
+2025-12-08 23:30:04|   CustomLevels| 462|   show_all_levels|   ToDo8| test of todo 408
+2025-12-08 23:30:04|   CustomLevels| 463|   show_all_levels|   ToDo9| test of todo 409
+2025-12-08 23:30:04|   CustomLevels| 464|   show_all_levels|    ToDo| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 465|   show_all_levels|   ToDo9| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|   CustomLevels| 467|   show_all_levels|Decorator| test of decorator 500
+2025-12-08 23:30:04|   CustomLevels| 468|   show_all_levels|Decorator1| test of decorator 501
+2025-12-08 23:30:04|   CustomLevels| 469|   show_all_levels|Decorator2| test of decorator 502
+2025-12-08 23:30:04|   CustomLevels| 470|   show_all_levels|Decorator3| test of decorator 503
+2025-12-08 23:30:04|   CustomLevels| 471|   show_all_levels|Decorator4| test of decorator 504
+2025-12-08 23:30:04|   CustomLevels| 472|   show_all_levels|Decorator5| test of decorator 505
+2025-12-08 23:30:04|   CustomLevels| 473|   show_all_levels|Decorator_error| test of decorator 510
+2025-12-08 23:30:04|   CustomLevels| 475|   show_all_levels|  rocket| test of rocket        600🚀
+2025-12-08 23:30:04|   CustomLevels| 476|   show_all_levels|   party| test of party         601🎉
+2025-12-08 23:30:04|   CustomLevels| 477|   show_all_levels|   cross| test of cross         602❌
+2025-12-08 23:30:04|   CustomLevels| 478|   show_all_levels|   check| test of check         603✅
+2025-12-08 23:30:04|   CustomLevels| 479|   show_all_levels|openfolder| test of closedfolder  604📂
+2025-12-08 23:30:04|   CustomLevels| 480|   show_all_levels|openfolder| test of openfolder    604📂
+2025-12-08 23:30:04|   CustomLevels| 481|   show_all_levels|   tools| test of tools         605🛠 
+2025-12-08 23:30:04|   CustomLevels| 482|   show_all_levels|explanationmark| test of explanationmark 606❗️
+2025-12-08 23:30:04|   CustomLevels| 483|   show_all_levels|warningsign| test of warning       607⚠️
+2025-12-08 23:30:04|   CustomLevels| 484|   show_all_levels|infosign| test of infosign      608ℹ️
+2025-12-08 23:30:04|   CustomLevels| 485|   show_all_levels|   music| test of music         609🎵
+2025-12-08 23:30:04|   CustomLevels| 486|   show_all_levels|magnifierleft| test of magnifierLeft 610🔍
+2025-12-08 23:30:04|   CustomLevels| 487|   show_all_levels|magnifierright| test of magnifierRight 611🔎
+2025-12-08 23:30:04|   CustomLevels| 488|   show_all_levels|    pipe| test of pipe          612🐛
+2025-12-08 23:30:04|   CustomLevels| 489|   show_all_levels|microscope| test of microscope    613🔬
+2025-12-08 23:30:04|   CustomLevels| 490|   show_all_levels|telescope| test of telescope     614🔭
+2025-12-08 23:30:04|   CustomLevels| 491|   show_all_levels|fastforward| test of telescope     615⏩
+2025-12-08 23:30:04|   CustomLevels| 493|   show_all_levels|fastforward2| test of telescope     616⏩    ✓
+2025-12-08 23:30:04|   CustomLevels| 494|   show_all_levels|fingerright| test of finger pointing right 617👉
+2025-12-08 23:30:04|   CustomLevels| 495|   show_all_levels|fingerleft| test of finger pointing left 618👈
+2025-12-08 23:30:04|   CustomLevels| 496|   show_all_levels|thumbsup| test of thumbs up 619👍
+2025-12-08 23:30:04|   CustomLevels| 498|   show_all_levels|appbegin| test of appbegin    700
+2025-12-08 23:30:04|   CustomLevels| 499|   show_all_levels|  append| test of append      701
+2025-12-08 23:30:04|   CustomLevels| 500|   show_all_levels|apppreamble| test of apppreamble 702
+2025-12-08 23:30:04|   CustomLevels| 501|   show_all_levels|apppreend| test of apppreend   703
+2025-12-08 23:30:04|   CustomLevels| 502|   show_all_levels|apppostcln| test of apppostcln  704
+2025-12-08 23:30:04|   CustomLevels| 503|   show_all_levels|apppostend| test of apppostend  705
+2025-12-08 23:30:04|   CustomLevels| 505|   show_all_levels|data1read| test of data1read  710
+2025-12-08 23:30:04|   CustomLevels| 506|   show_all_levels|data1ins| test of data1ins   711
+2025-12-08 23:30:04|   CustomLevels| 507|   show_all_levels|data1upd| test of data1upd   712
+2025-12-08 23:30:04|   CustomLevels| 508|   show_all_levels|data1del| test of data1del   713
+2025-12-08 23:30:04|   CustomLevels| 509|   show_all_levels|data1cmp| test of data1cmp   714
+2025-12-08 23:30:04|   CustomLevels| 510|   show_all_levels|data1noop| test of data1noop  715
+2025-12-08 23:30:04|   CustomLevels| 511|   show_all_levels|data1where| test of data1where 716
+2025-12-08 23:30:04|   CustomLevels| 512|   show_all_levels|data1info| test of data1info  717
+2025-12-08 23:30:04|   CustomLevels| 514|   show_all_levels|data2read| test of data2read
+2025-12-08 23:30:04|   CustomLevels| 515|   show_all_levels|data2ins| test of data2ins
+2025-12-08 23:30:04|   CustomLevels| 516|   show_all_levels|data2upd| test of data2upd
+2025-12-08 23:30:04|   CustomLevels| 517|   show_all_levels|data2del| test of data2del
+2025-12-08 23:30:04|   CustomLevels| 518|   show_all_levels|data2cmp| test of data2cmp
+2025-12-08 23:30:04|   CustomLevels| 519|   show_all_levels|data2noop| test of data2noop
+2025-12-08 23:30:04|   CustomLevels| 520|   show_all_levels|data2where| test of data2where
+2025-12-08 23:30:04|   CustomLevels| 521|   show_all_levels|data2info| test of data2info
+2025-12-08 23:30:04|   CustomLevels| 523|   show_all_levels|data3read| test of data3read
+2025-12-08 23:30:04|   CustomLevels| 524|   show_all_levels|data3ins| test of data3ins
+2025-12-08 23:30:04|   CustomLevels| 525|   show_all_levels|data3upd| test of data3upd
+2025-12-08 23:30:04|   CustomLevels| 526|   show_all_levels|data3del| test of data3del
+2025-12-08 23:30:04|   CustomLevels| 527|   show_all_levels|data3cmp| test of data3cmp
+2025-12-08 23:30:04|   CustomLevels| 528|   show_all_levels|data3noop| test of data3noop
+2025-12-08 23:30:04|   CustomLevels| 529|   show_all_levels|data3where| test of data3where
+2025-12-08 23:30:04|   CustomLevels| 530|   show_all_levels|data3info| test of data3info
+2025-12-08 23:30:04|   CustomLevels| 532|   show_all_levels|data4read| test of data4read
+2025-12-08 23:30:04|   CustomLevels| 533|   show_all_levels|data4ins| test of data4ins
+2025-12-08 23:30:04|   CustomLevels| 534|   show_all_levels|data4upd| test of data4upd
+2025-12-08 23:30:04|   CustomLevels| 535|   show_all_levels|data4del| test of data4del
+2025-12-08 23:30:04|   CustomLevels| 536|   show_all_levels|data4cmp| test of data4cmp
+2025-12-08 23:30:04|   CustomLevels| 537|   show_all_levels|data4noop| test of data4noop
+2025-12-08 23:30:04|   CustomLevels| 538|   show_all_levels|data4where| test of data4where
+2025-12-08 23:30:04|   CustomLevels| 539|   show_all_levels|data4info| test of data4info
+2025-12-08 23:30:04|   CustomLevels| 541|   show_all_levels|data5read| test of data5read
+2025-12-08 23:30:04|   CustomLevels| 542|   show_all_levels|data5ins| test of data5ins
+2025-12-08 23:30:04|   CustomLevels| 543|   show_all_levels|data5upd| test of data5upd
+2025-12-08 23:30:04|   CustomLevels| 544|   show_all_levels|data5del| test of data5del
+2025-12-08 23:30:04|   CustomLevels| 545|   show_all_levels|data5cmp| test of data5cmp
+2025-12-08 23:30:04|   CustomLevels| 546|   show_all_levels|data5noop| test of data5noop
+2025-12-08 23:30:04|   CustomLevels| 547|   show_all_levels|data5where| test of data5where
+2025-12-08 23:30:04|   CustomLevels| 548|   show_all_levels|data5info| test of data5info
+2025-12-08 23:30:04|   CustomLevels| 550|   show_all_levels|data6read| test of data6read
+2025-12-08 23:30:04|   CustomLevels| 551|   show_all_levels|data6ins| test of data6ins
+2025-12-08 23:30:04|   CustomLevels| 552|   show_all_levels|data6upd| test of data6upd
+2025-12-08 23:30:04|   CustomLevels| 553|   show_all_levels|data6del| test of data6del
+2025-12-08 23:30:04|   CustomLevels| 554|   show_all_levels|data6cmp| test of data6cmp
+2025-12-08 23:30:04|   CustomLevels| 555|   show_all_levels|data6noop| test of data6noop
+2025-12-08 23:30:04|   CustomLevels| 556|   show_all_levels|data6where| test of data6where
+2025-12-08 23:30:04|   CustomLevels| 557|   show_all_levels|data6info| test of data6info
+2025-12-08 23:30:04|   CustomLevels| 559|   show_all_levels|data7read| test of data7read
+2025-12-08 23:30:04|   CustomLevels| 560|   show_all_levels|data7ins| test of data7ins
+2025-12-08 23:30:04|   CustomLevels| 561|   show_all_levels|data7upd| test of data7upd
+2025-12-08 23:30:04|   CustomLevels| 562|   show_all_levels|data7del| test of data7del
+2025-12-08 23:30:04|   CustomLevels| 563|   show_all_levels|data7cmp| test of data7cmp
+2025-12-08 23:30:04|   CustomLevels| 564|   show_all_levels|data7noop| test of data7noop
+2025-12-08 23:30:04|   CustomLevels| 565|   show_all_levels|data7where| test of data7where
+2025-12-08 23:30:04|   CustomLevels| 566|   show_all_levels|data7info| test of data7info
+2025-12-08 23:30:04|   CustomLevels| 568|   show_all_levels|data8read| test of data8read
+2025-12-08 23:30:04|   CustomLevels| 569|   show_all_levels|data8ins| test of data8ins
+2025-12-08 23:30:04|   CustomLevels| 570|   show_all_levels|data8upd| test of data8upd
+2025-12-08 23:30:04|   CustomLevels| 571|   show_all_levels|data8del| test of data8del
+2025-12-08 23:30:04|   CustomLevels| 572|   show_all_levels|data8cmp| test of data8cmp
+2025-12-08 23:30:04|   CustomLevels| 573|   show_all_levels|data8noop| test of data8noop
+2025-12-08 23:30:04|   CustomLevels| 574|   show_all_levels|data8where| test of data8where
+2025-12-08 23:30:04|   CustomLevels| 575|   show_all_levels|data8info| test of data8info
+2025-12-08 23:30:04|   CustomLevels| 577|   show_all_levels|data9read| test of data9read
+2025-12-08 23:30:04|   CustomLevels| 578|   show_all_levels|data9ins| test of data9ins
+2025-12-08 23:30:04|   CustomLevels| 579|   show_all_levels|data9upd| test of data9upd
+2025-12-08 23:30:04|   CustomLevels| 580|   show_all_levels|data9del| test of data9del
+2025-12-08 23:30:04|   CustomLevels| 581|   show_all_levels|data9cmp| test of data9cmp
+2025-12-08 23:30:04|   CustomLevels| 582|   show_all_levels|data9noop| test of data9noop
+2025-12-08 23:30:04|   CustomLevels| 583|   show_all_levels|data9where| test of data9where
+2025-12-08 23:30:04|   CustomLevels| 584|   show_all_levels|data9info| test of data9info 797
+2025-12-08 23:30:04|   CustomLevels| 586|   show_all_levels|   MARK9| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+2025-12-08 23:30:04|  loggerExample| 171|displayExcludeLeve|   MARK5| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~

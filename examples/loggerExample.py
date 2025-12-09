@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 23:15:31"
+__updated__ = "2025-12-08 23:46:05"
 ###############################################################################
 
 
@@ -284,6 +284,21 @@ def checkMultipleArgs():
     logger.blue("a message", extra={"user_id": "123", "ip": "192.168.1.1"})
 
 # -------------------
+def checkRotatinglogs():
+    # LoggerSetup.force_rollover(FormatMode.TIMEDROTATOR)
+    # logger.tracea( "this should be the online line in the log file")
+    # time.sleep(60)
+    # showLevelInfo()
+    # logger.traceb( "this should be the online line in the log file")
+
+
+    # LoggerSetup.force_rollover(FormatMode.ROTATINGFN)
+    # logger.tracea( "this should be the online line in the log file")
+    # time.sleep(60)
+    # showLevelInfo()
+    # logger.traceb( "this should be the online line in the log file")
+    pass
+
 # -------------------
 # -------------------
 # -------------------
@@ -295,7 +310,7 @@ def main():
         "MikesToolsLibrary",
         level=logging.DEBUG,
         logfile=".\logs\MikesToolsLibrary.log",
-        modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR,  # | FormatMode.SMTP,
+        modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR #| FormatMode.ROTATINGFN,  # | FormatMode.SMTP,
     ).get_logger()
 
     checkCustomLevels()
@@ -308,9 +323,8 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
-    logger.doRollover()
-    time.sleep(60)
-    showLevelInfo()
+    checkRotatinglogs()
+
 
     FormatMode.CONSOLE.showModes()
 
