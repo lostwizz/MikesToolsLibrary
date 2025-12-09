@@ -8,7 +8,7 @@ ExcludeLevelFilter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 21:04:25"
+__updated__ = "2025-12-08 21:37:10"
 ###############################################################################
 
 import logging
@@ -88,9 +88,6 @@ class ExcludeLevelFilter(logging.Filter):
                 return False
         return True
 
-
-
-
     # -----------------------------------------------------------------
     @classmethod
     def showFiltersByMode(cls, fMode: FormatMode =FormatMode.ALL ):
@@ -138,36 +135,21 @@ class ExcludeLevelFilter(logging.Filter):
     @classmethod
     # def addFilterLevel(self, level: int, mode: FormatMode = None) -> None:
     def turnOffLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
-        """
-        Adds a logging level to the exclusion list.
-        :param level: The logging level to exclude.
-        """
-        # self.Filters.add((mode,level))
-        # self.Filters[mode].add(level)
         if mode is None:
             cls.Filters[None].add(level)
             return
         for flag in iter_flags(mode):
             cls.Filters[flag].add(level)
 
-
-
     # -----------------------------------------------------------------
     @classmethod
     # def removeFilterLevel(self, level: int, mode: FormatMode = None) -> None:
     def turnOnLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
-        """
-        Removes a logging level from the exclusion list.
-        :param level: The logging level to include again.
-        """
-        # self.Filters.discard((mode,level))
-        # self.Filters[mode].discard(level)
         if mode is None:
             cls.Filters[None].discard(level)
             return
         for flag in iter_flags(mode):
             cls.Filters[flag].discard(level)
-
 
     # -----------------------------------------------------------------
     @classmethod
@@ -182,6 +164,11 @@ class ExcludeLevelFilter(logging.Filter):
             self.turnOnLevel(i, mode)
 
     # -----------------------------------------------------------------
+    @classmethod
+    def turnOnEverything(self, mode:FormatMode = FormatMode.ALL) -> None:
+        for i in range( 1, 1000):
+            self.turnOnLevel(i, mode)
+            
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------

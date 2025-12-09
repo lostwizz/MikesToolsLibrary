@@ -10,15 +10,13 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 20:55:14"
+__updated__ = "2025-12-08 21:23:41"
 ###############################################################################
 
 
 import logging
 from logging import Logger
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-
-
 from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
 
 ###############################################################################
@@ -376,20 +374,16 @@ class CustomLevels:
     # -----------------------------------------------------------------
     def show_all_levels(logger):
 
-        # logger = logging.getLogger("MikesToolsLibrary")
-        # logger = logging.getLogger()
-
-
-        logger.debug('This message should go to the log file level 10uuuuuuuu')
-        logger.info('So should this level 20uuuuuuuuu')
-        logger.warning('And this, too level 30uuuuuuuuuuu')
+        logger.debug('This message should go to the log file level 10u')
+        logger.info('So should this level 20u')
+        logger.warning('And this, too level 30u')
         ### logger.warn('And this, too just warn not warning')
-        logger.error('test error level level 40uuuuuuuuuuuuuuuuuu')
-        logger.critical('test critical error level 50uuuuu')
+        logger.error('test error level level 40u')
+        logger.critical('test critical error level 50u')
 
         logger.query('test of query 55')
 
-        logger.notice("This is a NOTICE messageuuuuuuuuuuuuuuuuu❌❌❌❌")
+        logger.notice("This is a NOTICE message  u❌❌❌❌")
         logger.smtp( "this is a SMTP message 999")
 
 
@@ -589,6 +583,7 @@ class CustomLevels:
         logger.data9where     ('test of data9where')
         logger.data9info      ('test of data9info 797')
 
+        logger.mark9()
 
     # -----------------------------------------------------------------
     def show_possible_colors():

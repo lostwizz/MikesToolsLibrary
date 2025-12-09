@@ -10,12 +10,13 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 21:00:49"
+__updated__ = "2025-12-08 23:15:31"
 ###############################################################################
 
 
 import sys
 import os
+import time
 import logging
 
 from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
@@ -137,10 +138,40 @@ def displayExcludeLevel():
 
 # -------------------
 def displayExcludeLevel2():
-    LoggerSetup.turnOffNonStandardLevels(FormatMode.ALL)
-    # LoggerSetup.show_all_levels(logger)
-    # pass
+    logger.mark1()
+    # LoggerSetup.turnOffNonStandardLevels(FormatMode.ALL)
+    LoggerSetup.turnOffNonStandardLevels()
+    
+    print ( logging._nameToLevel.get("MARK1"))
+    
+    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK1"))
+    logger.mark1()
+    
+    LoggerSetup.turnOn200s()
+    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK2"))
+    logger.mark2()
+    
+    LoggerSetup.turnOffNonStandardLevels()
+    LoggerSetup.turnOn300s()
+    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK3"))
+    logger.mark3()
+    
+    LoggerSetup.turnOffNonStandardLevels()
+    LoggerSetup.turnOn600s()
+    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK4"))
+    logger.mark4()
 
+    LoggerSetup.turnOnNonStandardLevels()
+    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK5"))
+    logger.mark5()
+
+
+    
 # -------------------
 def checkLoggerLevel():
 
@@ -263,8 +294,8 @@ def main():
     logger = LoggerSetup(
         "MikesToolsLibrary",
         level=logging.DEBUG,
-        logfile="MikesToolsLibrary.log",
-        modes=FormatMode.CONSOLE | FormatMode.FILE,  # | FormatMode.SMTP,
+        logfile=".\logs\MikesToolsLibrary.log",
+        modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR,  # | FormatMode.SMTP,
     ).get_logger()
 
     checkCustomLevels()
@@ -277,8 +308,11 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
+    logger.doRollover()
+    time.sleep(60)
+    showLevelInfo()
 
-
+    FormatMode.CONSOLE.showModes()
 
 if __name__ == "__main__":
     main()
