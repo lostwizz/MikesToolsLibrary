@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 00:58:47"
+__updated__ = "2025-12-08 21:00:49"
 ###############################################################################
 
 
@@ -43,6 +43,7 @@ def checkCustomLevels():
 
     LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m", "‼")
     LoggerSetup.add_special_levels(logger)
+
 
     # Log messages
     logger.blkonyk("blkonyk message here")
@@ -134,6 +135,11 @@ def displayExcludeLevel():
 
     logger.mark()
 
+# -------------------
+def displayExcludeLevel2():
+    LoggerSetup.turnOffNonStandardLevels(FormatMode.ALL)
+    # LoggerSetup.show_all_levels(logger)
+    # pass
 
 # -------------------
 def checkLoggerLevel():
@@ -268,6 +274,7 @@ def main():
     checkTypesOutput()
     checkMultipleArgs()
     displayExcludeLevel()
+    displayExcludeLevel2()
     # checkSMTP()
 
 

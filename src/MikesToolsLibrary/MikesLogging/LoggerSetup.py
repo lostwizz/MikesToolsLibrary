@@ -12,7 +12,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 00:32:30"
+__updated__ = "2025-12-08 20:55:36"
 ###############################################################################
 
 import sys

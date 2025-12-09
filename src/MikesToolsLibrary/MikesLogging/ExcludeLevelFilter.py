@@ -8,7 +8,7 @@ ExcludeLevelFilter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 00:37:28"
+__updated__ = "2025-12-08 21:04:25"
 ###############################################################################
 
 import logging
@@ -137,7 +137,7 @@ class ExcludeLevelFilter(logging.Filter):
     # -----------------------------------------------------------------
     @classmethod
     # def addFilterLevel(self, level: int, mode: FormatMode = None) -> None:
-    def turnOffLevel(cls, level: int, mode: FormatMode = None) -> None:
+    def turnOffLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
         """
         Adds a logging level to the exclusion list.
         :param level: The logging level to exclude.
@@ -155,7 +155,7 @@ class ExcludeLevelFilter(logging.Filter):
     # -----------------------------------------------------------------
     @classmethod
     # def removeFilterLevel(self, level: int, mode: FormatMode = None) -> None:
-    def turnOnLevel(cls, level: int, mode: FormatMode = None) -> None:
+    def turnOnLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
         """
         Removes a logging level from the exclusion list.
         :param level: The logging level to include again.
@@ -171,15 +171,15 @@ class ExcludeLevelFilter(logging.Filter):
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOffLevelRange(self, start:int, end:int, mode: FormatMode = None) -> None:
+    def turnOffLevelRange(self, start:int, end:int, mode: FormatMode = FormatMode.ALL) -> None:
         for i in range(start, end):
-            self.addFilterLevel( i, mode)
+            self.turnOffLevel( i, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOnLevelRange( self, start:int, end:int, mode: FormatMode = None) -> None:
+    def turnOnLevelRange( self, start:int, end:int, mode: FormatMode = FormatMode.ALL) -> None:
         for i in range(start, end):
-            self.removeFilterLevel(i, mode)
+            self.turnOnLevel(i, mode)
 
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------
