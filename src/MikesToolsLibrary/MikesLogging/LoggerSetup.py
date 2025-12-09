@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 23:45:48"
+__updated__ = "2025-12-08 23:55:01"
 ###############################################################################
 
 import sys
@@ -77,7 +77,7 @@ class LoggerSetup:
         maxBytes=100_000,  # 100_000_000,
         backupCount=100,
         interval=7,
-        when="S",  # "midnight"
+        when="midnight"
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
@@ -232,11 +232,11 @@ class LoggerSetup:
         return fh
 
     # -----------------------------------------------------------------
-    # def force_rollover(self, mode: FormatMode = FormatMode.ALL):
-    #     """Force rollover for handlers matching the given mode."""
-    #     for flag, handler in self.handlers_by_mode.items():
-    #         if mode & flag and hasattr(handler, "doRollover"):
-    #             handler.doRollover()
+    def force_rollover(self, mode: FormatMode = FormatMode.ALL):
+        """Force rollover for handlers matching the given mode."""
+        for flag, handler in self.handlers_by_mode.items():
+            if mode & flag and hasattr(handler, "doRollover"):
+                handler.doRollover()
 
 
 

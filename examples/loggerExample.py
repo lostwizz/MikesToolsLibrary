@@ -10,7 +10,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 23:49:38"
+__updated__ = "2025-12-08 23:58:48"
 ###############################################################################
 
 
@@ -284,20 +284,16 @@ def checkMultipleArgs():
     logger.blue("a message", extra={"user_id": "123", "ip": "192.168.1.1"})
 
 # -------------------
-def checkRotatinglogs():
-    # LoggerSetup.force_rollover(FormatMode.TIMEDROTATOR)
-    # logger.tracea( "this should be the online line in the log file")
-    # time.sleep(60)
-    # showLevelInfo()
-    # logger.traceb( "this should be the online line in the log file")
+def checkRotatinglogs(setup, mode):
+    setup.force_rollover(mode)
+    logger.tracea( "this should be the online line in the log file")
+    time.sleep(60)
+    logger.tracea( "this should be the online line in the log file")
+    showLevelInfo()
+    logger.traceb( "this should be the online line in the log file")
 
 
-    # LoggerSetup.force_rollover(FormatMode.ROTATINGFN)
-    # logger.tracea( "this should be the online line in the log file")
-    # time.sleep(60)
-    # showLevelInfo()
-    # logger.traceb( "this should be the online line in the log file")
-    pass
+
 
 # -------------------
 # -------------------
@@ -307,12 +303,15 @@ def checkRotatinglogs():
 # -------------------
 def main():
     global logger
-    logger = LoggerSetup(
+
+    setup = LoggerSetup(
         "MikesToolsLibrary",
         level=logging.DEBUG,
         logfile=".\logs\MikesToolsLibrary.log",
         modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR #| FormatMode.ROTATINGFN,  # | FormatMode.SMTP,
-    ).get_logger()
+    )
+
+    logger = setup.get_logger()
 
     checkCustomLevels()
     showLevelInfo()
@@ -324,7 +323,8 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
-    checkRotatinglogs()
+    checkRotatinglogs(setup, FormatMode.TIMEDROTATOR)
+    checkRotatinglogs(setup, FormatMode.ROTATINGFN)
 
 
     FormatMode.CONSOLE.showModes()
