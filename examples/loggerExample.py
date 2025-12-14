@@ -25,7 +25,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:22:05"
+__updated__ = "2025-12-14 00:47:50"
 ###############################################################################
 
 
@@ -159,24 +159,24 @@ def displayExcludeLevel2():
     logger.mark1()
     # LoggerSetup.turnOffNonStandardLevels(LoggingMode.ALL)
     LoggerSetup.turnOffNonStandardLevels()
-    
+
     print ( logging._nameToLevel.get("MARK1"))
-    
+
     LoggerSetup.show_all_levels(logger)
     LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK1"))
     logger.mark1()
-    
+
     LoggerSetup.turnOn200s()
     LoggerSetup.show_all_levels(logger)
     LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK2"))
     logger.mark2()
-    
+
     LoggerSetup.turnOffNonStandardLevels()
     LoggerSetup.turnOn300s()
     LoggerSetup.show_all_levels(logger)
     LoggerSetup.turnOnLevel( logging._nameToLevel.get("MARK3"))
     logger.mark3()
-    
+
     LoggerSetup.turnOffNonStandardLevels()
     LoggerSetup.turnOn600s()
     LoggerSetup.show_all_levels(logger)
@@ -189,7 +189,7 @@ def displayExcludeLevel2():
     logger.mark5()
 
 
-    
+
 # -------------------
 def checkLoggerLevel():
 
@@ -299,17 +299,6 @@ def checkMultipleArgs():
 
     logger.check("check msg", [1, 2, 3, 4, 5, 6], {"a": 1, "b": 2})
 
-    
-    logger.blue("a message", extra={"user_id": "123"})
-    logger.tracea("some msg")
-    logger.blue("a message", extra={"user_id": "abc"})
-    logger.tracea("some msg")
-    logger.blue("a message", extra={"ip": "192.168.1.1"})
-    logger.tracea("some msg")
-    logger.blue("a message", extra={"ip": "192.168.1.254"})
-    logger.warning("bye")
-    logger.blue("a message", extra={"user_id": "WWWW", "ip": "192.168.111.111"})
-    logger.warning("bye")
 
 # -------------------
 def checkRotatinglogs(setup, mode):
@@ -327,36 +316,47 @@ def checkRotatinglogs(setup, mode):
 # if you ran this at the begginning of a script (or some logging) and all subsequent log messages
 #      would have the name and ip
 def setUnameAndIP():
-
-    hostname = socket.gethostname()
-    local_ip = socket.gethostbyname(hostname)
-    print(local_ip)
-
-    username = getpass.getuser()
+    
+    ## setting username and ip manually
+    logger.blue("a message", extra={"user_id": "123"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"user_id": "abc"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"ip": "192.168.1.1"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"ip": "192.168.1.254"})
+    logger.tracet("   msg ")
+    logger.blue("a message", extra={"user_id": "WWWW", "ip": "192.168.111.111"})
+    logger.traces("   another msg ")
 
 
     logger.tools("+++++++++++ this is some message")
-    logger.fingerright("a message", extra={"user_id": username, "ip": local_ip})
-    logger.tools("+++++++++++ this is some message")
+    # logger.fingerright("a message", extra={"user_id": username, "ip": local_ip})
+    # logger.tools("+++++++++++ this is some message")
 
     logger.blue("a message", extra={"user_id": "WWWW", "ip": "192.168.111.111"})
+    logger.tracey(" just a msg")
+
+    ## setting the username and IP by code (in LoggerSetup)
     LoggerSetup.includeUserNameAndIP()
-    logger.warningsign( "some warning")
-    logger.warningsign( "some warning")
-    logger.warningsign( "some warning")
+    logger.tracea( "some warning 1")
+    LoggerSetup.includeUserNameAndIP(overrideIP= "127.990.990.1")
+    logger.traceb( "some warning 2")
+    LoggerSetup.includeUserNameAndIP("Bob")
+    logger.tracec( "some warning 3")
     LoggerSetup.includeUserNameAndIP("Mike", "127.0.0.1")
-    logger.warningsign( "some warning")
-    logger.warningsign( "some warning")
+    logger.traced( "some warning 4")
+    logger.tracee( "some warning 5")
     LoggerSetup.includeUserNameAndIP()
-    logger.warningsign( "some warning")
+    logger.tracef( "some warning 6")
 
 
 
-        
-    
 
 
-        
+
+
+
 # -------------------
 
 
@@ -374,19 +374,23 @@ def main():
 
     logger = LogSetup.get_logger()
 
+    # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
+
     checkCustomLevels()
     showLevelInfo()
     checkDecorator()
     checkLoggerLevel()
     checkTypesOutput()
     checkMultipleArgs()
-    
-    
+
+
     setUnameAndIP()
 
-    
+
     displayExcludeLevel()
+    # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
     displayExcludeLevel2()
+    LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
     # checkSMTP()
 
     # checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)

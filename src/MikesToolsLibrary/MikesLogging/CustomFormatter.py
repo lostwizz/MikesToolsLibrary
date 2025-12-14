@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:13:22"
+__updated__ = "2025-12-14 00:41:51"
 ###############################################################################
 
 
@@ -134,8 +134,8 @@ class CustomFormatter(logging.Formatter):
             # the first time an username is passed it is used for all subsequent log messages
             record.user_id = getattr(record, "user_id", self.uName)
             if not self.uName or self.uName != record.user_id:
-                self.uName = record.user_id  
-                
+                self.uName = record.user_id
+
             # the first time an IP is passed it is used for all subsequent log messages
             record.ip = getattr(record, "ip", self.IP)
             if not self.IP or self.IP != record.ip:
@@ -204,8 +204,11 @@ class CustomFormatter(logging.Formatter):
                 case _:
                     pass
 
-            # return f"{special}{color}{msg}{end}{special}"
-            return f"{color}{msg}{end}{special}"
+
+            if hasattr(record, "special"):
+                return f"{special}{color}{msg}{end}{special}"
+            else:
+                return f"{color}{msg}{end}{special}"
         finally:
             # Restore args to avoid side effects across handlers/formatters
             record.args = original_args

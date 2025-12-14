@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:19:43"
+__updated__ = "2025-12-14 00:38:17"
 ###############################################################################
 
 from encodings.punycode import T
@@ -267,7 +267,7 @@ class LoggerSetup:
             local_ip = socket.gethostbyname(hostname)
 
         # print(f"setting to: {username=} {local_ip=}")
-        cls._logger.pirate("Setting Usernameand IP",extra={"user_id": username, "ip": local_ip})
+        cls._logger.pirate(f"☠Setting Username: '{username}' and IP: '{local_ip}'",extra={"user_id": username, "ip": local_ip, "special":True})
 
     # -----------------------------------------------------------------
     @classmethod
