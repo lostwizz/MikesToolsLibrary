@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:43:40"
+__updated__ = "2025-12-14 00:08:53"
 ###############################################################################
 
 import sys
@@ -230,6 +230,7 @@ class CustomLevels:
         self.add("fingerright",     617,  "\x1b[00;91;103m" ,"👉")
         self.add("fingerleft",     618,  "\x1b[00;91;103m" ,"👈")
         self.add("thumbsup",     619,  "\x1b[00;91;103m" ,"👍")
+        self.add("pirate",     620,  "\x1b[00;91;103m" ,"☠")
 
 
         self.add("appbegin",      700, "\x1b[00;96;107m")
@@ -496,6 +497,7 @@ class CustomLevels:
         logger.fingerright( "test of finger pointing right 617")
         logger.fingerleft( "test of finger pointing left 618")
         logger.thumbsup( "test of thumbs up 619")
+        logger.pirate("test of skull and cross bones 620")
 
         logger.appbegin       ('test of appbegin    700' )
         logger.append         ('test of append      701'   )

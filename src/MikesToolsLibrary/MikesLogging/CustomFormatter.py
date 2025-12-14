@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 23:17:54"
+__updated__ = "2025-12-14 00:13:22"
 ###############################################################################
 
 
@@ -132,14 +132,14 @@ class CustomFormatter(logging.Formatter):
                     record.args = ()  # prevent logging from doing msg % args
 
             # the first time an username is passed it is used for all subsequent log messages
-            if not hasattr(record, "user_id"):
-                record.user_id = self.uName
-            else:
-                if not self.uName:
-                    self.uName = record.user_id
-                    
-            if not hasattr(record, "ip"):
-                record.ip = "-"
+            record.user_id = getattr(record, "user_id", self.uName)
+            if not self.uName or self.uName != record.user_id:
+                self.uName = record.user_id  
+                
+            # the first time an IP is passed it is used for all subsequent log messages
+            record.ip = getattr(record, "ip", self.IP)
+            if not self.IP or self.IP != record.ip:
+                self.IP = record.ip
 
             # Build base message
             msg = super().format(record)
@@ -172,10 +172,11 @@ class CustomFormatter(logging.Formatter):
                     color = ""
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = ""
-                    
-                    # if no username is set then remove that extra "|" 
-                    if not self.uName:
-                        msg= msg.replace("||","|")
+
+                    # if no username is set then remove that extra "|"
+                    if not self.uName or not self.IP:
+                        msg= msg.replace("|||","|").replace("||","|").replace("None|", "")
+
                 case LoggingMode.CONSOLE:
                     color = self.COLORS.get(record.levelno, self.RESET)
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
@@ -197,7 +198,7 @@ class CustomFormatter(logging.Formatter):
                         log_obj['user_id'] = record.user_id
                     if self.IP:
                         log_obj['ip'] = record.ip
-                        
+
                     return json.dumps(log_obj, ensure_ascii=False)
 
                 case _:

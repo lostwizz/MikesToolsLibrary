@@ -25,15 +25,20 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 23:07:45"
+__updated__ = "2025-12-14 00:22:05"
 ###############################################################################
 
 
 import sys
 import os
 import time
+import socket
+import getpass
+
+
 import logging
 
+from MikesToolsLibrary import MikesSetup
 from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
 from MikesToolsLibrary.MikesLogging import ( log_decorator, log_decoratorPlain,
@@ -295,7 +300,15 @@ def checkMultipleArgs():
     logger.check("check msg", [1, 2, 3, 4, 5, 6], {"a": 1, "b": 2})
 
     
-    logger.blue("a message", extra={"user_id": "123", "ip": "192.168.1.1"})
+    logger.blue("a message", extra={"user_id": "123"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"user_id": "abc"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"ip": "192.168.1.1"})
+    logger.tracea("some msg")
+    logger.blue("a message", extra={"ip": "192.168.1.254"})
+    logger.warning("bye")
+    logger.blue("a message", extra={"user_id": "WWWW", "ip": "192.168.111.111"})
     logger.warning("bye")
 
 # -------------------
@@ -311,6 +324,39 @@ def checkRotatinglogs(setup, mode):
 
 
 # -------------------
+# if you ran this at the begginning of a script (or some logging) and all subsequent log messages
+#      would have the name and ip
+def setUnameAndIP():
+
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
+    print(local_ip)
+
+    username = getpass.getuser()
+
+
+    logger.tools("+++++++++++ this is some message")
+    logger.fingerright("a message", extra={"user_id": username, "ip": local_ip})
+    logger.tools("+++++++++++ this is some message")
+
+    logger.blue("a message", extra={"user_id": "WWWW", "ip": "192.168.111.111"})
+    LoggerSetup.includeUserNameAndIP()
+    logger.warningsign( "some warning")
+    logger.warningsign( "some warning")
+    logger.warningsign( "some warning")
+    LoggerSetup.includeUserNameAndIP("Mike", "127.0.0.1")
+    logger.warningsign( "some warning")
+    logger.warningsign( "some warning")
+    LoggerSetup.includeUserNameAndIP()
+    logger.warningsign( "some warning")
+
+
+
+        
+    
+
+
+        
 # -------------------
 
 
@@ -334,6 +380,11 @@ def main():
     checkLoggerLevel()
     checkTypesOutput()
     checkMultipleArgs()
+    
+    
+    setUnameAndIP()
+
+    
     displayExcludeLevel()
     displayExcludeLevel2()
     # checkSMTP()

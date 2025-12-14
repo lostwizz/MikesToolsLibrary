@@ -27,12 +27,15 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 22:51:04"
+__updated__ = "2025-12-14 00:19:43"
 ###############################################################################
 
 from encodings.punycode import T
 import sys
 import json
+import socket
+import getpass
+
 import logging
 from logging.handlers import SMTPHandler
 
@@ -143,7 +146,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(ip)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -202,7 +205,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(ip)s|%(user_id)15s|%(filename)16s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -224,7 +227,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(ip)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -250,6 +253,21 @@ class LoggerSetup:
                 logging._nameToLevel.pop(level_name, None)
         # Clear loggerDict
         logging.Logger.manager.loggerDict.clear()
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def includeUserNameAndIP(cls, overrideName=None, overrideIP=None):
+        
+        username = overrideName if overrideName else getpass.getuser()
+        
+        if overrideIP:
+            local_ip = overrideIP
+        else:
+            hostname = socket.gethostname()
+            local_ip = socket.gethostbyname(hostname)
+
+        # print(f"setting to: {username=} {local_ip=}")
+        cls._logger.pirate("Setting Usernameand IP",extra={"user_id": username, "ip": local_ip})
 
     # -----------------------------------------------------------------
     @classmethod
