@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:41:51"
+__updated__ = "2025-12-14 00:58:59"
 ###############################################################################
 
 
@@ -143,6 +143,9 @@ class CustomFormatter(logging.Formatter):
 
             # Build base message
             msg = super().format(record)
+
+            if record.levelname in ['ERROR', 'CRITICAL', 'WARNING']:
+                record.special = True
 
             # limit the file name to FILENAME_SIZE length
             FILENAME_SIZE = 15
