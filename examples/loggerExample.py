@@ -25,7 +25,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 22:40:28"
+__updated__ = "2025-12-13 23:07:45"
 ###############################################################################
 
 
@@ -338,8 +338,8 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
-    checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)
-    checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
+    # checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)
+    # checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
 
 
     LoggingMode.CONSOLE.showModes()

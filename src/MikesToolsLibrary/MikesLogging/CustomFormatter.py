@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 22:59:03"
+__updated__ = "2025-12-13 23:17:54"
 ###############################################################################
 
 
@@ -131,6 +131,7 @@ class CustomFormatter(logging.Formatter):
                     record.msg = f"{record.msg}{sep}{appended}"
                     record.args = ()  # prevent logging from doing msg % args
 
+            # the first time an username is passed it is used for all subsequent log messages
             if not hasattr(record, "user_id"):
                 record.user_id = self.uName
             else:
@@ -171,6 +172,10 @@ class CustomFormatter(logging.Formatter):
                     color = ""
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = ""
+                    
+                    # if no username is set then remove that extra "|" 
+                    if not self.uName:
+                        msg= msg.replace("||","|")
                 case LoggingMode.CONSOLE:
                     color = self.COLORS.get(record.levelno, self.RESET)
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
@@ -188,6 +193,11 @@ class CustomFormatter(logging.Formatter):
                         "lineno": record.lineno,
                         "message": record.getMessage(),
                     }
+                    if self.uName:
+                        log_obj['user_id'] = record.user_id
+                    if self.IP:
+                        log_obj['ip'] = record.ip
+                        
                     return json.dumps(log_obj, ensure_ascii=False)
 
                 case _:
