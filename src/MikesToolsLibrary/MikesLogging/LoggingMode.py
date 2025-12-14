@@ -10,7 +10,7 @@ LoggingMode.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:44:12"
+__updated__ = "2025-12-13 22:25:03"
 ###############################################################################
 import sys
 
@@ -62,6 +62,11 @@ class LoggingMode(IntFlag):
         for mode in LoggingMode:
             print(f"{mode.name} = {mode.value:_b}")
 
+
+# -----------------------------------------------------------------
+def iter_flags(mask: LoggingMode) -> list[LoggingMode]:
+    """Yield individual flags contained in a mask (excluding 0)."""
+    return [m for m in LoggingMode if m != 0 and (mask & m) == m]
 
 
 

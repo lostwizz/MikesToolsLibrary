@@ -8,18 +8,13 @@ ExcludeLevelFilter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:46:02"
+__updated__ = "2025-12-13 22:26:04"
 ###############################################################################
 import sys
 import logging
 from collections import defaultdict
 
-from .LoggingMode import LoggingMode
-
-# -----------------------------------------------------------------
-def iter_flags(mask: LoggingMode) -> list[LoggingMode]:
-    """Yield individual flags contained in a mask (excluding 0)."""
-    return [m for m in LoggingMode if m != 0 and (mask & m) == m]
+from .LoggingMode import LoggingMode, iter_flags
 
 
 # =================================================================

@@ -25,7 +25,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:33:36"
+__updated__ = "2025-12-13 22:40:28"
 ###############################################################################
 
 
@@ -293,8 +293,10 @@ def checkMultipleArgs():
     logger.rocket("some message", "and some arg", "and another arg")
 
     logger.check("check msg", [1, 2, 3, 4, 5, 6], {"a": 1, "b": 2})
-    logger.warning("bye")
+
+    
     logger.blue("a message", extra={"user_id": "123", "ip": "192.168.1.1"})
+    logger.warning("bye")
 
 # -------------------
 def checkRotatinglogs(setup, mode):

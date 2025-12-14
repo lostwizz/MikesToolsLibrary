@@ -27,9 +27,10 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:45:21"
+__updated__ = "2025-12-13 22:51:04"
 ###############################################################################
 
+from encodings.punycode import T
 import sys
 import json
 import logging
@@ -54,12 +55,6 @@ from .CustomFormatter import CustomFormatter
 from .ExcludeLevelFilter import ExcludeLevelFilter
 from .LoggingMode import LoggingMode
 
-# from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-# from MikesToolsLibrary.MikesLogging.CustomLevels import CustomLevels
-# from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
-# from MikesToolsLibrary.MikesLogging.ExcludeLevelFilter import ExcludeLevelFilter
-# from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
-
 
 ###############################################################################
 ###############################################################################
@@ -81,20 +76,19 @@ class LoggerSetup:
         level: int = logging.DEBUG,
         logfile: str = "app.log",
         modes: LoggingMode = LoggingMode.CONSOLE | LoggingMode.ROTATINGFN,
-        maxBytes=100_000,  # 100_000_000,
+        maxBytes=100_000_000,
         backupCount=100,
-        interval=7,
-        when="midnight"
+        interval=1,
+        when="midnight",
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
         self.handlers_by_mode = {}
 
-
-
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
 
+            # INCOMPLETE
             handlers = {
                 LoggingMode.CONSOLE: lambda: self.setupConsoleHandler(level),
                 LoggingMode.FILE: lambda: self.setupFileHandler(level, logfile),
@@ -149,7 +143,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -208,7 +202,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -230,7 +224,7 @@ class LoggerSetup:
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
-                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
+                fmt="%(asctime)s|%(user_id)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
@@ -244,8 +238,6 @@ class LoggerSetup:
         for flag, handler in self.handlers_by_mode.items():
             if mode & flag and hasattr(handler, "doRollover"):
                 handler.doRollover()
-
-
 
     # -----------------------------------------------------------------
     @staticmethod
@@ -261,7 +253,7 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def add_special_levels(self, logger):
+    def add_special_levels(cls, logger):
         """Add the predefined custom log levels by delegating to CustomLevels."""
         CustomLevels.addMyCustomLevels(logger)
 
@@ -436,9 +428,8 @@ class LoggerSetup:
     # -----------------------------------------------------------------
 
 
-
 # -----------------------------------------------------------------
-if __name__ == '__main__':
+if __name__ == "__main__":
     """
     This is the main function that runs when the script is executed directly.
     It sets up the logger and demonstrates the usage of the CustomFormatter class.

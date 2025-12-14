@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:46:37"
+__updated__ = "2025-12-13 22:59:03"
 ###############################################################################
 
 
@@ -29,53 +29,6 @@ from .LoggingMode import LoggingMode
 sys.stdout.reconfigure(encoding="utf-8")
 
 
-###############################################################################
-# ###############################################################################
-# @unique
-# class FormatMode(IntFlag):
-#     def _generate_next_value_(name, start, count, last_values):
-#         # Ensure auto() generates powers of two, not sequential integers
-#         return 1 << count
-
-#     CONSOLE = auto()  # 0b0000_0000_0001
-#     FILE = auto()  # 0b0000_0000_0010
-#     JSON = auto()  # 0b0000_0000_0100
-#     SMTP = auto()  # 0b0000__0000_0000_1000
-#     ROTATINGFN= auto()  # 0b1000_0000_0000
-#     TIMEDROTATOR = auto()  # 0b0001_0000_0000_0000
-#     # SYSLOG = auto()   #0b0000_0001_0000
-#     # HTTP = auto()   #0b0000_0010_0000
-#     # QUEUE = auto()   #0b0000_0100_0000
-#     # MEMORY = auto()   #0b0000_1000_0000
-#     # DATABASE = auto()   #0b0001_0000_0000
-#     # CLOUD = auto()   #0b0010_0000_0000
-#     # EXTERNAL = auto()   #0b0100_0000_0000
-
-#     ALL = (
-#         CONSOLE
-#         | FILE
-#         | JSON
-#         | SMTP
-#         | ROTATINGFN
-#         | TIMEDROTATOR
-#         # | SYSLOG
-#         # | HTTP
-#         # | QUEUE
-#         # | MEMORY
-#         # | DATABASE
-#         # | CLOUD
-#         # | EXTERNAL
-#         )
-
-#     # -----------------------------------------------------------------
-#     def __str__(self):
-#         return f'FormatMode: {format(self.value)}'
-    
-#     # -----------------------------------------------------------------
-#     def showModes(self):
-#         for mode in FormatMode:
-#             print(f"{mode.name} = {mode.value:_b}")
-            
 ###############################################################################
 ###############################################################################
 class CustomFormatter(logging.Formatter):
@@ -96,19 +49,21 @@ class CustomFormatter(logging.Formatter):
         logging.INFO: "ℹ ",
         logging.DEBUG: "……",
     }
-    """
-    25: "🔍",   # TRACE custom level
-    26: "📊",   # DATA custom level
-    27: "✔",   # SUCCESS custom level
-    28: "🛠",   # CONFIG custom level
-    29: "🔒",   # SECURITY custom level
-    """
+    # """
+    # 25: "🔍",   # TRACE custom level
+    # 26: "📊",   # DATA custom level
+    # 27: "✔",   # SUCCESS custom level
+    # 28: "🛠",   # CONFIG custom level
+    # 29: "🔒",   # SECURITY custom level
+    # """
+
+    IP=""
+    uName=""
 
     # -----------------------------------------------------------------
     def __init__(self, fmt=None, datefmt=None, fmtMode=LoggingMode.CONSOLE, style="%"):
         super().__init__(
-            fmt
-            or "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s",
+            fmt or "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s",
             datefmt or "%Y-%m-%d %H:%M:%S",
             style=style,
         )
@@ -116,16 +71,16 @@ class CustomFormatter(logging.Formatter):
         self.style = style
 
     # -----------------------------------------------------------------
-    def _has_placeholders(self, msg: str) -> bool:
-        if self.style == "%":
-            return (
-                "%" in msg
-            )  # simple heuristic; enough for deciding to let logging interpolate
-        elif self.style == "{":
-            return "{" in msg and "}" in msg
-        elif self.style == "$":
-            return "$" in msg
-        return False
+    # def _has_placeholders(self, msg: str) -> bool:
+    #     if self.style == "%":
+    #         return (
+    #             "%" in msg
+    #         )  # simple heuristic; enough for deciding to let logging interpolate
+    #     elif self.style == "{":
+    #         return "{" in msg and "}" in msg
+    #     elif self.style == "$":
+    #         return "$" in msg
+    #     return False
 
     # -----------------------------------------------------------------
     def _pp(self, obj):
@@ -176,14 +131,14 @@ class CustomFormatter(logging.Formatter):
                     record.msg = f"{record.msg}{sep}{appended}"
                     record.args = ()  # prevent logging from doing msg % args
 
-                # record.msg = f"{record.msg} {appended}"
-                # record.args = ()  # prevent logging from doing msg % args
-
-            # if original_args and isinstance(record.msg, str):
-            #     sep = "\n"  # or " " depending on your preference
-            #     appended = sep.join(str(self._pp(a)) for a in original_args)
-            #     record.msg = f"{record.msg}{sep}{appended}"
-            #     record.args = ()  # always clear args so logging doesn’t try to interpolate
+            if not hasattr(record, "user_id"):
+                record.user_id = self.uName
+            else:
+                if not self.uName:
+                    self.uName = record.user_id
+                    
+            if not hasattr(record, "ip"):
+                record.ip = "-"
 
             # Build base message
             msg = super().format(record)
@@ -209,9 +164,10 @@ class CustomFormatter(logging.Formatter):
                 if not record.exc_text:
                     record.exc_text = self.formatException(record.exc_info)
 
+            # INCOMPLETE
             # Style per mode
             match self.fmtMode:
-                case LoggingMode.FILE:
+                case LoggingMode.FILE | LoggingMode.ROTATINGFN | LoggingMode.TIMEDROTATOR:
                     color = ""
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = ""
