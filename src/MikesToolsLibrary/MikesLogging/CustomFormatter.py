@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 22:52:21"
+__updated__ = "2025-12-13 20:28:30"
 ###############################################################################
 
 
@@ -22,7 +22,7 @@ from enum import Enum, IntFlag, unique, auto
 
 import traceback
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-
+import MikesToolsLibrary.MikesLogging.LoggingMode 
 
 import sys
 
@@ -30,51 +30,51 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 
 ###############################################################################
-###############################################################################
-@unique
-class FormatMode(IntFlag):
-    def _generate_next_value_(name, start, count, last_values):
-        # Ensure auto() generates powers of two, not sequential integers
-        return 1 << count
+# ###############################################################################
+# @unique
+# class FormatMode(IntFlag):
+#     def _generate_next_value_(name, start, count, last_values):
+#         # Ensure auto() generates powers of two, not sequential integers
+#         return 1 << count
 
-    CONSOLE = auto()  # 0b0000_0000_0001
-    FILE = auto()  # 0b0000_0000_0010
-    JSON = auto()  # 0b0000_0000_0100
-    SMTP = auto()  # 0b0000__0000_0000_1000
-    ROTATINGFN= auto()  # 0b1000_0000_0000
-    TIMEDROTATOR = auto()  # 0b0001_0000_0000_0000
-    # SYSLOG = auto()   #0b0000_0001_0000
-    # HTTP = auto()   #0b0000_0010_0000
-    # QUEUE = auto()   #0b0000_0100_0000
-    # MEMORY = auto()   #0b0000_1000_0000
-    # DATABASE = auto()   #0b0001_0000_0000
-    # CLOUD = auto()   #0b0010_0000_0000
-    # EXTERNAL = auto()   #0b0100_0000_0000
+#     CONSOLE = auto()  # 0b0000_0000_0001
+#     FILE = auto()  # 0b0000_0000_0010
+#     JSON = auto()  # 0b0000_0000_0100
+#     SMTP = auto()  # 0b0000__0000_0000_1000
+#     ROTATINGFN= auto()  # 0b1000_0000_0000
+#     TIMEDROTATOR = auto()  # 0b0001_0000_0000_0000
+#     # SYSLOG = auto()   #0b0000_0001_0000
+#     # HTTP = auto()   #0b0000_0010_0000
+#     # QUEUE = auto()   #0b0000_0100_0000
+#     # MEMORY = auto()   #0b0000_1000_0000
+#     # DATABASE = auto()   #0b0001_0000_0000
+#     # CLOUD = auto()   #0b0010_0000_0000
+#     # EXTERNAL = auto()   #0b0100_0000_0000
 
-    ALL = (
-        CONSOLE
-        | FILE
-        | JSON
-        | SMTP
-        | ROTATINGFN
-        | TIMEDROTATOR
-        # | SYSLOG
-        # | HTTP
-        # | QUEUE
-        # | MEMORY
-        # | DATABASE
-        # | CLOUD
-        # | EXTERNAL
-        )
+#     ALL = (
+#         CONSOLE
+#         | FILE
+#         | JSON
+#         | SMTP
+#         | ROTATINGFN
+#         | TIMEDROTATOR
+#         # | SYSLOG
+#         # | HTTP
+#         # | QUEUE
+#         # | MEMORY
+#         # | DATABASE
+#         # | CLOUD
+#         # | EXTERNAL
+#         )
 
-    # -----------------------------------------------------------------
-    def __str__(self):
-        return f'FormatMode: {format(self.value)}'
+#     # -----------------------------------------------------------------
+#     def __str__(self):
+#         return f'FormatMode: {format(self.value)}'
     
-    # -----------------------------------------------------------------
-    def showModes(self):
-        for mode in FormatMode:
-            print(f"{mode.name} = {mode.value:_b}")
+#     # -----------------------------------------------------------------
+#     def showModes(self):
+#         for mode in FormatMode:
+#             print(f"{mode.name} = {mode.value:_b}")
             
 ###############################################################################
 ###############################################################################
@@ -105,7 +105,7 @@ class CustomFormatter(logging.Formatter):
     """
 
     # -----------------------------------------------------------------
-    def __init__(self, fmt=None, datefmt=None, fmtMode=FormatMode.CONSOLE, style="%"):
+    def __init__(self, fmt=None, datefmt=None, fmtMode=LoggingMode.CONSOLE, style="%"):
         super().__init__(
             fmt
             or "%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)7s| %(message)s",
@@ -211,19 +211,19 @@ class CustomFormatter(logging.Formatter):
 
             # Style per mode
             match self.fmtMode:
-                case FormatMode.FILE:
+                case LoggingMode.FILE:
                     color = ""
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = ""
-                case FormatMode.CONSOLE:
+                case LoggingMode.CONSOLE:
                     color = self.COLORS.get(record.levelno, self.RESET)
                     special = self.SPECIAL_CHARACTERS.get(record.levelno, "")
                     end = self.RESET
-                case FormatMode.SMTP:
+                case LoggingMode.SMTP:
                     color = ""
                     end = ""
                     special = ""
-                case FormatMode.JSON:
+                case LoggingMode.JSON:
                     log_obj = {
                         "time": self.formatTime(record, self.datefmt),
                         "level": record.levelname,
@@ -247,3 +247,12 @@ class CustomFormatter(logging.Formatter):
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------
     # -----------------------------------------------------------------
+
+# -----------------------------------------------------------------
+if __name__ == '__main__':
+    """
+    This is the main function that runs when the script is executed directly.
+    It sets up the logger and demonstrates the usage of the CustomFormatter class.
+    """
+    print("You should not run this file directly, it is a module to be imported.")
+    sys.exit(-99)

@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 21:23:41"
+__updated__ = "2025-12-13 20:28:56"
 ###############################################################################
 
 
@@ -642,3 +642,14 @@ class CustomLevels:
     # -----------------------------------------------------------------
 
     # -----------------------------------------------------------------
+
+
+
+# -----------------------------------------------------------------
+if __name__ == '__main__':
+    """
+    This is the main function that runs when the script is executed directly.
+    It sets up the logger and demonstrates the usage of the CustomFormatter class.
+    """
+    print("You should not run this file directly, it is a module to be imported.")
+    sys.exit(-99)

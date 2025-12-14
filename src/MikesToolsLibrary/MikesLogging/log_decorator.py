@@ -10,7 +10,7 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-01 18:41:07"
+__updated__ = "2025-12-13 20:29:17"
 ###############################################################################
 
 
@@ -191,3 +191,14 @@ def log_decoratorPlain(func) -> None:
             raise
 
     return wrapper
+
+
+
+# -----------------------------------------------------------------
+if __name__ == '__main__':
+    """
+    This is the main function that runs when the script is executed directly.
+    It sets up the logger and demonstrates the usage of the CustomFormatter class.
+    """
+    print("You should not run this file directly, it is a module to be imported.")
+    sys.exit(-99)

@@ -5,12 +5,27 @@ r"""
 loggerExample.py
 
 
+# TODO:
+# COMMENT:
+# NOTE:
+# USEFULL:
+# LEARN:
+# RECHECK
+# INCOMPLETE
+# SEE NOTES
+# POST
+# HACK
+# FIXME
+# BUG
+# [ ] something to do
+# [x]  i did sometrhing
+
 
 
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-08 23:58:48"
+__updated__ = "2025-12-13 18:22:13"
 ###############################################################################
 
 
@@ -304,14 +319,14 @@ def checkRotatinglogs(setup, mode):
 def main():
     global logger
 
-    setup = LoggerSetup(
+    LogSetup = LoggerSetup(
         "MikesToolsLibrary",
         level=logging.DEBUG,
         logfile=".\logs\MikesToolsLibrary.log",
         modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR #| FormatMode.ROTATINGFN,  # | FormatMode.SMTP,
     )
 
-    logger = setup.get_logger()
+    logger = LogSetup.get_logger()
 
     checkCustomLevels()
     showLevelInfo()
@@ -323,8 +338,8 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
-    checkRotatinglogs(setup, FormatMode.TIMEDROTATOR)
-    checkRotatinglogs(setup, FormatMode.ROTATINGFN)
+    checkRotatinglogs(LogSetup, FormatMode.TIMEDROTATOR)
+    checkRotatinglogs(LogSetup, FormatMode.ROTATINGFN)
 
 
     FormatMode.CONSOLE.showModes()
