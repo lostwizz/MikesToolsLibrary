@@ -10,10 +10,11 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:30:43"
+__updated__ = "2025-12-13 20:46:37"
 ###############################################################################
 
 
+import sys
 import logging
 import pprint
 from pprint import pformat
@@ -21,10 +22,9 @@ import json
 from enum import Enum, IntFlag, unique, auto
 
 import traceback
-from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+from .log_decorator import log_decorator
+from .LoggingMode import LoggingMode
 
-import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 

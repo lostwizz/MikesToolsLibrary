@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:32:32"
+__updated__ = "2025-12-13 20:45:21"
 ###############################################################################
 
 import sys
@@ -48,11 +48,17 @@ from logging.handlers import TimedRotatingFileHandler
 # from logging.handlers import QueueHandler   #, SimpleQueue
 # from logging.handlers import QueueListener
 
-from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MikesLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
-from MikesToolsLibrary.MikesLogging.ExcludeLevelFilter import ExcludeLevelFilter
-from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+from .log_decorator import log_decorator
+from .CustomLevels import CustomLevels
+from .CustomFormatter import CustomFormatter
+from .ExcludeLevelFilter import ExcludeLevelFilter
+from .LoggingMode import LoggingMode
+
+# from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
+# from MikesToolsLibrary.MikesLogging.CustomLevels import CustomLevels
+# from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
+# from MikesToolsLibrary.MikesLogging.ExcludeLevelFilter import ExcludeLevelFilter
+# from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 
 ###############################################################################

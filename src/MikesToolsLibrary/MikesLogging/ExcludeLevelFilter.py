@@ -8,21 +8,13 @@ ExcludeLevelFilter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:43:50"
+__updated__ = "2025-12-13 20:46:02"
 ###############################################################################
 import sys
 import logging
 from collections import defaultdict
 
-
-# from MikesToolsLibrary.MyLogging.log_decorator import log_decorator
-
-
-# from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
-# from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
-
-# from MikesToolsLibrary.MikesLogging.CustomFormatter import LoggingMode
-from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+from .LoggingMode import LoggingMode
 
 # -----------------------------------------------------------------
 def iter_flags(mask: LoggingMode) -> list[LoggingMode]:

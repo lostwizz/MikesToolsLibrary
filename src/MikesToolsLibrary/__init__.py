@@ -14,7 +14,7 @@ A collection of tools for advanced logging, formatting, and custom levels.
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:41:40"
+__updated__ = "2025-12-13 20:44:55"
 ###############################################################################
 
 
@@ -31,5 +31,5 @@ from .MikesLogging import CustomFormatter
 # from .MikesLogging.LoggingMode import LoggingMode
 
 
-__all__ = ["CustomFormatter", "LoggingMode"]
+__all__ = ["CustomFormatter"]
 # __all__ = ["CustomFormatter", "LoggingMode"]
