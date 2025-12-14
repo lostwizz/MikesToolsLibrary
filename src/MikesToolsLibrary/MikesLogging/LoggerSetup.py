@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:28:18"
+__updated__ = "2025-12-13 20:32:32"
 ###############################################################################
 
 import sys
@@ -50,8 +50,9 @@ from logging.handlers import TimedRotatingFileHandler
 
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
 from MikesToolsLibrary.MikesLogging.CustomLevels import CustomLevels
-from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter, FormatMode
+from MikesToolsLibrary.MikesLogging.CustomFormatter import CustomFormatter
 from MikesToolsLibrary.MikesLogging.ExcludeLevelFilter import ExcludeLevelFilter
+from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 
 ###############################################################################
@@ -73,7 +74,7 @@ class LoggerSetup:
         name: str = "MikesToolsLibrary",
         level: int = logging.DEBUG,
         logfile: str = "app.log",
-        modes: FormatMode = FormatMode.CONSOLE | FormatMode.ROTATINGFN,
+        modes: LoggingMode = LoggingMode.CONSOLE | LoggingMode.ROTATINGFN,
         maxBytes=100_000,  # 100_000_000,
         backupCount=100,
         interval=7,
@@ -89,27 +90,27 @@ class LoggerSetup:
         if not self.logger.handlers:
 
             handlers = {
-                FormatMode.CONSOLE: lambda: self.setupConsoleHandler(level),
-                FormatMode.FILE: lambda: self.setupFileHandler(level, logfile),
-                FormatMode.SMTP: lambda: self.setupSMTPHandler(name),
-                FormatMode.JSON: lambda: self.setupJSONHandler(level, logfile),
-                FormatMode.ROTATINGFN: lambda: self.setupRotationFileHandler(
+                LoggingMode.CONSOLE: lambda: self.setupConsoleHandler(level),
+                LoggingMode.FILE: lambda: self.setupFileHandler(level, logfile),
+                LoggingMode.SMTP: lambda: self.setupSMTPHandler(name),
+                LoggingMode.JSON: lambda: self.setupJSONHandler(level, logfile),
+                LoggingMode.ROTATINGFN: lambda: self.setupRotationFileHandler(
                     level, logfile=logfile, maxBytes=maxBytes, backupCount=backupCount
                 ),
-                FormatMode.TIMEDROTATOR: lambda: self.setupTimedRotationFileHandler(
+                LoggingMode.TIMEDROTATOR: lambda: self.setupTimedRotationFileHandler(
                     level,
                     logfile,
                     interval=interval,
                     when=when,
                     backupCount=backupCount,
                 ),
-                # FormatMode.MEMORY: lambda: None,
-                # FormatMode.SYSLOG: lambda: None,
-                # FormatMode.HTTP: lambda: None,
-                # FormatMode.QUEUE: lambda: None,
-                # FormatMode.DATABASE: lambda: None,
-                # FormatMode.CLOUD: lambda: None,
-                # FormatMode.EXTERNAL: lambda: None,
+                # LoggingMode.MEMORY: lambda: None,
+                # LoggingMode.SYSLOG: lambda: None,
+                # LoggingMode.HTTP: lambda: None,
+                # LoggingMode.QUEUE: lambda: None,
+                # LoggingMode.DATABASE: lambda: None,
+                # LoggingMode.CLOUD: lambda: None,
+                # LoggingMode.EXTERNAL: lambda: None,
             }
 
             for mode, setup in handlers.items():
@@ -130,10 +131,10 @@ class LoggerSetup:
             CustomFormatter(
                 fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%H:%M:%S",
-                fmtMode=FormatMode.CONSOLE,
+                fmtMode=LoggingMode.CONSOLE,
             )
         )
-        ch.addFilter(ExcludeLevelFilter(FormatMode.CONSOLE))
+        ch.addFilter(ExcludeLevelFilter(LoggingMode.CONSOLE))
         return ch
 
     # -----------------------------------------------------------------
@@ -144,10 +145,10 @@ class LoggerSetup:
             CustomFormatter(
                 fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
-                fmtMode=FormatMode.FILE,
+                fmtMode=LoggingMode.FILE,
             )
         )  # more detail, timestamps
-        fh.addFilter(ExcludeLevelFilter(FormatMode.FILE))
+        fh.addFilter(ExcludeLevelFilter(LoggingMode.FILE))
         return fh
 
     # -----------------------------------------------------------------
@@ -158,10 +159,10 @@ class LoggerSetup:
             CustomFormatter(
                 fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
-                fmtMode=FormatMode.JSON,
+                fmtMode=LoggingMode.JSON,
             )
         )  # more detail, timestamps
-        fh.addFilter(ExcludeLevelFilter(FormatMode.JSON))
+        fh.addFilter(ExcludeLevelFilter(LoggingMode.JSON))
         return fh
 
     # -----------------------------------------------------------------
@@ -183,7 +184,7 @@ class LoggerSetup:
         #     subject="Test Log Email - " + name
         # )
 
-        mail_handler.addFilter(ExcludeLevelFilter(FormatMode.SMTP))
+        mail_handler.addFilter(ExcludeLevelFilter(LoggingMode.SMTP))
         mail_handler.setLevel(999)
 
         return mail_handler
@@ -203,10 +204,10 @@ class LoggerSetup:
             CustomFormatter(
                 fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
-                fmtMode=FormatMode.FILE,
+                fmtMode=LoggingMode.FILE,
             )
         )  # more detail, timestamps
-        fh.addFilter(ExcludeLevelFilter(FormatMode.ROTATINGFN))
+        fh.addFilter(ExcludeLevelFilter(LoggingMode.ROTATINGFN))
         return fh
 
     # -----------------------------------------------------------------
@@ -225,14 +226,14 @@ class LoggerSetup:
             CustomFormatter(
                 fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
-                fmtMode=FormatMode.FILE,
+                fmtMode=LoggingMode.FILE,
             )
         )  # more detail, timestamps
-        fh.addFilter(ExcludeLevelFilter(FormatMode.ROTATINGFN))
+        fh.addFilter(ExcludeLevelFilter(LoggingMode.ROTATINGFN))
         return fh
 
     # -----------------------------------------------------------------
-    def force_rollover(self, mode: FormatMode = FormatMode.ALL):
+    def force_rollover(self, mode: LoggingMode = LoggingMode.ALL):
         """Force rollover for handlers matching the given mode."""
         for flag, handler in self.handlers_by_mode.items():
             if mode & flag and hasattr(handler, "doRollover"):
@@ -310,23 +311,23 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    # def addLevelExclude(self, level_to_exclude: int, mode: FormatMode = FormatMode.ALL) -> None:
+    # def addLevelExclude(self, level_to_exclude: int, mode: LoggingMode = LoggingMode.ALL) -> None:
     def turnOffLevel(
-        cls, level_to_exclude: int, mode: FormatMode = FormatMode.ALL
+        cls, level_to_exclude: int, mode: LoggingMode = LoggingMode.ALL
     ) -> None:
         ExcludeLevelFilter.turnOffLevel(level_to_exclude, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    # def removeLevelExclude(self, level_to_remove: int, mode: FormatMode = FormatMode.ALL) -> None:
+    # def removeLevelExclude(self, level_to_remove: int, mode: LoggingMode = LoggingMode.ALL) -> None:
     def turnOnLevel(
-        cls, level_to_remove: int, mode: FormatMode = FormatMode.ALL
+        cls, level_to_remove: int, mode: LoggingMode = LoggingMode.ALL
     ) -> None:
         ExcludeLevelFilter.turnOnLevel(level_to_remove, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def showExcludeLevelFilter(cls, mode: FormatMode = FormatMode.ALL) -> set:
+    def showExcludeLevelFilter(cls, mode: LoggingMode = LoggingMode.ALL) -> set:
         # print (f"++++{ExcludeLevelFilter.Filters=}")
         # return ExcludeLevelFilter.Filters
         return ExcludeLevelFilter.showFiltersByMode(mode)
@@ -334,20 +335,20 @@ class LoggerSetup:
     # -----------------------------------------------------------------
     @classmethod
     def turnOffRange(
-        cls, start: int, end: int, mode: FormatMode = FormatMode.ALL
+        cls, start: int, end: int, mode: LoggingMode = LoggingMode.ALL
     ) -> None:
         ExcludeLevelFilter.turnOffLevelRange(start, end, mode)
 
     # -----------------------------------------------------------------
     @classmethod
     def turnOnLevelRange(
-        cls, start: int, end: int, mode: FormatMode = FormatMode.ALL
+        cls, start: int, end: int, mode: LoggingMode = LoggingMode.ALL
     ) -> None:
         ExcludeLevelFilter.turnOnLevelRange(start, end, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOffNonStandardLevels(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOffNonStandardLevels(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(11, 19, mode)
         ExcludeLevelFilter.turnOffLevelRange(21, 29, mode)
         ExcludeLevelFilter.turnOffLevelRange(31, 39, mode)
@@ -357,7 +358,7 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOnNonStandardLevels(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOnNonStandardLevels(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(11, 19, mode)
         ExcludeLevelFilter.turnOnLevelRange(21, 29, mode)
         ExcludeLevelFilter.turnOnLevelRange(31, 39, mode)
@@ -367,62 +368,62 @@ class LoggerSetup:
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOn200s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOn200s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(200, 299, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOff200s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOff200s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(200, 299, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOn300s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOn300s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(300, 399, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOff300s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOff300s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(300, 399, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOn400s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOn400s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(400, 499, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOff400s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOff400s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(400, 499, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOn500s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOn500s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(500, 599, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOff500s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOff500s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(500, 599, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOn600s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOn600s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(600, 699, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOff600s(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOff600s(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(600, 699, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOnDATA(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOnDATA(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(700, 799, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOffDATA(cls, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOffDATA(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOffLevelRange(700, 799, mode)
 
     # -----------------------------------------------------------------

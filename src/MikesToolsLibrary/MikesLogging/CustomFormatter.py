@@ -10,7 +10,7 @@ CustomFormatter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:28:30"
+__updated__ = "2025-12-13 20:30:43"
 ###############################################################################
 
 
@@ -22,7 +22,7 @@ from enum import Enum, IntFlag, unique, auto
 
 import traceback
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-import MikesToolsLibrary.MikesLogging.LoggingMode 
+from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 import sys
 

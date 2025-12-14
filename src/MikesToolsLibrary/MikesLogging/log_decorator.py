@@ -10,12 +10,13 @@ LoggerSetup.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:29:17"
+__updated__ = "2025-12-13 20:44:03"
 ###############################################################################
 
 
 # =================================================================
 from typing import Callable
+import sys
 import inspect
 import time
 import traceback

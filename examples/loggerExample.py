@@ -25,7 +25,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 18:22:13"
+__updated__ = "2025-12-13 20:33:36"
 ###############################################################################
 
 
@@ -36,11 +36,9 @@ import logging
 
 from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MikesLogging import (
-    FormatMode,
-    log_decorator,
-    log_decoratorPlain,
+from MikesToolsLibrary.MikesLogging import ( log_decorator, log_decoratorPlain,
 )
+from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 
 sys.path.insert(
@@ -81,7 +79,7 @@ def displayExcludeLevel():
     l = logging._nameToLevel.get("NOTICE")
     print(f"level is {l=}")
 
-    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE)
+    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), LoggingMode.CONSOLE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.info(
@@ -91,7 +89,7 @@ def displayExcludeLevel():
         "This is a NOTICE message AFTER 2 - should NOT show on the CONSOLE (but will in the log)"
     )
     LoggerSetup.turnOnLevel(
-        logging._nameToLevel.get("NOTICE"), FormatMode.CONSOLE
+        logging._nameToLevel.get("NOTICE"), LoggingMode.CONSOLE
     )
 
     logger.notice("This is a NOTICE mes sage AFTER 3 -  should be back and shown")
@@ -99,8 +97,8 @@ def displayExcludeLevel():
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.mark()
-    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
-    # mylog.LoggerSetup.addLevelExclude(15, FormatMode.FILE)
+    LoggerSetup.turnOffLevel(logging._nameToLevel.get("NOTICE"), LoggingMode.FILE)
+    # mylog.LoggerSetup.addLevelExclude(15, LoggingMode.FILE)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
     logger.info(
@@ -109,41 +107,41 @@ def displayExcludeLevel():
     logger.notice(
         "This is a NOTICE message AFTER 5 - should NOT show on the FILE (but will NOT CONSOLE) 6 "
     )
-    LoggerSetup.turnOnLevel(logging._nameToLevel.get("NOTICE"), FormatMode.FILE)
+    LoggerSetup.turnOnLevel(logging._nameToLevel.get("NOTICE"), LoggingMode.FILE)
 
     logger.notice("This is a NOTICE mes sage AFTER 6 -  should be back and shown 7")
     # print( ExcludeLevelFilter.Filters)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
     logger.notice("some notice")
 
-    LoggerSetup.turnOffLevel(15, FormatMode.ALL)
+    LoggerSetup.turnOffLevel(15, LoggingMode.ALL)
     logger.notice(" some other notice")
     print(f"ExcludeLevelFilter A{LoggerSetup.showExcludeLevelFilter() }")
     logger.notice(" some other notice")
 
-    LoggerSetup.turnOnLevel(15, FormatMode.CONSOLE)
+    LoggerSetup.turnOnLevel(15, LoggingMode.CONSOLE)
     print(f"ExcludeLevelFilter B{LoggerSetup.showExcludeLevelFilter() }")
-    LoggerSetup.turnOnLevel(15, FormatMode.FILE)
+    LoggerSetup.turnOnLevel(15, LoggingMode.FILE)
     print(f"ExcludeLevelFilter C{LoggerSetup.showExcludeLevelFilter() }")
 
     logger.query("some query")
-    LoggerSetup.turnOffLevel(55, FormatMode.FILE)
+    LoggerSetup.turnOffLevel(55, LoggingMode.FILE)
     logger.query("some query")
     print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
     logger.query("some query")
 
-    LoggerSetup.turnOnLevel(55, FormatMode.ALL)
+    LoggerSetup.turnOnLevel(55, LoggingMode.ALL)
     logger.query("some query")
     print(f"ExcludeLevelFilter D{LoggerSetup.showExcludeLevelFilter() }")
 
-    LoggerSetup.turnOnLevel(15, FormatMode.ALL)
+    LoggerSetup.turnOnLevel(15, LoggingMode.ALL)
     print(f"ExcludeLevelFilter Y{LoggerSetup.showExcludeLevelFilter() }")
 
 
     LoggerSetup.turnOffLevel(65 )
     print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter( ) }")
     print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter(3 ) }")
-    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter(FormatMode.CONSOLE | FormatMode.FILE ) }")
+    print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter(LoggingMode.CONSOLE | LoggingMode.FILE ) }")
     LoggerSetup.turnOnLevel(65 )
     print(f"ExcludeLevelFilter Z{LoggerSetup.showExcludeLevelFilter( ) }")
     logger.query("some query")
@@ -154,7 +152,7 @@ def displayExcludeLevel():
 # -------------------
 def displayExcludeLevel2():
     logger.mark1()
-    # LoggerSetup.turnOffNonStandardLevels(FormatMode.ALL)
+    # LoggerSetup.turnOffNonStandardLevels(LoggingMode.ALL)
     LoggerSetup.turnOffNonStandardLevels()
     
     print ( logging._nameToLevel.get("MARK1"))
@@ -265,10 +263,10 @@ def checkTypesOutput():
 
     logger.tracep("tony is being hit", stuff)
 
-    logger.tracet(FormatMode)
+    logger.tracet(LoggingMode)
 
-    # print ( isinstance(FormatMode, Enum))
-    logger.traceq(FormatMode.CONSOLE)
+    # print ( isinstance(LoggingMode, Enum))
+    logger.traceq(LoggingMode.CONSOLE)
 
     try:
         d = 2 / 0
@@ -323,7 +321,7 @@ def main():
         "MikesToolsLibrary",
         level=logging.DEBUG,
         logfile=".\logs\MikesToolsLibrary.log",
-        modes=FormatMode.CONSOLE | FormatMode.TIMEDROTATOR #| FormatMode.ROTATINGFN,  # | FormatMode.SMTP,
+        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
     )
 
     logger = LogSetup.get_logger()
@@ -338,11 +336,11 @@ def main():
     displayExcludeLevel2()
     # checkSMTP()
 
-    checkRotatinglogs(LogSetup, FormatMode.TIMEDROTATOR)
-    checkRotatinglogs(LogSetup, FormatMode.ROTATINGFN)
+    checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)
+    checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
 
 
-    FormatMode.CONSOLE.showModes()
+    LoggingMode.CONSOLE.showModes()
 
 if __name__ == "__main__":
     main()

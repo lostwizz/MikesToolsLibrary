@@ -10,10 +10,9 @@ LoggingMode.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:28:48"
+__updated__ = "2025-12-13 20:44:12"
 ###############################################################################
-
-
+import sys
 
 from enum import Enum, IntFlag, unique, auto
 
@@ -56,11 +55,11 @@ class LoggingMode(IntFlag):
 
     # -----------------------------------------------------------------
     def __str__(self):
-        return f'FormatMode: {format(self.value)}'
+        return f'LoggingMode: {format(self.value)}'
 
     # -----------------------------------------------------------------
     def showModes(self):
-        for mode in FormatMode:
+        for mode in LoggingMode:
             print(f"{mode.name} = {mode.value:_b}")
 
 

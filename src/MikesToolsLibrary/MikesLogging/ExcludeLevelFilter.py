@@ -8,9 +8,9 @@ ExcludeLevelFilter.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 20:28:24"
+__updated__ = "2025-12-13 20:43:50"
 ###############################################################################
-
+import sys
 import logging
 from collections import defaultdict
 
@@ -21,12 +21,13 @@ from collections import defaultdict
 # from MikesToolsLibrary.MyLogging.CustomLevels import CustomLevels
 # from MikesToolsLibrary.MyLogging.CustomFormatter import CustomFormatter
 
-from MikesToolsLibrary.MikesLogging.CustomFormatter import FormatMode
+# from MikesToolsLibrary.MikesLogging.CustomFormatter import LoggingMode
+from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 # -----------------------------------------------------------------
-def iter_flags(mask: FormatMode) -> list[FormatMode]:
+def iter_flags(mask: LoggingMode) -> list[LoggingMode]:
     """Yield individual flags contained in a mask (excluding 0)."""
-    return [m for m in FormatMode if m != 0 and (mask & m) == m]
+    return [m for m in LoggingMode if m != 0 and (mask & m) == m]
 
 
 # =================================================================
@@ -66,11 +67,11 @@ class ExcludeLevelFilter(logging.Filter):
         return cls._instance
 
     # -----------------------------------------------------------------
-    def __init__(self, mode: FormatMode = None, name: str = ""):
+    def __init__(self, mode: LoggingMode = None, name: str = ""):
         super().__init__(name)
 
-        if mode == FormatMode.ALL:
-            raise ValueError("ExcludeLevelFilter cannot be instantiated with FormatMode.ALL")
+        if mode == LoggingMode.ALL:
+            raise ValueError("ExcludeLevelFilter cannot be instantiated with LoggingMode.ALL")
         self.mode = mode
 
     # -----------------------------------------------------------------
@@ -90,7 +91,7 @@ class ExcludeLevelFilter(logging.Filter):
 
     # -----------------------------------------------------------------
     @classmethod
-    def showFiltersByMode(cls, fMode: FormatMode =FormatMode.ALL ):
+    def showFiltersByMode(cls, fMode: LoggingMode =LoggingMode.ALL ):
 
         """
         Display exclusions with human-friendly keys.
@@ -98,7 +99,7 @@ class ExcludeLevelFilter(logging.Filter):
         - If fMode is a combination, aggregate those flags.
         """
         def key_name(k):
-            return k.name if isinstance(k, FormatMode) else str(k)
+            return k.name if isinstance(k, LoggingMode) else str(k)
 
         # Build per-flag dict (exclude empty for clarity if desired)
         per_flag = {
@@ -108,7 +109,7 @@ class ExcludeLevelFilter(logging.Filter):
         }
         global_levels = sorted(list(cls.Filters.get(None, set())))
 
-        if fMode == FormatMode.ALL:
+        if fMode == LoggingMode.ALL:
             sets_to_union = [cls.Filters[f] for f in cls.Filters if f is not None]
             union = sorted(list(set().union(*sets_to_union))) if sets_to_union else []
             result = dict(per_flag)
@@ -121,7 +122,7 @@ class ExcludeLevelFilter(logging.Filter):
 
         else:
             # Aggregate only requested flags
-            requested = [f for f in FormatMode if f != 0 and (fMode & f) == f]
+            requested = [f for f in LoggingMode if f != 0 and (fMode & f) == f]
             agg = sorted(list(set().union(*(cls.Filters.get(f, set()) for f in requested)))) if requested else []
             return {
                 " | ".join(f.name for f in requested) if requested else fMode.name: agg
@@ -133,8 +134,8 @@ class ExcludeLevelFilter(logging.Filter):
 
     # -----------------------------------------------------------------
     @classmethod
-    # def addFilterLevel(self, level: int, mode: FormatMode = None) -> None:
-    def turnOffLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
+    # def addFilterLevel(self, level: int, mode: LoggingMode = None) -> None:
+    def turnOffLevel(cls, level: int, mode: LoggingMode = LoggingMode.ALL) -> None:
         if mode is None:
             cls.Filters[None].add(level)
             return
@@ -143,8 +144,8 @@ class ExcludeLevelFilter(logging.Filter):
 
     # -----------------------------------------------------------------
     @classmethod
-    # def removeFilterLevel(self, level: int, mode: FormatMode = None) -> None:
-    def turnOnLevel(cls, level: int, mode: FormatMode = FormatMode.ALL) -> None:
+    # def removeFilterLevel(self, level: int, mode: LoggingMode = None) -> None:
+    def turnOnLevel(cls, level: int, mode: LoggingMode = LoggingMode.ALL) -> None:
         if mode is None:
             cls.Filters[None].discard(level)
             return
@@ -153,19 +154,19 @@ class ExcludeLevelFilter(logging.Filter):
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOffLevelRange(self, start:int, end:int, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOffLevelRange(self, start:int, end:int, mode: LoggingMode = LoggingMode.ALL) -> None:
         for i in range(start, end):
             self.turnOffLevel( i, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOnLevelRange( self, start:int, end:int, mode: FormatMode = FormatMode.ALL) -> None:
+    def turnOnLevelRange( self, start:int, end:int, mode: LoggingMode = LoggingMode.ALL) -> None:
         for i in range(start, end):
             self.turnOnLevel(i, mode)
 
     # -----------------------------------------------------------------
     @classmethod
-    def turnOnEverything(self, mode:FormatMode = FormatMode.ALL) -> None:
+    def turnOnEverything(self, mode:LoggingMode = LoggingMode.ALL) -> None:
         for i in range( 1, 1000):
             self.turnOnLevel(i, mode)
             
