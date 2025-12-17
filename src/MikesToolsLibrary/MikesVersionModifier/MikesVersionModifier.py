@@ -1,6 +1,26 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+###############################################################################
+r"""
+MikesVersionModifier.py
 
-# import os
-# import re
+MikesSettings package
+---------
+
+
+
+
+
+"""
+__version__ = "0.0.1.0036"
+__author__ = "Mike Merrett"
+__updated__ = "2025-12-16 23:00:49"
+###############################################################################
+
+import sys
+
+import os
+import re
 
 TEMPLATES = {
     "top_text": "\"###############################################################################\"",
@@ -15,7 +35,7 @@ def check_and_update_py_files(directory:str, build_number:str):
     version_pattern = re.compile(r"(__version__\s*=\s*['\"])(\d+\.\d+\.\d+)(?:\.\d+)?(['\"])")
     author_pattern = re.compile(r"__author__\s*=\s*['\"](.+?)['\"]")
     updated_pattern = re.compile(r"__updated__\s*=\s*['\"](.+?)['\"]")
-    
+
     for filename in os.listdir(directory):
         if filename.endswith(".py"):
             filepath = os.path.join(directory, filename)
@@ -87,3 +107,12 @@ check_and_update_py_files(r"D:\_Python_Projects\MasterCopyCommonCode\stuff_dir",
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
+
+
+# -----------------------------------------------------------------
+if __name__ == "__main__":
+    print("this must be called from another module")
+
+    # mySettings.dump()
+
+    sys.exit(-99)
