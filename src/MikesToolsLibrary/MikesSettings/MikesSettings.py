@@ -3,7 +3,7 @@
 ###############################################################################
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 22:05:19"
+__updated__ = "2025-12-16 22:18:32"
 ###############################################################################
 
 """
@@ -102,6 +102,32 @@ class MikesSettings:
                 s += os.linesep
             s += os.linesep
         return s
+
+    # -----------------------------------------------------------------
+    @classmethod
+    def findConfigFile(cls, fnName:str = None) -> str | str:
+
+        """
+        Searches for the configuration file in the current and parent directories.
+        Returns the absolute path if found, otherwise None.
+        """
+        if fnName is None:
+            fn = "config.ini"
+        else:
+            fn = fnName
+
+        current_dir = os.path.abspath(os.getcwd())
+        root_dir = os.path.abspath(os.sep)
+
+        while True:
+            potential_path = os.path.join(current_dir, fn)
+            if os.path.isfile(potential_path):
+                return potential_path
+            if current_dir == root_dir:
+                break
+            current_dir = os.path.dirname(current_dir)
+
+        return None
 
     # -----------------------------------------------------------------
     def setAutoSaveOn(self, isAutoSaveOn: bool):
