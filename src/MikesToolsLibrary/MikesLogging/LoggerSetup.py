@@ -27,7 +27,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:38:17"
+__updated__ = "2025-12-16 19:35:14"
 ###############################################################################
 
 from encodings.punycode import T
@@ -122,6 +122,10 @@ class LoggerSetup:
                     self.logger.addHandler(handler)
                     self.handlers_by_mode[mode] = handler
 
+        self.add_special_levels(self.logger)
+
+
+        
     # -----------------------------------------------------------------
     def get_logger(self):
         return self.logger
@@ -257,9 +261,9 @@ class LoggerSetup:
     # -----------------------------------------------------------------
     @classmethod
     def includeUserNameAndIP(cls, overrideName=None, overrideIP=None):
-        
+
         username = overrideName if overrideName else getpass.getuser()
-        
+
         if overrideIP:
             local_ip = overrideIP
         else:

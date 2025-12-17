@@ -25,7 +25,7 @@ loggerExample.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:47:50"
+__updated__ = "2025-12-16 19:37:38"
 ###############################################################################
 
 
@@ -38,11 +38,10 @@ import getpass
 
 import logging
 
-from MikesToolsLibrary import MikesSetup
+from MikesToolsLibrary import MikesSettings
 from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
 from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MikesLogging import ( log_decorator, log_decoratorPlain,
-)
+from MikesToolsLibrary.MikesLogging import ( log_decorator, log_decoratorPlain,)
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 
@@ -60,8 +59,8 @@ def checkCustomLevels():
     # print ("^")
     logger.info("Process complete ✓ — all good 🚀")
 
-    LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m", "‼")
-    LoggerSetup.add_special_levels(logger)
+    # LoggerSetup.add_level("NOTICE", 15, "\x1b[1;35;40m", "‼")
+    # LoggerSetup.add_special_levels(logger)
 
 
     # Log messages

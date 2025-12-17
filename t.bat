@@ -6,8 +6,10 @@ rem python ./examples/complex_example.py
 
 cls
 @echo on
-python ./examples/loggerExample.py
+@REM python ./examples/loggerExample.py
 
-python ./examples/versionExample.py
+@REM python ./examples/versionExample.py
 
-python ./version_utils.py
+@REM python ./version_utils.py
+
+python ./examples/setupExample.py

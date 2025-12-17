@@ -3,7 +3,7 @@
 ###############################################################################
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 21:16:47"
+__updated__ = "2025-12-16 22:05:19"
 ###############################################################################
 
 """
@@ -26,19 +26,12 @@ import base64
 import json
 from datetime import datetime
 from enum import Enum
-
-# from utils.MyLogging import (logger, CustomFormatter, MyLogger)
-# from os import getenv
-# server = getenv("PYMSSQL_TEST_SERVER")
+from pprint import pformat
+from venv import logger
 
 
-class MySettings:
 
-    # INIfile = 'config.ini'
-    # curApp = 'unknown'
-    config = None
-
-    isShowingDebug = False
+class MikesSettings:
 
     class fldType(Enum):
         Bool = "Bool"
@@ -48,14 +41,29 @@ class MySettings:
         Json = "Json"
         ByteArray = "ByteArray"
 
-    # -----------------------------------------------------------------
-    def __init__(self, fn, showDebug=False) -> None:
+    # INIfile = 'config.ini'
+    # curApp = 'unknown'
 
-        self.curApp = (os.path.basename(fn)).replace(".py", "")
-        # print (self.curApp)
+    config = None
+
+    isShowingDebug = False
+
+    resetSettings = {"runcounters": ("General", 4, fldType.Int)}
+
+    # -----------------------------------------------------------------
+    def __init__(self, fn, appName = None, showDebug=False) -> None:
+
+        if appName is None:
+            self.curApp = (os.path.basename(fn)).replace(".py", "")
+        else:
+            self.curApp = appName
+
+        logger.traced( f" MikesSettings __init__ called with fn = {fn}  showDebug = {showDebug} " )
+        logger.tracee( f" curApp = {self.curApp} " )
+
         self.config = configparser.ConfigParser(
-            allow_no_value=True, 
-            interpolation=configparser.BasicInterpolation
+            allow_no_value=True,
+            interpolation=configparser.BasicInterpolation()
         )
         self.suspendedAutoSave = False
         self.saveLaterList = []
@@ -73,6 +81,29 @@ class MySettings:
             self.dump()
 
     # -----------------------------------------------------------------
+    def __str__(self) -> None:
+        s = "Config Dump: "
+        # s += os.linesep
+        absolute_path = os.path.abspath(self.INIfile)
+        s += absolute_path
+        s += os.linesep
+
+        s+= f"               curApp = {self.curApp}"
+        s += os.linesep
+
+        config_dict = {section: dict(self.config.items(section)) for section in self.config.sections()}
+        s += pformat( config_dict)
+        s += os.linesep
+
+        if len(self.saveLaterList) > 0:
+            s += "Save Later List:" + os.linesep
+            for i in self.saveLaterList:
+                s += f'      {i["section"]=}  {i["name"]=}-> {str(i["callback"])=} : {i["varType"]=}'
+                s += os.linesep
+            s += os.linesep
+        return s
+
+    # -----------------------------------------------------------------
     def setAutoSaveOn(self, isAutoSaveOn: bool):
         self.suspendedAutoSave = isAutoSaveOn
 
@@ -83,13 +114,18 @@ class MySettings:
         )
 
     # -----------------------------------------------------------------
-    def dumpSaveLater(self):
-        for i in self.saveLaterList:
-            print(
-                f'[{i["section"]}].{i["name"]}-> {str(i["callback"])} : {i["varType"]}'
-            )
-            # print(f'[{i["section"]}].{i["name"]}->{i["varType"]}')
-            # print( i )
+
+
+
+
+    # # -----------------------------------------------------------------
+    # def dumpSaveLater(self):
+    #     for i in self.saveLaterList:
+    #         print(
+    #             f'[{i["section"]}].{i["name"]}-> {str(i["callback"])} : {i["varType"]}'
+    #         )
+    #         # print(f'[{i["section"]}].{i["name"]}->{i["varType"]}')
+    #         # print( i )
 
     # -----------------------------------------------------------------
     def processSaveLater(self):
@@ -119,25 +155,23 @@ class MySettings:
         self.suspendedAutoSave = False
         print("-------------------------------------------------------")
 
-    # -----------------------------------------------------------------
-    resetSettings = {"runcounters": ("General", 4, fldType.Int)}
+
 
     # -----------------------------------------------------------------
     def reset(self):
-
         for k, v in self.resetSettings.items():
             match (v[2]):
-                case MySettings.fldType.Bool:
+                case MikesSettings.fldType.Bool:
                     self.setBool(v[0], k, v[1])
-                case MySettings.fldType.Int:
+                case MikesSettings.fldType.Int:
                     self.setStr(v[0], k, str(v[1]))
-                case MySettings.fldType.Float:
+                case MikesSettings.fldType.Float:
                     self.setFloat(v[0], k, str(v[1]))
-                case MySettings.fldType.Json:
+                case MikesSettings.fldType.Json:
                     self.setJson(v[0], k, v[1])
-                case MySettings.fldType.ByteArray:
+                case MikesSettings.fldType.ByteArray:
                     self.setByteArray(v[0], k, v[1])
-                case MySettings.fldType.Str:
+                case MikesSettings.fldType.Str:
                     self.setStr(v[0], k, str(v[1]))
 
         self.writeConfig()
@@ -304,40 +338,21 @@ class MySettings:
         return os.path.abspath(self.INIfile)
 
     # -----------------------------------------------------------------
-    def dump(self) -> None:
-        print(
-            "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-        )
-        # print( f'!!!!!! ini file={  os.path.abspath(self.INIfile) }   !!!!!!!!')
-        print(f"!!!!!! ini file={  self.giveINIfile() }   !!!!!!!!")
-        print(
-            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        )
-        absolute_path = os.path.abspath(self.INIfile)
-        print(absolute_path)
-        print(f"curApp={self.curApp}")
-        # print( f'conf={self.config}')
+    def dump(self):
 
-        print(f"sections={ self.config.sections() }")
-        print(f"defaults={ self.config.defaults() }")
+        x = self.getEnv('USERNAME')
+        print(f'getEnv()={x}')
 
-        for i in self.config.sections():
-            print(f">[{ i }]")
-            print(f"       { self.config.items(i) }")
+        x = self.getEnv('TEMP')
+        print(f'getEnv()={x}')
 
-    #     x = self.getEnv('USERNAME')
-    #     print(f'getEnv()={x}')
+        x = os.environ.get('TEMP')
+        print(f'os.environ.get()={x}')
 
-    #     x = self.getEnv('TEMP')
-    #     print(f'getEnv()={x}')
+        p = self.config.get('GlobalAttachmentRepository', 'db_password')
 
-    #     x = os.environ.get('TEMP')
-    #     print(f'os.environ.get()={x}')
-
-    #     p = self.config.get('GlobalAttachmentRepository', 'db_password')
-
-    #     print( p)
-    #     print ( str(hash(p)))
+        print( p)
+        print ( str(hash(p)))
 
     #     print('##############')
 
@@ -365,12 +380,13 @@ class MySettings:
     #     print('@@@@@@@@@')
 
 
-if os.path.exists("../config.ini"):
-    fn = "../config.ini"
-else:
-    fn = "config.ini"
+# if os.path.exists("../config.ini"):
+#     fn = "../config.ini"
+# else:
+#     fn = "config.ini"
 
-mySettings = MySettings(fn)
+# mySettings = MikesSettings(fn)
+
 
 
 # -----------------------------------------------------------------

@@ -10,7 +10,7 @@ CustomLevels.py
 """
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-14 00:08:53"
+__updated__ = "2025-12-16 19:36:50"
 ###############################################################################
 
 import sys
@@ -123,6 +123,7 @@ class CustomLevels:
         self.theLogger = logger
         # self.theFilename = fileName
 
+        self.add("NOTICE", 15, "\x1b[1;35;40m", "‼")
         self.add("QUERY",    55, "\x1b[1;33;40m")
 
         self.add("SMTP",  999, "\x1b[00;34;41m", "📤")
