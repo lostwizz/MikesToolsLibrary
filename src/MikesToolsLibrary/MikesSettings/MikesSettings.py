@@ -3,7 +3,7 @@
 ###############################################################################
 __version__ = "0.0.0.0036"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 22:18:32"
+__updated__ = "2025-12-16 22:43:54"
 ###############################################################################
 
 """
@@ -139,27 +139,13 @@ class MikesSettings:
             {"section": section, "name": name, "callback": callback, "varType": varType}
         )
 
-    # -----------------------------------------------------------------
-
-
-
-
-    # # -----------------------------------------------------------------
-    # def dumpSaveLater(self):
-    #     for i in self.saveLaterList:
-    #         print(
-    #             f'[{i["section"]}].{i["name"]}-> {str(i["callback"])} : {i["varType"]}'
-    #         )
-    #         # print(f'[{i["section"]}].{i["name"]}->{i["varType"]}')
-    #         # print( i )
 
     # -----------------------------------------------------------------
     def processSaveLater(self):
         self.suspendedAutoSave = True
-        print("------------------------- doTheSaveLater ----------------")
+        # print("------------------------- doTheSaveLater ----------------")
         for i in self.saveLaterList:
-            ###print(f'{i["section"]=}  {i["name"]=}  {i["callback"]=}  {i["varType"]=}')
-            # print(f'[{i["section"]}].{i["name"]}-> {str(i["callback"])} : {i["varType"]}')
+
             cb = i["callback"]
             if callable(cb):
                 val = cb()
@@ -179,8 +165,7 @@ class MikesSettings:
                         self.setStr(i["section"], i["name"], val)
             self.writeConfig()
         self.suspendedAutoSave = False
-        print("-------------------------------------------------------")
-
+        # print("-------------------------------------------------------")
 
 
     # -----------------------------------------------------------------
@@ -232,7 +217,7 @@ class MikesSettings:
         return ver
 
     # -----------------------------------------------------------------
-    def __call__(self, section, key, fallbackVal=""):
+    def __call__(self, section, key, fallbackVal=None):
         # Try to infer the type from the fallback value
         if isinstance(fallbackVal, bool):
             return self.getBool(section, key, fallbackVal)
@@ -421,4 +406,4 @@ if __name__ == "__main__":
 
     # mySettings.dump()
 
-    sys.exit(-1)
+    sys.exit(-99)
