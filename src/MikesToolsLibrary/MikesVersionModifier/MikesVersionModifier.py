@@ -12,9 +12,9 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.1.179-dev"
+__version__ = "0.1.1.185-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:05:14"
+__updated__ = "2025-12-18 00:32:33"
 ###############################################################################
 
 import os
@@ -73,18 +73,21 @@ def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None)
             bump = [bump]
         for b in bump:
             if b == "major":
-                major += 1; minor = 0; patch = 0; build = 0
+                # major += 1; minor = 0; patch = 0; build = 0
+                major += 1; minor = 0; patch = 0;
             elif b == "minor":
-                minor += 1; patch = 0; build = 0
+                # minor += 1; patch = 0; build = 0
+                minor += 1; patch = 0
             elif b == "patch":
-                patch += 1; build = 0
+                # patch += 1; build = 0
+                patch += 1
             elif b == "build":
                 build += 1
 
     return f'{match.group(1)}{major}.{minor}.{patch}.{build}-{suffix}{match.group(7)}'
 
 
- 
+
 # -----------------------------------------------------------------
 def processFile(new_suffix, version_pattern, root, file, bump=None, set_values=None, logger=None):
     """Process a single .py file and update its __version__ string."""
@@ -92,8 +95,8 @@ def processFile(new_suffix, version_pattern, root, file, bump=None, set_values=N
     # if file != "versionExample.py" and file != "MikesVersionModifier.py":
     #     return # skip other files for now
 
-    if logger:
-        logger.tracej(f"Processing file: {os.path.join(root, file)}")
+    # if logger:
+    #     logger.tracej(f"Processing file: {os.path.join(root, file)}")
 
     file_path = os.path.join(root, file)
     with open(file_path, "r", encoding="utf-8") as f:
@@ -144,16 +147,44 @@ def validate_version_lines(content, file_path, logger=None):
     return True
 
 # -----------------------------------------------------------------
+# if __name__ == "__main__":
+    # # Example usage: replace with your logger setup
+    # directory = "D:/_Python_Projects/MikesToolsLibrary"
+
+    # # # Choose suffix and bump strategy
+    # # new_suffix = "145-dev"   # e.g. "145-dev", "qa", "release"
+    # # bump = None              # or "major","minor","patch","build"
+    # # set_values = {"major":0,"minor":3,"patch":5}  # optional overrides
+
+    # # update_version_suffix(directory, new_suffix, bump=bump, set_values=set_values)
+
+    # content = '__version__ = "0.1.1.185-dev"'
+    # print(version_pattern.sub(lambda m: version_replacer(m, "145-dev"), content))
+
+import argparse
+
 if __name__ == "__main__":
-    # Example usage: replace with your logger setup
-    directory = "D:/_Python_Projects/MikesToolsLibrary"
+    parser = argparse.ArgumentParser(description="Update __version__ strings in Python files.")
+    parser.add_argument("--suffix", required=True, help="New suffix (e.g. dev, qa, release)")
+    parser.add_argument("--bump", nargs="+", choices=["major","minor","patch","build"],
+                        help="Which version segments to bump (can specify multiple)")
+    parser.add_argument("--set", nargs="*", help="Explicitly set version numbers, e.g. major=1 minor=0 patch=0 build=5")
+    parser.add_argument("--directory", default="D:/_Python_Projects/MikesToolsLibrary",
+                        help="Root directory to traverse")
 
-    # # Choose suffix and bump strategy
-    # new_suffix = "145-dev"   # e.g. "145-dev", "qa", "release"
-    # bump = None              # or "major","minor","patch","build"
-    # set_values = {"major":0,"minor":3,"patch":5}  # optional overrides
+    args = parser.parse_args()
 
-    # update_version_suffix(directory, new_suffix, bump=bump, set_values=set_values)
+    # Parse set values into dict
+    set_values = None
+    if args.set:
+        set_values = {}
+        for kv in args.set:
+            key, val = kv.split("=")
+            set_values[key] = int(val)
 
-    content = '__version__ = "0.1.1.179-dev"'
-    print(version_pattern.sub(lambda m: version_replacer(m, "145-dev"), content))
+    update_version_suffix(
+        args.directory,
+        new_suffix=args.suffix,
+        bump=args.bump,
+        set_values=set_values
+    )

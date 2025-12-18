@@ -9,6 +9,7 @@ cls
 @REM python ./examples/loggerExample.py
 
 python ./examples/versionExample.py
+@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch
 
 
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py
