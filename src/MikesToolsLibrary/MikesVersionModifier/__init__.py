@@ -12,7 +12,7 @@ Custom logging utilities: formatters, levels, and setup helpers.
 
 
 """
-__version__ = "0.1.1.185-dev"
+__version__ = "0.3.1.00193-dev"
 __author__ = "Mike Merrett"
 __updated__ = "2025-12-17 22:01:22"
 ###############################################################################

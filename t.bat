@@ -8,12 +8,15 @@ cls
 @echo on
 @REM python ./examples/loggerExample.py
 
-python ./examples/versionExample.py
+@REM python ./examples/versionExample.py
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch
-
 
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py
 
 @REM python ./version_utils.py
 
 @REM python ./examples/setupExample.py
+
+
+@REM update the build number after every run -- once in a while sync it with the config.ini runcounter
+python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build

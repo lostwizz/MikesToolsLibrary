@@ -12,14 +12,15 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.1.185-dev"
+__version__ = "0.3.1.00193-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:32:33"
+__updated__ = "2025-12-18 00:40:22"
 ###############################################################################
 
 import os
 import re
 import pathspec
+import argparse
 
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
@@ -43,13 +44,14 @@ version_pattern = re.compile(
 
 # -----------------------------------------------------------------
 def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None):
+    # Extract version components from regex groups
     major = int(match.group(2))
     minor = int(match.group(3))
     patch = int(match.group(4))
     build = int(match.group(5))
     suffix = match.group(6)
 
-    # Parse new_suffix like "145-dev"
+    # Parse new_suffix like "145-dev" or just "qa"
     if "-" in new_suffix:
         build_part, label = new_suffix.split("-", 1)
         if build_part.isdigit():
@@ -60,32 +62,35 @@ def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None)
     else:
         suffix = new_suffix
 
-    # Apply explicit set values
+    # Apply explicit set values if provided
     if set_values:
         major = int(set_values.get("major", major))
         minor = int(set_values.get("minor", minor))
         patch = int(set_values.get("patch", patch))
         build = int(set_values.get("build", build))
 
-    # Apply bump logic (support list)
+    # Apply bump logic (support list of bumps)
     if bump:
         if isinstance(bump, str):
             bump = [bump]
         for b in bump:
             if b == "major":
-                # major += 1; minor = 0; patch = 0; build = 0
-                major += 1; minor = 0; patch = 0;
+                major += 1
+                minor = 0
+                patch = 0
+                # build stays unchanged
             elif b == "minor":
-                # minor += 1; patch = 0; build = 0
-                minor += 1; patch = 0
+                minor += 1
+                patch = 0
+                # build stays unchanged
             elif b == "patch":
-                # patch += 1; build = 0
                 patch += 1
+                # build stays unchanged
             elif b == "build":
                 build += 1
 
-    return f'{match.group(1)}{major}.{minor}.{patch}.{build}-{suffix}{match.group(7)}'
-
+    # Return the new version string with build padded to 5 digits
+    return f'{match.group(1)}{major}.{minor}.{patch}.{build:05d}-{suffix}{match.group(7)}'
 
 
 # -----------------------------------------------------------------
@@ -147,28 +152,23 @@ def validate_version_lines(content, file_path, logger=None):
     return True
 
 # -----------------------------------------------------------------
-# if __name__ == "__main__":
-    # # Example usage: replace with your logger setup
-    # directory = "D:/_Python_Projects/MikesToolsLibrary"
-
-    # # # Choose suffix and bump strategy
-    # # new_suffix = "145-dev"   # e.g. "145-dev", "qa", "release"
-    # # bump = None              # or "major","minor","patch","build"
-    # # set_values = {"major":0,"minor":3,"patch":5}  # optional overrides
-
-    # # update_version_suffix(directory, new_suffix, bump=bump, set_values=set_values)
-
-    # content = '__version__ = "0.1.1.185-dev"'
-    # print(version_pattern.sub(lambda m: version_replacer(m, "145-dev"), content))
-
-import argparse
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Update __version__ strings in Python files.")
-    parser.add_argument("--suffix", required=True, help="New suffix (e.g. dev, qa, release)")
-    parser.add_argument("--bump", nargs="+", choices=["major","minor","patch","build"],
+
+    # suffix argument
+    parser.add_argument("--suffix", required=True,
+                        help="New suffix (e.g. dev, qa, release)")
+
+    # bump argument: allow multiple values
+    parser.add_argument("--bump", nargs="+",
+                        choices=["major", "minor", "patch", "build"],
                         help="Which version segments to bump (can specify multiple)")
-    parser.add_argument("--set", nargs="*", help="Explicitly set version numbers, e.g. major=1 minor=0 patch=0 build=5")
+
+    # set argument: allow explicit values like major=1 minor=0
+    parser.add_argument("--set", nargs="*",
+                        help="Explicitly set version numbers, e.g. major=1 minor=0 patch=0 build=5")
+
+    # directory argument: default to your project root
     parser.add_argument("--directory", default="D:/_Python_Projects/MikesToolsLibrary",
                         help="Root directory to traverse")
 
@@ -182,6 +182,7 @@ if __name__ == "__main__":
             key, val = kv.split("=")
             set_values[key] = int(val)
 
+    # Call your updater
     update_version_suffix(
         args.directory,
         new_suffix=args.suffix,
