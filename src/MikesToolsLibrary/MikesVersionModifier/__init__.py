@@ -12,13 +12,17 @@ Custom logging utilities: formatters, levels, and setup helpers.
 
 
 """
-__version__ = "0.0.1.0036"
+__version__ = "0.0.1.140-release"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 22:58:41"
+__updated__ = "2025-12-17 22:01:22"
 ###############################################################################
 
-from .MikesVersionModifier import MikesVersionModifier
+# from .MikesVersionModifier import MikesVersionModifier
+
+
+from .MikesVersionModifier import update_version_suffix
+
 
 __all__ = [
-    "MikesSettings",
+    "update_version_suffix",
 ]

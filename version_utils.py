@@ -1,3 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+###############################################################################
+r"""
+__init__.py
+
+MikesSettings package
+---------
+Custom logging utilities: formatters, levels, and setup helpers.
+
+
+
+
+"""
+__version__ = "0.0.1.140-release"
+__author__ = "Mike Merrett"
+__updated__ = "2025-12-17 22:06:07"
+###############################################################################
+
+
 # version_utils.py
 import pathlib
 import sys
@@ -19,4 +39,3 @@ def get_version() -> str:
 
     # Works with PEP 621 standard metadata
     return data["project"]["version"]
-

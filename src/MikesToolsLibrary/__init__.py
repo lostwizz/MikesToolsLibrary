@@ -12,7 +12,7 @@ A collection of tools for advanced logging, formatting, and custom levels.
 
 
 """
-__version__ = "0.0.0.0036"
+__version__ = "0.0.0.140-release"
 __author__ = "Mike Merrett"
 __updated__ = "2025-12-13 20:44:55"
 ###############################################################################

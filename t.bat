@@ -8,8 +8,8 @@ cls
 @echo on
 @REM python ./examples/loggerExample.py
 
-@REM python ./examples/versionExample.py
+python ./examples/versionExample.py
 
 @REM python ./version_utils.py
 
-python ./examples/setupExample.py
+@REM python ./examples/setupExample.py

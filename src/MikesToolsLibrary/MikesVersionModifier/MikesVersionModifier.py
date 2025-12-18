@@ -4,115 +4,104 @@
 r"""
 MikesVersionModifier.py
 
-MikesSettings package
----------
-
 
 
 
 
 """
-__version__ = "0.0.1.0036"
+__version__ = "0.0.1.140-release"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 23:00:49"
+__updated__ = "2025-12-17 22:54:09"
 ###############################################################################
 
-import sys
 
 import os
 import re
+import pathspec
 
-TEMPLATES = {
-    "top_text": "\"###############################################################################\"",
-    "filename_comment": lambda name: f"# {name}",
-    "version": "__version__ = \"0.0.0.{build}\"",
-    "author": "__author__ = \"Mike Merrett\"",
-    "updated": "__updated__ = \"2025-07-28\""
-}
+# -----------------------------------------------------------------
+def load_gitignore(directory, logger=None):
+    """Load .gitignore patterns if present."""
+    gitignore_path = os.path.join(directory, ".gitignore")
+    if os.path.exists(gitignore_path):
+        with open(gitignore_path, "r") as f:
+            patterns = f.read().splitlines()
+        if logger:
+            logger.tracew(f"Loaded .gitignore from {gitignore_path}")
+        return pathspec.PathSpec.from_lines("gitwildmatch", patterns)
+    return None
+
+# -----------------------------------------------------------------
+def version_replacer(match, new_suffix, logger=None):
+    """
+    Replace the 4th number (build) and suffix.
+    new_suffix should look like "136-dev" or "200-qa".
+    """
+    major, minor, patch, build = match.group(2), match.group(3), match.group(4), match.group(5)
+    extra_build = match.group(6)  # optional numeric part like 127
+    old_suffix = match.group(7)
+
+    # Parse new_suffix into build + label
+    try:
+        build_part, label = new_suffix.split("-", 1)
+    except ValueError:
+        if logger:
+            logger.error(f"Invalid suffix format: {new_suffix}. Expected like '136-dev'")
+        return match.group(0)
+
+    # Use the new build number directly
+    new_build = build_part
+
+    return f'{match.group(1)}{major}.{minor}.{patch}.{new_build}-{label}{match.group(8)}'
 
 
-def check_and_update_py_files(directory:str, build_number:str):
-    version_pattern = re.compile(r"(__version__\s*=\s*['\"])(\d+\.\d+\.\d+)(?:\.\d+)?(['\"])")
-    author_pattern = re.compile(r"__author__\s*=\s*['\"](.+?)['\"]")
-    updated_pattern = re.compile(r"__updated__\s*=\s*['\"](.+?)['\"]")
-
-    for filename in os.listdir(directory):
-        if filename.endswith(".py"):
-            filepath = os.path.join(directory, filename)
-            print( f"{filepath=}")
-            with open(filepath, "r") as f:
-                lines = f.readlines()
-
-            issues = []
-            new_lines = lines[:]
-            inserts = []
-
-            # Top text string check
-            if not lines or not re.match(r'^\s*[\'"].+[\'"]', lines[0]):
-                inserts.append(TEMPLATES["top_text"] + "\n")
-                issues.append("Inserted top text string")
-
-            # Filename comment
-            if not any(f"# {filename}" in line for line in lines):
-                inserts.append(TEMPLATES["filename_comment"](filename) + "\n")
-                issues.append("Inserted filename comment")
-
-            # Version check + update
-            version_found = False
-            for idx, line in enumerate(new_lines):
-                match = version_pattern.search(line)
-                if match:
-                    full, base_version, quote = match.group(1), match.group(2), match.group(3)
-                    new_version = f"{base_version}.{build_number}"
-                    new_lines[idx] = f"{full}{new_version}{quote}\n"
-                    version_found = True
-                    break
-            if not version_found:
-                inserts.append(TEMPLATES["version"].replace("{build}", str(build_number)) + "\n")
-                issues.append("Inserted default __version__")
-
-            # Author
-            if not any(author_pattern.search(line) for line in new_lines):
-                inserts.append(TEMPLATES["author"] + "\n")
-                issues.append("Inserted __author__")
-
-            # Updated
-            if not any(updated_pattern.search(line) for line in new_lines):
-                inserts.append(TEMPLATES["updated"] + "\n")
-                issues.append("Inserted __updated__")
-
-            # Inject missing metadata after any existing imports
-            insert_index = next((i for i, line in enumerate(new_lines) if not line.strip().startswith("import")), 0)
-            new_lines = new_lines[:insert_index] + inserts + new_lines[insert_index:]
-
-            # Save updated file
-            with open(filepath, "w") as f:
-                f.writelines(new_lines)
-
-            # Reporting
-            if issues:
-                print(f"🔧 {filename} - Fixed issues:")
-                for issue in issues:
-                    print(f"   ✅ {issue}")
-            else:
-                print(f"✅ {filename} - No issues found, version updated")
-
-# Example usage
-# check_and_update_py_files(r"D:\_Python_Projects\MasterCopyCommonCode", build_number=456)
-# Example usage
-build_number= read_and_increment_build()
-logger.tracea( f"{build_number=}")
-check_and_update_py_files(r"D:\_Python_Projects\MasterCopyCommonCode\stuff_dir", build_number=build_number)
-#-----------------------------------------------------------------
-#-----------------------------------------------------------------
-#-----------------------------------------------------------------
-#-----------------------------------------------------------------
 
 
 # -----------------------------------------------------------------
+def processFile(new_suffix, version_pattern, root, file, logger=None):
+    """Process a single .py file and update its __version__ string."""
+    file_path = os.path.join(root, file)
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    new_content, count = version_pattern.subn(
+        lambda m: version_replacer(m, new_suffix, logger), content
+    )
+
+    if count > 0:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+        if logger:
+            logger.info(f"Updated: {file_path}")
+
+# -----------------------------------------------------------------
+def update_version_suffix(directory, new_suffix, logger=None):
+    """
+    Traverse all .py files in a directory, normalize __version__ to 4 numbers + suffix.
+    """
+    version_pattern = re.compile(
+        r'(__version__\s*=\s*[\'"])(\d+)\.(\d+)\.(\d+)\.(\d+)(?:-(\d+))?-(dev|qa|test|release)([\'"])'
+    )
+
+    spec = load_gitignore(directory, logger)
+
+    if logger:
+        logger.traceb(f"Starting version suffix update... {new_suffix=}")
+
+    for root, dirs, files in os.walk(directory):
+        # Filter out ignored directories
+        dirs[:] = [d for d in dirs if not (spec and spec.match_file(os.path.relpath(os.path.join(root, d), directory)))]
+
+        for file in files:
+            rel_path = os.path.relpath(os.path.join(root, file), directory)
+            if file.endswith(".py") and not (spec and spec.match_file(rel_path)):
+                # if logger:
+                #     logger.tracew(f"Processing {rel_path}")
+                processFile(new_suffix, version_pattern, root, file, logger)
+
+# -----------------------------------------------------------------
 if __name__ == "__main__":
-    print("this must be called from another module")
-
-    # mySettings.dump()
-
-    sys.exit(-99)
+    # Example usage: replace with your logger setup
+    directory = "D:/_Python_Projects/MikesToolsLibrary"
+    new_suffix = "dev"  # or "qa", "test", "release"
+    update_version_suffix(directory, new_suffix)
