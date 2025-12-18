@@ -6,7 +6,7 @@ rem python ./examples/complex_example.py
 
 cls
 @echo on
-@REM python ./examples/loggerExample.py
+python ./examples/loggerExample.py
 
 @REM python ./examples/versionExample.py
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch
@@ -20,3 +20,20 @@ cls
 
 @REM update the build number after every run -- once in a while sync it with the config.ini runcounter
 python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build
+
+
+
+@REM # Make sure your code is committed
+@REM git commit -am "Prepare release v0.4.7"
+
+@REM # Create a tag
+@REM git tag v0.4.7
+
+@REM # Push the tag to origin
+@REM git push origin v0.4.7
+
+@REM python src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix release --bump minor patch
+@REM python -m build
+@REM rem  rem  rem  twine upload dist/*
+
+

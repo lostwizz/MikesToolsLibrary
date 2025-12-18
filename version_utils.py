@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 r"""
-__init__.py
+version_utils.py
 
-MikesSettings package
+
 ---------
 Custom logging utilities: formatters, levels, and setup helpers.
 
@@ -12,9 +12,9 @@ Custom logging utilities: formatters, levels, and setup helpers.
 
 
 """
-__version__ = "0.3.1.00193-dev"
+__version__ = "0.1.2.00199-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:02:13"
+__updated__ = "2025-12-18 01:12:57"
 ###############################################################################
 
 

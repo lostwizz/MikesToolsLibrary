@@ -25,7 +25,7 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 
 
 """
-__version__ = "0.3.1.00193-dev"
+__version__ = "0.1.2.00199-dev"
 __author__ = "Mike Merrett"
 __updated__ = "2025-12-16 19:35:14"
 ###############################################################################

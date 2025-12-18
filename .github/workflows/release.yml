@@ -3,15 +3,24 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*'   # Runs when you push a tag like v1.0.0
+      - 'v*'   # triggers on tags like v1.2.3
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0   # important so tags are available
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "tag=$TAG" >> $GITHUB_ENV
+          VERSION=${TAG#v}
+          echo "version=$VERSION" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,32 +32,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install build pathspec
 
-        - name: Bump version
-          run: |
-            python src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py \
-              --suffix "release" \
-              --bump minor patch
-
-      - name: Validate version lines
+      - name: Update version lines
         run: |
-          python - << 'EOF'
-          import os, re
-          version_pattern = re.compile(r'__version__\s*=\s*[\'"].+[\'"]')
-          errors = []
-          for root, _, files in os.walk("src/MikesToolsLibrary"):
-              for f in files:
-                  if f.endswith(".py"):
-                      path = os.path.join(root, f)
-                      with open(path, encoding="utf-8") as fh:
-                          content = fh.read()
-                      matches = version_pattern.findall(content)
-                      if len(matches) == 0:
-                          errors.append(f"No __version__ in {path}")
-                      elif len(matches) > 1:
-                          errors.append(f"Multiple __version__ lines in {path}")
-          if errors:
-              raise SystemExit("Validation failed:\n" + "\n".join(errors))
-          EOF
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$version"
+          python src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py \
+            --suffix release \
+            --set major=$MAJOR minor=$MINOR patch=$PATCH
+
+      - name: Commit updated version files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: bump version to ${{ env.version }}"
+          git push
 
       - name: Build package
         run: python -m build

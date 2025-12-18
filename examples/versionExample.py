@@ -25,9 +25,9 @@ versionExample.py
 
 
 """
-__version__ = "0.3.1.00193-dev"
+__version__ = "0.1.2.00199-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:30:16"
+__updated__ = "2025-12-18 01:06:49"
 ###############################################################################
 
 
@@ -94,7 +94,7 @@ def main():
         directory,
         # new_suffix = f"{r}-dev"
         new_suffix=new_suffix ,
-        set_values={"major":0,"minor":1,"patch":1, "build": r},
+        set_values={"major":0,"minor":1,"patch":2, "build": r},
         logger=logger
     )
 

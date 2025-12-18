@@ -12,9 +12,9 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.3.1.00193-dev"
+__version__ = "0.1.2.00199-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:40:22"
+__updated__ = "2025-12-18 01:02:52"
 ###############################################################################
 
 import os
@@ -115,8 +115,12 @@ def processFile(new_suffix, version_pattern, root, file, bump=None, set_values=N
     if count > 0:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(new_content)
-        if logger:
-            logger.info(f"Updated: {file_path}")
+    if logger:
+        # Extract the new version line for logging
+        new_line = version_pattern.search(new_content).group(0)
+        logger.info(f"Updated: {file_path} → {new_line}")
+
+
 
 # -----------------------------------------------------------------
 def update_version_suffix(directory, new_suffix, bump=None, set_values=None, logger=None):
@@ -189,3 +193,14 @@ if __name__ == "__main__":
         bump=args.bump,
         set_values=set_values
     )
+
+    # new_content, count = version_pattern.subn(
+    #     lambda m: version_replacer(m, new_suffix, bump=bump, set_values=set_values, logger=logger),
+    #     content
+    # )
+
+    # if count == 0:
+    #     logger.warning(f"No version line found in {file_path}")
+    # else:
+    #     logger.info(f"Updated {count} version line(s) in {file_path}")
+
