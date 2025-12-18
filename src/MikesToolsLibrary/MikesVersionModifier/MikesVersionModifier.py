@@ -5,15 +5,17 @@ r"""
 MikesVersionModifier.py
 
 
-
-
-
+Version format:
+• 2 = major
+• 3 = minor
+• 4 = patch
+• 5 = build
+• 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.0.1.140-release"
+__version__ = "1.7.3.165-qa"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-17 22:54:09"
+__updated__ = "2025-12-17 23:39:18"
 ###############################################################################
-
 
 import os
 import re
@@ -32,40 +34,66 @@ def load_gitignore(directory, logger=None):
     return None
 
 # -----------------------------------------------------------------
-def version_replacer(match, new_suffix, logger=None):
-    """
-    Replace the 4th number (build) and suffix.
-    new_suffix should look like "136-dev" or "200-qa".
-    """
-    major, minor, patch, build = match.group(2), match.group(3), match.group(4), match.group(5)
-    extra_build = match.group(6)  # optional numeric part like 127
-    old_suffix = match.group(7)
+# Regex: __version__ = "X.Y.Z.N-suffix"
+version_pattern = re.compile(
+    r'(__version__\s*=\s*[\'"])(\d+)\.(\d+)\.(\d+)\.(\d+)-([\w\-]+)([\'"])'
+)
+def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None):
+    major = int(match.group(2))
+    minor = int(match.group(3))
+    patch = int(match.group(4))
+    build = int(match.group(5))
+    suffix = match.group(6)
 
-    # Parse new_suffix into build + label
-    try:
+    # Parse new_suffix like "145-dev"
+    if "-" in new_suffix:
         build_part, label = new_suffix.split("-", 1)
-    except ValueError:
-        if logger:
-            logger.error(f"Invalid suffix format: {new_suffix}. Expected like '136-dev'")
-        return match.group(0)
+        if build_part.isdigit():
+            build = int(build_part)
+            suffix = label
+        else:
+            suffix = new_suffix
+    else:
+        suffix = new_suffix
 
-    # Use the new build number directly
-    new_build = build_part
+    # Apply explicit set values
+    if set_values:
+        major = int(set_values.get("major", major))
+        minor = int(set_values.get("minor", minor))
+        patch = int(set_values.get("patch", patch))
+        build = int(set_values.get("build", build))
 
-    return f'{match.group(1)}{major}.{minor}.{patch}.{new_build}-{label}{match.group(8)}'
+    # Apply bump logic
+    if bump == "major":
+        major += 1; minor = 0; patch = 0; build = 0
+    elif bump == "minor":
+        minor += 1; patch = 0; build = 0
+    elif bump == "patch":
+        patch += 1; build = 0
+    elif bump == "build":
+        build += 1
 
+    return f'{match.group(1)}{major}.{minor}.{patch}.{build}-{suffix}{match.group(7)}'
 
 
 
 # -----------------------------------------------------------------
-def processFile(new_suffix, version_pattern, root, file, logger=None):
+def processFile(new_suffix, version_pattern, root, file, bump=None, set_values=None, logger=None):
     """Process a single .py file and update its __version__ string."""
+
+    if file != "versionExample.py" and file != "MikesVersionModifier.py":
+        return # skip other files for now
+
+    if logger:
+        logger.tracej(f"Processing file: {os.path.join(root, file)}")
+
     file_path = os.path.join(root, file)
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     new_content, count = version_pattern.subn(
-        lambda m: version_replacer(m, new_suffix, logger), content
+        lambda m: version_replacer(m, new_suffix, bump=bump, set_values=set_values, logger=logger),
+        content
     )
 
     if count > 0:
@@ -75,18 +103,16 @@ def processFile(new_suffix, version_pattern, root, file, logger=None):
             logger.info(f"Updated: {file_path}")
 
 # -----------------------------------------------------------------
-def update_version_suffix(directory, new_suffix, logger=None):
+def update_version_suffix(directory, new_suffix, bump=None, set_values=None, logger=None):
     """
     Traverse all .py files in a directory, normalize __version__ to 4 numbers + suffix.
+    bump: which segment to increment ("major","minor","patch","build").
+    set_values: dict to explicitly set version numbers.
     """
-    version_pattern = re.compile(
-        r'(__version__\s*=\s*[\'"])(\d+)\.(\d+)\.(\d+)\.(\d+)(?:-(\d+))?-(dev|qa|test|release)([\'"])'
-    )
-
     spec = load_gitignore(directory, logger)
 
     if logger:
-        logger.traceb(f"Starting version suffix update... {new_suffix=}")
+        logger.traceb(f"Starting version suffix update... {new_suffix=} {bump=} {set_values=}")
 
     for root, dirs, files in os.walk(directory):
         # Filter out ignored directories
@@ -95,13 +121,22 @@ def update_version_suffix(directory, new_suffix, logger=None):
         for file in files:
             rel_path = os.path.relpath(os.path.join(root, file), directory)
             if file.endswith(".py") and not (spec and spec.match_file(rel_path)):
-                # if logger:
-                #     logger.tracew(f"Processing {rel_path}")
-                processFile(new_suffix, version_pattern, root, file, logger)
+                processFile(new_suffix, version_pattern, root, file, bump=bump, set_values=set_values, logger=logger)
+
+
+
 
 # -----------------------------------------------------------------
 if __name__ == "__main__":
     # Example usage: replace with your logger setup
     directory = "D:/_Python_Projects/MikesToolsLibrary"
-    new_suffix = "dev"  # or "qa", "test", "release"
-    update_version_suffix(directory, new_suffix)
+
+    # # Choose suffix and bump strategy
+    # new_suffix = "145-dev"   # e.g. "145-dev", "qa", "release"
+    # bump = None              # or "major","minor","patch","build"
+    # set_values = {"major":0,"minor":3,"patch":5}  # optional overrides
+
+    # update_version_suffix(directory, new_suffix, bump=bump, set_values=set_values)
+
+    content = '__version__ = "1.7.3.165-qa"'
+    print(version_pattern.sub(lambda m: version_replacer(m, "145-dev"), content))

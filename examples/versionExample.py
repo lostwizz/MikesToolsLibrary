@@ -4,6 +4,8 @@
 r"""
 versionExample.py
 
+
+
 # TODO:
 # COMMENT:
 # NOTE:
@@ -23,9 +25,9 @@ versionExample.py
 
 
 """
-__version__ = "0.0.0.140-release"
+__version__ = "1.7.3.165-qa"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-17 22:54:33"
+__updated__ = "2025-12-17 23:40:04"
 ###############################################################################
 
 
@@ -76,11 +78,26 @@ def main():
     # Example usage:
     # directory = "path/to/your/code"
     directory = "D:\_Python_Projects\MikesToolsLibrary"
-    new_suffix = f"{r}-release"
+    new_suffix = f"{r}-qa"
+
+    # update_version_suffix(directory, new_suffix, logger)
+
+    # update_version_suffix(
+    #     directory,
+    #     new_suffix=new_suffix,
+    #     bump="major",
+    #     set_values={"minor":3, "patch":5},
+    #     logger=logger
+    # )
+
+    update_version_suffix(
+        directory,
+        new_suffix=new_suffix,
+        set_values={"major":1,"minor":7,"patch":3},
+        logger=logger
+    )
 
 
-
-    update_version_suffix(directory, new_suffix, logger)
 
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------

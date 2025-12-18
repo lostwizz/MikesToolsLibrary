@@ -10,6 +10,9 @@ cls
 
 python ./examples/versionExample.py
 
+
+@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py
+
 @REM python ./version_utils.py
 
 @REM python ./examples/setupExample.py
