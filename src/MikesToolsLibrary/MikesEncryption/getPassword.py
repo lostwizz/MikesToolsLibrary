@@ -61,7 +61,7 @@
 
 """
 
-__version__ = "0.3.5.0-143-dev"
+__version__ = "0.1.1.179-dev"
 __author__ = "Mike Merrett"
 __updated__ = "2025-12-16 22:57:00"
 

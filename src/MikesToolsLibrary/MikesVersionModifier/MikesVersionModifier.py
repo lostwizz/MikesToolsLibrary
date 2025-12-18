@@ -12,15 +12,16 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "1.7.3.165-qa"
+__version__ = "0.1.1.179-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-17 23:39:18"
+__updated__ = "2025-12-18 00:05:14"
 ###############################################################################
 
 import os
 import re
 import pathspec
 
+# -----------------------------------------------------------------
 # -----------------------------------------------------------------
 def load_gitignore(directory, logger=None):
     """Load .gitignore patterns if present."""
@@ -38,6 +39,9 @@ def load_gitignore(directory, logger=None):
 version_pattern = re.compile(
     r'(__version__\s*=\s*[\'"])(\d+)\.(\d+)\.(\d+)\.(\d+)-([\w\-]+)([\'"])'
 )
+
+
+# -----------------------------------------------------------------
 def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None):
     major = int(match.group(2))
     minor = int(match.group(3))
@@ -63,26 +67,30 @@ def version_replacer(match, new_suffix, bump=None, set_values=None, logger=None)
         patch = int(set_values.get("patch", patch))
         build = int(set_values.get("build", build))
 
-    # Apply bump logic
-    if bump == "major":
-        major += 1; minor = 0; patch = 0; build = 0
-    elif bump == "minor":
-        minor += 1; patch = 0; build = 0
-    elif bump == "patch":
-        patch += 1; build = 0
-    elif bump == "build":
-        build += 1
+    # Apply bump logic (support list)
+    if bump:
+        if isinstance(bump, str):
+            bump = [bump]
+        for b in bump:
+            if b == "major":
+                major += 1; minor = 0; patch = 0; build = 0
+            elif b == "minor":
+                minor += 1; patch = 0; build = 0
+            elif b == "patch":
+                patch += 1; build = 0
+            elif b == "build":
+                build += 1
 
     return f'{match.group(1)}{major}.{minor}.{patch}.{build}-{suffix}{match.group(7)}'
 
 
-
+ 
 # -----------------------------------------------------------------
 def processFile(new_suffix, version_pattern, root, file, bump=None, set_values=None, logger=None):
     """Process a single .py file and update its __version__ string."""
 
-    if file != "versionExample.py" and file != "MikesVersionModifier.py":
-        return # skip other files for now
+    # if file != "versionExample.py" and file != "MikesVersionModifier.py":
+    #     return # skip other files for now
 
     if logger:
         logger.tracej(f"Processing file: {os.path.join(root, file)}")
@@ -124,7 +132,16 @@ def update_version_suffix(directory, new_suffix, bump=None, set_values=None, log
                 processFile(new_suffix, version_pattern, root, file, bump=bump, set_values=set_values, logger=logger)
 
 
-
+# -----------------------------------------------------------------
+def validate_version_lines(content, file_path, logger=None):
+    matches = version_pattern.findall(content)
+    if len(matches) == 0:
+        if logger: logger.error(f"No __version__ line found in {file_path}")
+        return False
+    elif len(matches) > 1:
+        if logger: logger.error(f"Multiple __version__ lines found in {file_path}")
+        return False
+    return True
 
 # -----------------------------------------------------------------
 if __name__ == "__main__":
@@ -138,5 +155,5 @@ if __name__ == "__main__":
 
     # update_version_suffix(directory, new_suffix, bump=bump, set_values=set_values)
 
-    content = '__version__ = "1.7.3.165-qa"'
+    content = '__version__ = "0.1.1.179-dev"'
     print(version_pattern.sub(lambda m: version_replacer(m, "145-dev"), content))

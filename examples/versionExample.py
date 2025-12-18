@@ -25,9 +25,9 @@ versionExample.py
 
 
 """
-__version__ = "1.7.3.165-qa"
+__version__ = "0.1.1.179-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-17 23:40:04"
+__updated__ = "2025-12-18 00:02:37"
 ###############################################################################
 
 
@@ -78,7 +78,7 @@ def main():
     # Example usage:
     # directory = "path/to/your/code"
     directory = "D:\_Python_Projects\MikesToolsLibrary"
-    new_suffix = f"{r}-qa"
+    new_suffix = f"{r}-dev"
 
     # update_version_suffix(directory, new_suffix, logger)
 
@@ -93,11 +93,15 @@ def main():
     update_version_suffix(
         directory,
         new_suffix=new_suffix,
-        set_values={"major":1,"minor":7,"patch":3},
+        set_values={"major":0,"minor":1,"patch":1},
         logger=logger
     )
 
-
+    # update_version_suffix(
+    #     "D:/_Python_Projects/MikesToolsLibrary",
+    #     new_suffix=new_suffix,
+    #     # bump=["minor", "patch"]
+    # )
 
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
