@@ -27,7 +27,7 @@ versionExample.py
 """
 __version__ = "0.1.2.00310-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 01:06:49"
+__updated__ = "2025-12-22 23:48:21"
 ###############################################################################
 
 
@@ -35,7 +35,8 @@ __updated__ = "2025-12-18 01:06:49"
 from MikesToolsLibrary.MikesSettings import MikesSettings
 
 import logging
-from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+# from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 from MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier import update_version_suffix
 #    MikesToolsLibrary\MikesVersionModifier\MikesVersionModifier.py
@@ -57,15 +58,15 @@ def main():
     """
     Main function to update version in all .py files in a directory.
     """
-    LogSetup = LoggerSetup(
-        "MikesToolsLibrary",
-        level=logging.DEBUG,
-        logfile=".\logs\MikesToolsLibrary.log",
-        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    )
+    # LogSetup = LoggerSetup(
+    #     "MikesToolsLibrary",
+    #     level=logging.DEBUG,
+    #     logfile=".\logs\MikesToolsLibrary.log",
+    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
+    # )
 
-    global logger
-    logger = LogSetup.get_logger()
+    # global logger
+    # logger = LogSetup.get_logger()
 
     fn = MikesSettings.findConfigFile()   # look for "config.ini" in current or parent dirs
     logger.info(f"Reading settings from INI file {fn=}...")

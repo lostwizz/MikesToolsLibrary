@@ -10,7 +10,7 @@ setupExample.py
 """
 __version__ = "0.1.2.00310-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-17 21:50:42"
+__updated__ = "2025-12-22 23:47:53"
 ###############################################################################
 
 import os
@@ -18,8 +18,9 @@ import os
 from MikesToolsLibrary.MikesSettings import MikesSettings
 
 import logging
-from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+# from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
 
 # -----------------------------------------------------------------
 def check_first_read():
@@ -95,15 +96,15 @@ def check_runcounter():
 # -----------------------------------------------------------------
 def main():
 
-    LogSetup = LoggerSetup(
-        "MikesToolsLibrary",
-        level=logging.DEBUG,
-        logfile=".\logs\MikesToolsLibrary.log",
-        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    )
+    # LogSetup = LoggerSetup(
+    #     "MikesToolsLibrary",
+    #     level=logging.DEBUG,
+    #     logfile=".\logs\MikesToolsLibrary.log",
+    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
+    # )
 
-    global logger
-    logger = LogSetup.get_logger()
+    # global logger
+    # logger = LogSetup.get_logger()
 
     logger.info("Checking Process complete ✓ — all good 🚀")
 
