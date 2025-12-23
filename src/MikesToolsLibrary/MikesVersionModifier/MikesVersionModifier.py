@@ -12,7 +12,7 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.2.00199-dev"
+__version__ = "0.1.2.00213-dev"
 __author__ = "Mike Merrett"
 __updated__ = "2025-12-18 01:02:52"
 ###############################################################################

@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00199-dev"
+__version__ = "0.1.2.00213-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 19:37:38"
+__updated__ = "2025-12-22 20:23:32"
 ###############################################################################
 
 
@@ -315,7 +315,7 @@ def checkRotatinglogs(setup, mode):
 # if you ran this at the begginning of a script (or some logging) and all subsequent log messages
 #      would have the name and ip
 def setUnameAndIP():
-    
+
     ## setting username and ip manually
     logger.blue("a message", extra={"user_id": "123"})
     logger.tracea("some msg")
@@ -362,16 +362,30 @@ def setUnameAndIP():
 
 # -------------------
 def main():
+    # global logger
+
+    # LogSetup = LoggerSetup(
+    #     "MikesToolsLibrary",
+    #     level=logging.DEBUG,
+    #     logfile=".\logs\MikesToolsLibrary.log",
+    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
+    # )
+
+    # logger = LogSetup.get_logger()
+
+
     global logger
 
-    LogSetup = LoggerSetup(
+    logger = LoggerSetup(
         "MikesToolsLibrary",
         level=logging.DEBUG,
-        logfile=".\logs\MikesToolsLibrary.log",
-        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    )
+        logfile="./logs/MikesToolsLibrary.log",
+        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR  # | LoggingMode.ROTATINGFN | LoggingMode.SMTP
+    ).get_logger()
 
-    logger = LogSetup.get_logger()
+
+
+
 
     # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
 
