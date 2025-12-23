@@ -17,7 +17,7 @@ python ./examples/loggerExample.py
 
 @REM python ./examples/setupExample.py
 
-python ./examples/encryptionExample.py
+@REM python ./examples/encryptionExample.py
 
 
 @REM update the build number after every run -- once in a while sync it with the config.ini runcounter

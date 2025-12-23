@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00213-dev"
+__version__ = "0.1.2.00237-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 20:23:32"
+__updated__ = "2025-12-22 21:20:07"
 ###############################################################################
 
 
@@ -45,6 +45,16 @@ from MikesToolsLibrary.MikesLogging import ( log_decorator, log_decoratorPlain,)
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 
 
+# from MikesToolsLibrary.MikesLogging.LoggerSetup  import logger
+# from MikesToolsLibrary.MikesLogging.LoggerSetup  import get_logger
+from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
+
+logger.info("Default logger")
+
+
+
+
+
 sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
@@ -52,6 +62,8 @@ sys.path.insert(
 
 # -------------------
 def checkCustomLevels():
+    print("at CheckCustomLevels")
+
     # print("v")
     # for h in logger.handlers:
     #     if isinstance(h.formatter, CustomFormatter):
@@ -76,6 +88,8 @@ def checkCustomLevels():
 
 # -------------------
 def displayExcludeLevel():
+    print('at displayExcludeLevel')
+
     logger.notice("This is a NOTICE message 1")
     # print( ExcludeLevelFilter.Filters)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
@@ -155,6 +169,8 @@ def displayExcludeLevel():
 
 # -------------------
 def displayExcludeLevel2():
+    print('at displayExcludeLevel2')
+
     logger.mark1()
     # LoggerSetup.turnOffNonStandardLevels(LoggingMode.ALL)
     LoggerSetup.turnOffNonStandardLevels()
@@ -191,6 +207,7 @@ def displayExcludeLevel2():
 
 # -------------------
 def checkLoggerLevel():
+    print("at checkLoggerLevel")
 
     logger.setLevel(1)
     logger.debug("This debug message will be filtered out")
@@ -202,6 +219,7 @@ def checkLoggerLevel():
 
 # -------------------
 def showLevelInfo():
+    print("at showLevelInfo")
     LoggerSetup.show_all_levels(logger)
     # mylog.LoggerSetup.showColorSampler()
 
@@ -209,6 +227,7 @@ def showLevelInfo():
 # -------------------
 @log_decorator
 def freddy(a, b, c):
+    print("in freddy function")
     print(a)
     print(f"{b}")
     print(f"{c=}")
@@ -217,6 +236,7 @@ def freddy(a, b, c):
 
 # @log_decoratorPlain
 def freddy2(a, b, c):
+    print("in freddy2 function")
     print(a)
     print(f"{b}")
     print(f"{c=}")
@@ -224,12 +244,14 @@ def freddy2(a, b, c):
 
 
 def checkDecorator():
+    print("at checkDecorator")
     x = freddy("sam was here ", "tom is gone", 777)
     y = freddy2("sam was herexxx ", "tom is gonexxxxxxxx", 87778)
 
 
 # -------------------
 def checkTypesOutput():
+    print("at checkTypesOutput" )
 
     print("VVVVVVVVVVVVVVVVVVVVVVVVVVVV")
     for name, logger in logging.Logger.manager.loggerDict.items():
@@ -272,6 +294,12 @@ def checkTypesOutput():
     # print ( isinstance(LoggingMode, Enum))
     logger.traceq(LoggingMode.CONSOLE)
 
+
+
+
+def checkException(logger):
+    print("at checkException")
+    
     try:
         d = 2 / 0
     except Exception:
@@ -283,12 +311,15 @@ def checkTypesOutput():
 
 # -------------------
 def checkSMTP():
+    print("at checkSMTP")
     logger.smtp("This is some sort of email!!")
     logger.smtp("This is some sort of email!!", [1, 2, 3, 4, 5, 6], {"a": 1, "b": 2})
 
 
 # -------------------
 def checkMultipleArgs():
+    print("at checkMultipleArgs")
+
     logger.warning("hi")
     logger.info("This is some sort of message with args", "a", "b", "c", "d", "e", "f")
     logger.tracea(
@@ -301,6 +332,8 @@ def checkMultipleArgs():
 
 # -------------------
 def checkRotatinglogs(setup, mode):
+    print("at checkRotatinglogs")
+
     setup.force_rollover(mode)
     logger.tracea( "this should be the online line in the log file")
     time.sleep(60)
@@ -315,6 +348,7 @@ def checkRotatinglogs(setup, mode):
 # if you ran this at the begginning of a script (or some logging) and all subsequent log messages
 #      would have the name and ip
 def setUnameAndIP():
+    print("at setUnameAndIP")
 
     ## setting username and ip manually
     logger.blue("a message", extra={"user_id": "123"})
@@ -374,20 +408,29 @@ def main():
     # logger = LogSetup.get_logger()
 
 
-    global logger
+    # global logger
 
-    logger = LoggerSetup(
-        "MikesToolsLibrary",
-        level=logging.DEBUG,
-        logfile="./logs/MikesToolsLibrary.log",
-        modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR  # | LoggingMode.ROTATINGFN | LoggingMode.SMTP
-    ).get_logger()
-
-
+    # logger = LoggerSetup(
+    #     "MikesToolsLibrary",
+    #     level=logging.DEBUG,
+    #     logfile="./logs/MikesToolsLibrary.log",
+    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR  # | LoggingMode.ROTATINGFN | LoggingMode.SMTP
+    # ).get_logger()
 
 
+    # logger = get_library_logger(logfile="D:/Logs/mylog.log")
 
-    # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
+    logger.debug("This is a debug message")
+    logger.info("This is an info message")
+    logger.pirate("Custom special level log", extra={"user_id": "Mike", "ip": "127.0.0.1", "special": True})
+
+
+
+    LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
+
+    showLevelInfo()
+
+    checkException(logger)
 
     checkCustomLevels()
     showLevelInfo()
@@ -400,17 +443,17 @@ def main():
     setUnameAndIP()
 
 
-    displayExcludeLevel()
+    # displayExcludeLevel()
+    # # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
+    # displayExcludeLevel2()
     # LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
-    displayExcludeLevel2()
-    LoggerSetup.turnOffNonStandardLevels( LoggingMode.TIMEDROTATOR)
-    # checkSMTP()
+    # # checkSMTP()
 
-    # checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)
-    # checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
+    # # checkRotatinglogs(LogSetup, LoggingMode.TIMEDROTATOR)
+    # # checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
 
 
-    LoggingMode.CONSOLE.showModes()
+    # LoggingMode.CONSOLE.showModes()
 
 if __name__ == "__main__":
     main()

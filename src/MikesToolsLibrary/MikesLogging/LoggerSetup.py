@@ -1,14 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 ###############################################################################
-r"""
+"""
 LoggerSetup.py
 
+Unified logger setup for MikesToolsLibrary with:
+- Console, file, rotating, timed-rotating handlers
+- Custom levels and formatting
+- Exclude filters per logging mode
+- Transparent module-level logger with optional overrides
 
-to use this -- add it to the path
-set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
+Usage in other modules:
 
-# TODO:
+Default logger:
+    from LoggerSetup import logger
+    logger.debug("Debug message")
+
+Custom logger:
+    from LoggerSetup import get_logger, LoggingMode
+    my_logger = get_logger(
+        logfile="D:/Logs/custom.log",
+        modes=LoggingMode.CONSOLE | LoggingMode.FILE
+    )
+
+    # TODO:
 # COMMENT:
 # NOTE:
 # USEFULL:
@@ -23,26 +38,18 @@ set PYTHONPATH=D:\_Python_Projects\MikesToolsLibrary\src;%PYTHONPATH%
 # [ ] something to do
 # [x]  i did sometrhing
 
-
 """
-__version__ = "0.1.2.00213-dev"
+__version__ = "0.1.2.00231-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-16 19:35:14"
+__updated__ = "2025-12-22 21:10:41"
 ###############################################################################
 
-from encodings.punycode import T
 import sys
-import json
-import socket
 import getpass
-
+import socket
 import logging
-from logging.handlers import SMTPHandler
+from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler, SMTPHandler
 
-# from logging.handlers import NullHandler, StreamHandler, FileHandler
-# from logging.handlers import WatchedFileHandler
-from logging.handlers import BaseRotatingHandler, RotatingFileHandler
-from logging.handlers import TimedRotatingFileHandler
 
 # from logging.handlers import SocketHandler
 # from logging.handlers import DatagramHandler
@@ -52,22 +59,26 @@ from logging.handlers import TimedRotatingFileHandler
 # from logging.handlers import QueueHandler   #, SimpleQueue
 # from logging.handlers import QueueListener
 
-from .log_decorator import log_decorator
+from pathlib import Path
+
+# Import your custom modules
 from .CustomLevels import CustomLevels
 from .CustomFormatter import CustomFormatter
 from .ExcludeLevelFilter import ExcludeLevelFilter
 from .LoggingMode import LoggingMode
 
 
-###############################################################################
+
+# from .log_decorator import log_decorator
 ###############################################################################
 class LoggerSetup:
     """
-    Unified logger setup:
-    - Console handler with CustomFormatter (color, pretty-print)
-    - File handler with plain text logs
-    - Support for custom levels via add_custom_level
-    - Optional filters (exclude certain levels)
+    Unified logger setup with optional modes:
+    - Console
+    - File
+    - Timed rotation
+    - Rotating file
+    - SMTP
     """
 
     _logger = None
@@ -77,12 +88,12 @@ class LoggerSetup:
         self,
         name: str = "MikesToolsLibrary",
         level: int = logging.DEBUG,
-        logfile: str = "app.log",
-        modes: LoggingMode = LoggingMode.CONSOLE | LoggingMode.ROTATINGFN,
-        maxBytes=100_000_000,
-        backupCount=100,
-        interval=1,
-        when="midnight",
+        logfile: str = "./logs/MikesToolsLibrary.log",
+        modes: LoggingMode = LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR,
+        maxBytes: int = 100_000_000,
+        backupCount: int = 25,
+        interval: int = 1,
+        when: str = "midnight",
     ):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
@@ -91,22 +102,13 @@ class LoggerSetup:
         # Avoid duplicate handlers if re-instantiated
         if not self.logger.handlers:
 
-            # INCOMPLETE
             handlers = {
-                LoggingMode.CONSOLE: lambda: self.setupConsoleHandler(level),
-                LoggingMode.FILE: lambda: self.setupFileHandler(level, logfile),
-                LoggingMode.SMTP: lambda: self.setupSMTPHandler(name),
-                LoggingMode.JSON: lambda: self.setupJSONHandler(level, logfile),
-                LoggingMode.ROTATINGFN: lambda: self.setupRotationFileHandler(
-                    level, logfile=logfile, maxBytes=maxBytes, backupCount=backupCount
-                ),
-                LoggingMode.TIMEDROTATOR: lambda: self.setupTimedRotationFileHandler(
-                    level,
-                    logfile,
-                    interval=interval,
-                    when=when,
-                    backupCount=backupCount,
-                ),
+                LoggingMode.CONSOLE: lambda: self._setup_console(level),
+                LoggingMode.FILE: lambda: self._setup_file(level, logfile),
+                LoggingMode.SMTP: lambda: self._setup_smtp(name),
+                LoggingMode.ROTATINGFN: lambda: self._setup_rotating(level, logfile, maxBytes, backupCount),
+                LoggingMode.TIMEDROTATOR: lambda: self._setup_timed_rotating(level, logfile, when, interval, backupCount),
+            }
                 # LoggingMode.MEMORY: lambda: None,
                 # LoggingMode.SYSLOG: lambda: None,
                 # LoggingMode.HTTP: lambda: None,
@@ -114,24 +116,18 @@ class LoggerSetup:
                 # LoggingMode.DATABASE: lambda: None,
                 # LoggingMode.CLOUD: lambda: None,
                 # LoggingMode.EXTERNAL: lambda: None,
-            }
-
-            for mode, setup in handlers.items():
-                if modes & mode:
-                    handler = setup()
+            for mode_flag, setup_fn in handlers.items():
+                if modes & mode_flag:
+                    handler = setup_fn()
                     self.logger.addHandler(handler)
-                    self.handlers_by_mode[mode] = handler
+                    self.handlers_by_mode[mode_flag] = handler
 
+        # Add custom levels
         self.add_special_levels(self.logger)
 
-
-        
+    # -------------------- Handlers -------------------- #
     # -----------------------------------------------------------------
-    def get_logger(self):
-        return self.logger
-
-    # -----------------------------------------------------------------
-    def setupConsoleHandler(self, level):
+    def _setup_console(self, level):
         ch = logging.StreamHandler()
         ch.setLevel(level)
         ch.setFormatter(
@@ -145,7 +141,8 @@ class LoggerSetup:
         return ch
 
     # -----------------------------------------------------------------
-    def setupFileHandler(self, level, logfile):
+    def _setup_file(self, level, logfile):
+        Path(logfile).parent.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(logfile, encoding="utf-8")
         fh.setLevel(level)
         fh.setFormatter(
@@ -154,58 +151,14 @@ class LoggerSetup:
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
-        )  # more detail, timestamps
+        )
         fh.addFilter(ExcludeLevelFilter(LoggingMode.FILE))
         return fh
 
     # -----------------------------------------------------------------
-    def setupJSONHandler(self, level, logfile):
-        fh = logging.FileHandler("JSON" + logfile, encoding="utf-8")
-        fh.setLevel(level)
-        fh.setFormatter(
-            CustomFormatter(
-                fmt="%(asctime)s|%(filename)s|%(lineno)4s|%(funcName)s|%(levelname)8s| %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S",
-                fmtMode=LoggingMode.JSON,
-            )
-        )  # more detail, timestamps
-        fh.addFilter(ExcludeLevelFilter(LoggingMode.JSON))
-        return fh
-
-    # -----------------------------------------------------------------
-    def setupSMTPHandler(self, name):
-
-        mail_handler = SMTPHandler(
-            mailhost=("mail.merrett.ca", 587),
-            fromaddr="public@merrett.ca",
-            toaddrs=["public@merrett.ca"],
-            subject="Application Error - " + name,
-            credentials=("public@merrett.ca", "2]soaDOv;E;9"),
-            secure=(),
-        )
-
-        # mail_handler = SMTPHandler(
-        #     mailhost=("localhost", 1025),
-        #     fromaddr="test@example.com",
-        #     toaddrs=["admin@example.com"],
-        #     subject="Test Log Email - " + name
-        # )
-
-        mail_handler.addFilter(ExcludeLevelFilter(LoggingMode.SMTP))
-        mail_handler.setLevel(999)
-
-        return mail_handler
-
-    # ---------------------------------------------------------------
-    def setupRotationFileHandler(
-        self, level, logfile, maxBytes=100_000_000, backupCount=25
-    ):
-        fh = RotatingFileHandler(
-            filename=logfile,
-            encoding="utf-8",
-            maxBytes=maxBytes,
-            backupCount=backupCount,
-        )
+    def _setup_rotating(self, level, logfile, maxBytes, backupCount):
+        Path(logfile).parent.mkdir(parents=True, exist_ok=True)
+        fh = RotatingFileHandler(logfile, maxBytes=maxBytes, backupCount=backupCount, encoding="utf-8")
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
@@ -213,21 +166,14 @@ class LoggerSetup:
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
-        )  # more detail, timestamps
+        )
         fh.addFilter(ExcludeLevelFilter(LoggingMode.ROTATINGFN))
         return fh
 
     # -----------------------------------------------------------------
-    def setupTimedRotationFileHandler(
-        self, level, logfile, when="d", interval=7, backupCount=25
-    ):
-        fh = TimedRotatingFileHandler(
-            filename=logfile,
-            encoding="utf-8",
-            interval=interval,
-            backupCount=backupCount,
-            when=when,
-        )
+    def _setup_timed_rotating(self, level, logfile, when, interval, backupCount):
+        Path(logfile).parent.mkdir(parents=True, exist_ok=True)
+        fh = TimedRotatingFileHandler(logfile, when=when, interval=interval, backupCount=backupCount, encoding="utf-8")
         fh.setLevel(level)
         fh.setFormatter(
             CustomFormatter(
@@ -235,7 +181,7 @@ class LoggerSetup:
                 datefmt="%Y-%m-%d %H:%M:%S",
                 fmtMode=LoggingMode.FILE,
             )
-        )  # more detail, timestamps
+        )
         fh.addFilter(ExcludeLevelFilter(LoggingMode.ROTATINGFN))
         return fh
 
@@ -247,83 +193,56 @@ class LoggerSetup:
                 handler.doRollover()
 
     # -----------------------------------------------------------------
-    @staticmethod
-    def reset_state():
-        # Clear custom filters
-        ExcludeLevelFilter.Filters.clear()
-        # Remove custom levels
-        for level_name in list(logging._nameToLevel.keys()):
-            if level_name not in logging._levelToName.values():
-                logging._nameToLevel.pop(level_name, None)
-        # Clear loggerDict
-        logging.Logger.manager.loggerDict.clear()
+    def _setup_smtp(self, name):
+        mail_handler = SMTPHandler(
+            mailhost=("mail.merrett.ca", 587),
+            fromaddr="public@merrett.ca",
+            toaddrs=["public@merrett.ca"],
+            subject=f"Application Error - {name}",
+            credentials=("public@merrett.ca", "2]soaDOv;E;9"),
+            secure=(),
+        )
+        mail_handler.addFilter(ExcludeLevelFilter(LoggingMode.SMTP))
+        mail_handler.setLevel(999)
+        return mail_handler
 
-    # -----------------------------------------------------------------
-    @classmethod
-    def includeUserNameAndIP(cls, overrideName=None, overrideIP=None):
-
-        username = overrideName if overrideName else getpass.getuser()
-
-        if overrideIP:
-            local_ip = overrideIP
-        else:
-            hostname = socket.gethostname()
-            local_ip = socket.gethostbyname(hostname)
-
-        # print(f"setting to: {username=} {local_ip=}")
-        cls._logger.pirate(f"☠Setting Username: '{username}' and IP: '{local_ip}'",extra={"user_id": username, "ip": local_ip, "special":True})
-
+    # -------------------- Utilities -------------------- #
     # -----------------------------------------------------------------
     @classmethod
     def add_special_levels(cls, logger):
-        """Add the predefined custom log levels by delegating to CustomLevels."""
         CustomLevels.addMyCustomLevels(logger)
 
     # -----------------------------------------------------------------
     @classmethod
-    def add_level(
-        cls, level_name: str, level_num: int, colorFmt: str = None, specialChar=""
-    ):
-        """
-        Add a custom logging level.
-        :param level_name: Name of the logging level.
-        :param level_num: Numeric value of the logging level.
-        :param method_name: Optional method name for logger.
-        """
+    def includeUserNameAndIP(cls, overrideName=None, overrideIP=None):
+        if cls._logger is None:
+            # Create default logger if not already created
+            cls._logger = LoggerSetup().logger
 
-        CustomLevels.add(level_name, level_num, colorFmt, specialChar)
+        username = overrideName if overrideName else getpass.getuser()
+        local_ip = overrideIP if overrideIP else socket.gethostbyname(socket.gethostname())
+        cls._logger.info(
+            f"☠Setting Username: '{username}' and IP: '{local_ip}'",
+            extra={"user_id": username, "ip": local_ip, "special": True}
+        )
+
 
     # -----------------------------------------------------------------
     @classmethod
-    def get_logger(cls, name="MikesToolsLibrary", level=logging.DEBUG):
-        if cls._logger is None:
-            logger = logging.getLogger(name)
-            logger.setLevel(level)
+    def reset_state(cls):
+        ExcludeLevelFilter.Filters.clear()
+        logging.Logger.manager.loggerDict.clear()
+        for level_name in list(logging._nameToLevel.keys()):
+            if level_name not in logging._levelToName.values():
+                logging._nameToLevel.pop(level_name, None)
 
-            if not logger.handlers:  # prevent duplicate handlers
-                ch = logging.StreamHandler()
-                ch.setLevel(level)
-                formatter = logging.Formatter(
-                    "%(asctime)s|%(filename)s|%(lineno)4d|%(funcName)s|%(levelname)8s| %(message)s"
-                )
-                ch.setFormatter(formatter)
-                logger.addHandler(ch)
-
-            cls._logger = logger
-        return cls._logger
-
-    # -----------------------------------------------------------------
-    def add_custom_level(self, level_name, level_num, method_name=None):
-        """Add a custom level via the CustomLevels helper class."""
-        return CustomLevels.add(level_name, level_num, method_name)
-
-    # -----------------------------------------------------------------
+   # -----------------------------------------------------------------
     @classmethod
     def show_all_levels(cls, logger):
         """Show all defined logging levels."""
         CustomLevels.show_all_levels(logger)
 
-    # -----------------------------------------------------------------
+ # -----------------------------------------------------------------
     @classmethod
     def showColorSampler(cls) -> None:
         """show all the possible color combinations"""
@@ -352,7 +271,7 @@ class LoggerSetup:
         # return ExcludeLevelFilter.Filters
         return ExcludeLevelFilter.showFiltersByMode(mode)
 
-    # -----------------------------------------------------------------
+   # -----------------------------------------------------------------
     @classmethod
     def turnOffRange(
         cls, start: int, end: int, mode: LoggingMode = LoggingMode.ALL
@@ -376,7 +295,8 @@ class LoggerSetup:
         ExcludeLevelFilter.turnOffLevelRange(51, 59, mode)
         ExcludeLevelFilter.turnOffLevelRange(60, 1000, mode)
 
-    # -----------------------------------------------------------------
+
+   # -----------------------------------------------------------------
     @classmethod
     def turnOnNonStandardLevels(cls, mode: LoggingMode = LoggingMode.ALL) -> None:
         ExcludeLevelFilter.turnOnLevelRange(11, 19, mode)
@@ -447,14 +367,39 @@ class LoggerSetup:
         ExcludeLevelFilter.turnOffLevelRange(700, 799, mode)
 
     # -----------------------------------------------------------------
-    # -----------------------------------------------------------------
+ 
+###############################################################################
+# Module-level default logger
+logger = LoggerSetup(
+    name="MikesToolsLibrary",
+    level=logging.DEBUG,
+    logfile="./logs/MikesToolsLibrary.log",
+    modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR
+).logger
 
 
-# -----------------------------------------------------------------
-if __name__ == "__main__":
+###############################################################################
+# Flexible helper to create custom loggers
+def get_logger(
+    name: str = "MikesToolsLibrary",
+    level: int = logging.DEBUG,
+    logfile: str = None,
+    modes: LoggingMode = None,
+) -> logging.Logger:
     """
-    This is the main function that runs when the script is executed directly.
-    It sets up the logger and demonstrates the usage of the CustomFormatter class.
+    Returns a configured logger.
+    - Override logfile, level, or modes if desired.
+    - If module-level logger exists and defaults are used, returns it.
     """
-    print("You should not run this file directly, it is a module to be imported.")
-    sys.exit(-99)
+    logfile = logfile or "./logs/MikesToolsLibrary.log"
+    modes = modes or (LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR)
+
+    if LoggerSetup._logger and logfile == "./logs/MikesToolsLibrary.log" and modes == (LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR):
+        return LoggerSetup._logger
+
+    return LoggerSetup(
+        name=name,
+        level=level,
+        logfile=logfile,
+        modes=modes
+    ).get_logger()

@@ -10,9 +10,9 @@ CustomLevels.py
 🔧   - wrench
 
 """
-__version__ = "0.1.2.00213-dev"
+__version__ = "0.1.2.00237-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 00:51:02"
+__updated__ = "2025-12-22 21:12:40"
 ###############################################################################
 
 import sys
@@ -42,7 +42,8 @@ class CustomLevels:
             method_name = level_name.lower()
 
         if hasattr(logging, level_name):
-            raise AttributeError(f"{level_name} already defined in logging module")
+            return
+            # raise AttributeError(f"{level_name} already defined in logging module")
         if hasattr(logging, method_name):
             raise AttributeError(f"{method_name} already defined in logging module")
         if hasattr(logging.getLoggerClass(), method_name):
