@@ -6,9 +6,9 @@ ExcludeLevelFilter.py
 
 
 """
-__version__ = "0.1.2.00237-dev"
+__version__ = "0.1.2.00310-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-13 22:26:04"
+__updated__ = "2025-12-22 23:03:24"
 ###############################################################################
 import sys
 import logging
@@ -127,6 +127,7 @@ class ExcludeLevelFilter(logging.Filter):
             cls.Filters[None].add(level)
             return
         for flag in iter_flags(mode):
+            # print(f"turn off level:{flag} lvl:{level}")
             cls.Filters[flag].add(level)
 
     # -----------------------------------------------------------------
@@ -137,6 +138,7 @@ class ExcludeLevelFilter(logging.Filter):
             cls.Filters[None].discard(level)
             return
         for flag in iter_flags(mode):
+            # print(f"turn on level:{flag} lvl:{level}")
             cls.Filters[flag].discard(level)
 
     # -----------------------------------------------------------------
