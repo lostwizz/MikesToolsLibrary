@@ -12,9 +12,9 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.2.00310-dev"
+__version__ = "0.1.2.00326-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 22:36:47"
+__updated__ = "2025-12-23 22:42:19"
 ###############################################################################
 
 import os
@@ -170,7 +170,7 @@ if __name__ == "__main__":
 
     # set argument: allow explicit values like major=1 minor=0
     parser.add_argument("--set", nargs="*",
-                        help="Explicitly set version numbers, e.g. major=1 minor=0 patch=0 build=5")
+                        help="Explicitly set version numbers, e.g. major=1 minor=0 patch=0 build=5 i.e. --set build=300 --suffix dev")
 
     # directory argument: default to your project root
     parser.add_argument("--directory", default="D:/_Python_Projects/MikesToolsLibrary",
@@ -193,14 +193,3 @@ if __name__ == "__main__":
         bump=args.bump,
         set_values=set_values
     )
-
-    # new_content, count = version_pattern.subn(
-    #     lambda m: version_replacer(m, new_suffix, bump=bump, set_values=set_values, logger=logger),
-    #     content
-    # )
-
-    # if count == 0:
-    #     logger.warning(f"No version line found in {file_path}")
-    # else:
-    #     logger.info(f"Updated {count} version line(s) in {file_path}")
-

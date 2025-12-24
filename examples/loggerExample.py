@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00310-dev"
+__version__ = "0.1.2.00326-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 23:05:14"
+__updated__ = "2025-12-23 22:43:24"
 ###############################################################################
 
 
@@ -449,6 +449,8 @@ def main():
     # # checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
 
     LoggingMode.CONSOLE.showModes()
+
+    LoggerSetup.showColorSampler()
 
 
 if __name__ == "__main__":
