@@ -18,9 +18,9 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.2.00322-dev"
+__version__ = "0.0.3.00354-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-24 19:27:48"
+__updated__ = "2025-12-24 21:17:48"
 ###############################################################################
 
 import os
@@ -33,7 +33,7 @@ from typing import Dict, List, Optional, Tuple
 
 import pathspec
 
-# from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 from MikesToolsLibrary.MikesLogging import get_logger
 logger = get_logger(__name__)
 
@@ -331,8 +331,8 @@ def process_file(
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
     except UnicodeDecodeError:
-        if logger:
-            logger.warning(f"Skipping non-text file: {file_path}")
+        # if logger:
+        #     logger.warning(f"Skipping non-text file: {file_path}")
         return None
 
     new_content, count = updater.update(content, version, logger=logger)
@@ -364,8 +364,8 @@ def update_tree(
     spec = load_gitignore(directory, logger)
     changed_files: List[str] = []
 
-    if logger:
-        logger.debug(f"Starting traversal in {directory}")
+    # if logger:
+    #     logger.debug(f"Starting traversal in {directory}")
 
     for root, dirs, files in os.walk(directory):
         # Filter ignored directories
@@ -381,8 +381,8 @@ def update_tree(
         for file in files:
             rel_path = os.path.relpath(os.path.join(root, file), directory)
             if spec and spec.match_file(rel_path):
-                if logger:
-                    logger.debug(f"Skipping ignored file: {rel_path}")
+                # if logger:
+                #     logger.debug(f"Skipping ignored file: {rel_path}")
                 continue
 
             changed = process_file(root, file, version, dry_run, logger)
@@ -523,7 +523,7 @@ def update_version_suffix(directory, new_suffix=None, bump=None, set_values=None
 def main() -> None:
     args = parse_args()
     # logger = setup_logger(verbose=args.verbose)
-    logger = LoggerSetup().get_logger("version_modifier")
+    # logger = LoggerSetup().get_logger("version_modifier")
 
 
     project_root = os.path.abspath(args.directory)

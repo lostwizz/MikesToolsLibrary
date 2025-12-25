@@ -125,6 +125,9 @@
         "-p",
         "test_*.py"
     ],
+    "python.testing.pytestArgs": [
+        "--color=yes"
+    ],
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "cSpell.words": [

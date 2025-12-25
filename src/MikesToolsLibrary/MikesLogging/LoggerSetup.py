@@ -39,9 +39,9 @@ Custom logger:
 # [x]  i did sometrhing
 
 """
-__version__ = "0.1.2.00322-dev"
+__version__ = "0.0.3.00354-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-24 20:38:34"
+__updated__ = "2025-12-24 23:07:14"
 ###############################################################################
 
 import sys
@@ -50,6 +50,7 @@ import socket
 import logging
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler, SMTPHandler
 
+# [ ] check the rest of these handlers and see if want to implement or not
 # from logging.handlers import SocketHandler
 # from logging.handlers import DatagramHandler
 # from logging.handlers import NTEventLogHandler
@@ -103,6 +104,8 @@ class LoggerSetup:
                     level, logfile, when, interval, backupCount
                 ),
             }
+            
+            # [ ] if implementing these modules then implement them            
             # LoggingMode.MEMORY: lambda: None,
             # LoggingMode.SYSLOG: lambda: None,
             # LoggingMode.HTTP: lambda: None,
@@ -235,8 +238,8 @@ class LoggerSetup:
     def force_rollover(cls, mode: LoggingMode = LoggingMode.ALL):
         if cls._logger is None:
             cls._logger = LoggerSetup().logger
-        for flag, handler in getattr(cls._logger, "handlers", {}).items():
-            if mode & flag and hasattr(handler, "doRollover"):
+        for handler in cls._logger.handlers:
+            if hasattr(handler, "doRollover"):
                 handler.doRollover()
 
     # -------------------- Non-standard levels -------------------- #
@@ -370,26 +373,26 @@ class LoggerSetup:
         ExcludeLevelFilter.turnOffLevelRange(700, 799, mode)
 
     # -----------------------------------------------------------------
-    def _initialize_logger():
-        global _logger
+    # def _initialize_logger():
+    #     global _logger
 
-        if _logger is not None:
-            return _logger  # already initialized
+    #     if _logger is not None:
+    #         return _logger  # already initialized
 
-        logger = logging.getLogger("MikesToolsLibrary")
-        logger.setLevel(logging.DEBUG)
+    #     logger = logging.getLogger("MikesToolsLibrary")
+    #     logger.setLevel(logging.DEBUG)
 
-        # Prevent duplicate handlers if re-imported
-        if not logger.handlers:
-            handler = logging.StreamHandler(sys.stdout)
-            formatter = logging.Formatter(
-                "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-            )
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
+    #     # Prevent duplicate handlers if re-imported
+    #     if not logger.handlers:
+    #         handler = logging.StreamHandler(sys.stdout)
+    #         formatter = logging.Formatter(
+    #             "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    #         )
+    #         handler.setFormatter(formatter)
+    #         logger.addHandler(handler)
 
-        _logger = logger
-        return logger
+    #     _logger = logger
+    #     return logger
 
     # -----------------------------------------------------------------
 

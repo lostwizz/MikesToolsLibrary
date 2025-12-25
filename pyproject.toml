@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MikesToolsLibrary"
-#version = "0.1.2.00322-322-dev"
+#version = "0.0.3.00354-dev"
 dynamic = ["version"]   # tells Hatch the version is managed dynamically
 
 
@@ -42,3 +42,6 @@ basic-setup = "examples.basic_setup:main"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.pytest.ini_options]
+addopts = "-v"

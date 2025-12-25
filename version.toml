@@ -1,6 +1,6 @@
 [version]
 major = 0
-minor = 1
-patch = 2
-build = 322
-suffix = "322-dev"
+minor = 0
+patch = 3
+build = 354
+suffix = "dev"

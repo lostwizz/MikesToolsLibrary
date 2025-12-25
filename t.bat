@@ -1,6 +1,5 @@
 @echo off
-set VERSION=0.1.2.00322-dev
-
+set VERSION=0.0.3.00354-dev
 
 @REM set PYTHONPATH=src
 @REM python loggerExample.py
@@ -8,32 +7,33 @@ set VERSION=0.1.2.00322-dev
 cls
 @echo on
 
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@REM update the build number after every run -- once in a while sync it with the version.toml
+python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier  --bump build
 @REM python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier --suffix dev --bump build
-
+@REM python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier --suffix dev --bump build minor
 
 @REM pip install -e .
 
-@REM python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier
-python examples/versionExample.py
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@REM python ./examples/versionExample.py
 
-
-@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 python ./examples/loggerExample.py
 
-@REM python ./examples/versionExample.py
-@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch
-
-@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py
-
-@REM python ./version_utils.py
-
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @REM python ./examples/setupExample.py
 
+
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@REM python ./version_utils.py
+
+
+@echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @REM python ./examples/encryptionExample.py
 
 
-@REM update the build number after every run -- once in a while sync it with the config.ini runcounter
-@REM python  ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --set build=300 --suffix dev
+
 
 
 

@@ -8,9 +8,9 @@ setupExample.py
 
 
 """
-__version__ = "0.1.2.00322-dev"
+__version__ = "0.0.3.00354-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-23 23:38:03"
+__updated__ = "2025-12-24 21:43:06"
 ###############################################################################
 
 import os
@@ -19,8 +19,16 @@ from MikesToolsLibrary.MikesSettings import MikesSettings
 
 import logging
 # from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+# from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+# from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
+from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging import log_decorator, log_decoratorPlain
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
-from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
+from MikesToolsLibrary.MikesLogging import get_logger
+logger = get_logger(__name__)
+logger.rocket("Logger Loaded - and it checks out",   extra={ "special": True})
+
+
 
 # -----------------------------------------------------------------
 def check_first_read():

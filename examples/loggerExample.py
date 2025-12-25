@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00322-dev"
+__version__ = "0.0.3.00354-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-24 20:37:02"
+__updated__ = "2025-12-24 22:12:27"
 ###############################################################################
 
 
@@ -38,20 +38,18 @@ import getpass
 
 import logging
 
-# from MikesToolsLibrary import MikesSettings
-from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
-from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator, log_decoratorPlain
 # from MikesToolsLibrary.MikesLogging import (
 #     log_decorator,
 #     log_decoratorPlain,
 # )
+# from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator, log_decoratorPlain
+
+from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging import log_decorator, log_decoratorPlain
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 from MikesToolsLibrary.MikesLogging import get_logger
 logger = get_logger(__name__)
-
-
-
-logger.info("Default logger")
+logger.rocket("Logger Loaded - and it checks out",   extra={ "special": True})
 
 
 sys.path.insert(
@@ -101,6 +99,8 @@ def displayExcludeLevel(
     # print( ExcludeLevelFilter.Filters)
     print(f"ExcludeLevelFilter {LoggerSetup.showExcludeLevelFilter() }")
 
+    l = logging._nameToLevel.get("DEBUG")
+    logger.yellow(f"debug is #{l}")
     l = logging._nameToLevel.get("NOTICE")
     print(f"level is {l=}")
 
