@@ -1,5 +1,5 @@
 @echo off
-set VERSION=0.1.2.00322-322-dev
+set VERSION=0.1.2.00322-dev
 
 
 @REM set PYTHONPATH=src
