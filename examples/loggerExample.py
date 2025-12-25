@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-23 22:43:24"
+__updated__ = "2025-12-23 23:36:31"
 ###############################################################################
 
 
@@ -187,31 +187,31 @@ def displayExcludeLevel2():
 
     print(logging._nameToLevel.get("MARK1"))
 
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     LoggerSetup.turnOnLevel(logging._nameToLevel.get("MARK1"))
     logger.mark1(" about to turn on 200s")
 
     LoggerSetup.turnOn200s()
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     LoggerSetup.turnOnLevel(logging._nameToLevel.get("MARK2"))
     logger.mark2(" about to turn off non standard levels - and turn on 300s")
 
     LoggerSetup.turnOffNonStandardLevels()
     LoggerSetup.turnOn300s()
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     logger.mark3(" about to turn on mark3")
     LoggerSetup.turnOnLevel(logging._nameToLevel.get("MARK3"))
     logger.mark3(" about to turn of nonstandard adn turn on 600s")
 
     LoggerSetup.turnOffNonStandardLevels()
     LoggerSetup.turnOn600s()
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     logger.mark4(" turning on mark 4")
     LoggerSetup.turnOnLevel(logging._nameToLevel.get("MARK4"))
     logger.mark4("about to turn on all levels")
 
     LoggerSetup.turnOnNonStandardLevels()
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     LoggerSetup.turnOnLevel(logging._nameToLevel.get("MARK5"))
     logger.mark5(" done after turning everything back on")
 
@@ -235,7 +235,7 @@ def showLevelInfo():
     print(
         "at showLevelInfo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     )
-    LoggerSetup.show_all_levels(logger)
+    LoggerSetup.show_all_levels()
     # mylog.LoggerSetup.showColorSampler()
 
 
@@ -449,8 +449,6 @@ def main():
     # # checkRotatinglogs(LogSetup, LoggingMode.ROTATINGFN)
 
     LoggingMode.CONSOLE.showModes()
-
-    LoggerSetup.showColorSampler()
 
 
 if __name__ == "__main__":

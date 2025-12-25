@@ -12,9 +12,9 @@ Custom logging utilities: formatters, levels, and setup helpers.
 
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-18 01:12:57"
+__updated__ = "2025-12-24 19:14:37"
 ###############################################################################
 
 
@@ -26,7 +26,7 @@ try:
     # Python 3.11+ has tomllib in the stdlib
     import tomllib
 except ImportError:
-    import tomli as tomllib  # fallback for older versions
+    import toml as tomllib  # fallback for older versions
 
 def get_version() -> str:
     """

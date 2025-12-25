@@ -39,9 +39,9 @@ Custom logger:
 # [x]  i did sometrhing
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 23:00:00"
+__updated__ = "2025-12-23 23:33:43"
 ###############################################################################
 
 import sys
@@ -216,9 +216,9 @@ class LoggerSetup:
 
     # -------------------- Non-standard levels -------------------- #
     @classmethod
-    def show_all_levels(cls, logger):
+    def show_all_levels(cls):
         """Show all defined logging levels."""
-        CustomLevels.show_all_levels(logger)
+        CustomLevels.show_all_levels(cls._logger)
 
  # -----------------------------------------------------------------
     @classmethod

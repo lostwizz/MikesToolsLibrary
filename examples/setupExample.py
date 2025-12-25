@@ -8,9 +8,9 @@ setupExample.py
 
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 23:47:53"
+__updated__ = "2025-12-23 23:38:03"
 ###############################################################################
 
 import os
@@ -95,16 +95,6 @@ def check_runcounter():
 
 # -----------------------------------------------------------------
 def main():
-
-    # LogSetup = LoggerSetup(
-    #     "MikesToolsLibrary",
-    #     level=logging.DEBUG,
-    #     logfile=".\logs\MikesToolsLibrary.log",
-    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    # )
-
-    # global logger
-    # logger = LogSetup.get_logger()
 
     logger.info("Checking Process complete ✓ — all good 🚀")
 

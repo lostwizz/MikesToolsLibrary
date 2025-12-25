@@ -25,9 +25,9 @@ versionExample.py
 
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 23:48:21"
+__updated__ = "2025-12-24 19:15:13"
 ###############################################################################
 
 
@@ -35,11 +35,24 @@ __updated__ = "2025-12-22 23:48:21"
 from MikesToolsLibrary.MikesSettings import MikesSettings
 
 import logging
+# # from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+# # from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger
+# # from MikesToolsLibrary.MikesLogging import logger, get_logger
+# # from MikesToolsLibrary.MikesLogging import LoggerSetup
 # from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
-from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
+# from MikesToolsLibrary.MikesLogging.LoggerSetup import logger
+
+# from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+# from MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier import update_version_suffix
+# #    MikesToolsLibrary\MikesVersionModifier\MikesVersionModifier.py
+
+
+
+from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup, logger
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 from MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier import update_version_suffix
-#    MikesToolsLibrary\MikesVersionModifier\MikesVersionModifier.py
+
+
 #-----------------------------------------------------------------
 
 
@@ -58,16 +71,10 @@ def main():
     """
     Main function to update version in all .py files in a directory.
     """
-    # LogSetup = LoggerSetup(
-    #     "MikesToolsLibrary",
-    #     level=logging.DEBUG,
-    #     logfile=".\logs\MikesToolsLibrary.log",
-    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    # )
 
-    # global logger
-    # logger = LogSetup.get_logger()
+    logger = LoggerSetup().get_logger("version_modifier")
 
+    
     fn = MikesSettings.findConfigFile()   # look for "config.ini" in current or parent dirs
     logger.info(f"Reading settings from INI file {fn=}...")
     mySettings = MikesSettings(fn,'MikesToolsLibrary')
@@ -76,10 +83,17 @@ def main():
     logger.traceu( f"Run counter value from getRunCounter(): {r}" )
 
 
+    logger.tracea("hello world")
+
     # Example usage:
     # directory = "path/to/your/code"
     directory = "D:\_Python_Projects\MikesToolsLibrary"
     new_suffix = f"{r}-dev"
+
+
+
+    # MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier ( suffix= 'dev' ,["bump build"])
+
 
     # update_version_suffix(directory, new_suffix, logger)
 

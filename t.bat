@@ -1,12 +1,24 @@
 @echo off
+set VERSION=0.1.2.00316-316-dev
 
 
-rem python ./examples/run_simulation.py
-rem python ./examples/complex_example.py
+@REM set PYTHONPATH=src
+@REM python loggerExample.py
 
 cls
 @echo on
-python ./examples/loggerExample.py
+
+@REM python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier --suffix dev --bump build
+
+
+@REM pip install -e .
+
+@REM python -m MikesToolsLibrary.MikesVersionModifier.MikesVersionModifier
+python examples/versionExample.py
+
+
+@REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build
+@REM python ./examples/loggerExample.py
 
 @REM python ./examples/versionExample.py
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch
@@ -21,7 +33,6 @@ python ./examples/loggerExample.py
 
 
 @REM update the build number after every run -- once in a while sync it with the config.ini runcounter
-python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build
 @REM python  ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --set build=300 --suffix dev
 
 

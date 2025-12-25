@@ -8,9 +8,9 @@ encryptionExample.py
 
 
 """
-__version__ = "0.1.2.00326-dev"
+__version__ = "0.1.2.00316-316-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-22 23:48:54"
+__updated__ = "2025-12-23 23:37:39"
 ###############################################################################
 
 import os
@@ -29,17 +29,7 @@ from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
 def main():
-    # LogSetup = LoggerSetup(
-    #     "MikesToolsLibrary",
-    #     level=logging.DEBUG,
-    #     logfile=".\logs\MikesToolsLibrary.log",
-    #     modes=LoggingMode.CONSOLE | LoggingMode.TIMEDROTATOR #| LoggingMode.ROTATINGFN,  # | LoggingMode.SMTP,
-    # )
 
-    # global logger
-
-
-    # logger = LogSetup.get_logger()
     logger.info("Checking Process complete ✓ — all good 🚀")
 
     encryptor = MikesEncryption()
