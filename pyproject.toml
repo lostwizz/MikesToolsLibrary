@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MikesToolsLibrary"
-#version = "0.1.2.00316-316-dev"
+#version = "0.1.2.00322-322-dev"
 dynamic = ["version"]   # tells Hatch the version is managed dynamically
 
 

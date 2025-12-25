@@ -23,9 +23,9 @@ loggerExample.py
 
 
 """
-__version__ = "0.1.2.00316-316-dev"
+__version__ = "0.1.2.00322-322-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-23 23:36:31"
+__updated__ = "2025-12-24 20:37:02"
 ###############################################################################
 
 
@@ -38,19 +38,18 @@ import getpass
 
 import logging
 
-from MikesToolsLibrary import MikesSettings
+# from MikesToolsLibrary import MikesSettings
 from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
-from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator
-from MikesToolsLibrary.MikesLogging import (
-    log_decorator,
-    log_decoratorPlain,
-)
+from MikesToolsLibrary.MikesLogging.log_decorator import log_decorator, log_decoratorPlain
+# from MikesToolsLibrary.MikesLogging import (
+#     log_decorator,
+#     log_decoratorPlain,
+# )
 from MikesToolsLibrary.MikesLogging.LoggingMode import LoggingMode
+from MikesToolsLibrary.MikesLogging import get_logger
+logger = get_logger(__name__)
 
 
-# from MikesToolsLibrary.MikesLogging.LoggerSetup  import logger
-# from MikesToolsLibrary.MikesLogging.LoggerSetup  import get_logger
-from MikesToolsLibrary.MikesLogging.LoggerSetup import logger, get_logger, LoggingMode
 
 logger.info("Default logger")
 

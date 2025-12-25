@@ -1,5 +1,5 @@
 @echo off
-set VERSION=0.1.2.00316-316-dev
+set VERSION=0.1.2.00322-322-dev
 
 
 @REM set PYTHONPATH=src
@@ -18,7 +18,7 @@ python examples/versionExample.py
 
 
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump build
-@REM python ./examples/loggerExample.py
+python ./examples/loggerExample.py
 
 @REM python ./examples/versionExample.py
 @REM python ./src/MikesToolsLibrary/MikesVersionModifier/MikesVersionModifier.py --suffix dev --bump patch

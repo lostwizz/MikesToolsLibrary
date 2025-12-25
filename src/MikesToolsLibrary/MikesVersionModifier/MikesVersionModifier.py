@@ -18,9 +18,9 @@ Version format:
 • 5 = build
 • 6 = suffix label (dev, qa, test, release)
 """
-__version__ = "0.1.2.00316-316-dev"
+__version__ = "0.1.2.00322-322-dev"
 __author__ = "Mike Merrett"
-__updated__ = "2025-12-24 19:09:38"
+__updated__ = "2025-12-24 19:27:48"
 ###############################################################################
 
 import os
@@ -33,8 +33,9 @@ from typing import Dict, List, Optional, Tuple
 
 import pathspec
 
-from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
-
+# from MikesToolsLibrary.MikesLogging.LoggerSetup import LoggerSetup
+from MikesToolsLibrary.MikesLogging import get_logger
+logger = get_logger(__name__)
 
 #-----------------------------------------------------------------
 # Python 3.11+: tomllib is stdlib; for 3.10- you'd use tomli / tomli-w instead.
